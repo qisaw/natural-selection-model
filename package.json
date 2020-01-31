@@ -1,0 +1,19 @@
+{
+  "name": "natural-selection-model-test",
+  "version": "0.0.1",
+  "description": "Modelling Natural Selection For Fun",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/qisaw/natural-selection-model.git"
+  },
+  "author": "Wasiq Kashkari",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/qisaw/natural-selection-model/issues"
+  },
+  "homepage": "https://github.com/qisaw/natural-selection-model#readme"
+}
