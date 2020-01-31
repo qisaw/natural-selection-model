@@ -2,9 +2,13 @@
   "name": "natural-selection-model-test",
   "version": "0.0.1",
   "description": "Modelling Natural Selection For Fun",
-  "main": "index.js",
+  "main": "build/index.js",
   "scripts": {
-    "test": "npm test"
+    "build": "babel src --extensions .ts --out-dir build",
+    "typecheck": "tsc --noEmit",
+    "start:dev": "babel-node --extensions .ts src/index.ts",
+    "start": "node build/index.js",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -15,5 +19,17 @@
   "bugs": {
     "url": "https://github.com/qisaw/natural-selection-model/issues"
   },
-  "homepage": "https://github.com/qisaw/natural-selection-model#readme"
+  "homepage": "https://github.com/qisaw/natural-selection-model#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.4",
+    "@babel/node": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
+    "@babel/preset-typescript": "^7.8.3",
+    "@types/jest": "^25.1.1",
+    "@types/node": "^13.7.0",
+    "babel-jest": "^25.1.0",
+    "jest": "^25.1.0",
+    "typescript": "^3.7.5"
+  }
 }
