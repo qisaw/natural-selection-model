@@ -1,2 +1,2 @@
-# natural-selection-model
+# Natural Selection Model
 Modelling Natural Selection For Fun (WIP)
