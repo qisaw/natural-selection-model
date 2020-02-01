@@ -6,7 +6,7 @@
   "scripts": {
     "build": "babel src --extensions .ts --out-dir build",
     "typecheck": "tsc --noEmit",
-    "start:dev": "babel-node --extensions .ts src/index.ts",
+    "start:dev": "HUMAN_READABLE_LOG=true babel-node --extensions .ts src/index.ts",
     "start": "node build/index.js",
     "lint": "eslint ./ --ext .js,.ts",
     "format": "eslint ./ --ext .js,.ts --fix",
@@ -28,6 +28,8 @@
     "@babel/node": "^7.8.4",
     "@babel/preset-env": "^7.8.4",
     "@babel/preset-typescript": "^7.8.3",
+    "@types/bunyan": "^1.8.6",
+    "@types/bunyan-format": "^0.2.3",
     "@types/jest": "^25.1.1",
     "@types/node": "^13.7.0",
     "@typescript-eslint/eslint-plugin": "^2.18.0",
@@ -39,5 +41,9 @@
     "jest": "^25.1.0",
     "prettier": "^1.19.1",
     "typescript": "^3.7.5"
+  },
+  "dependencies": {
+    "bunyan": "^1.8.12",
+    "bunyan-format": "^0.2.1"
   }
 }
