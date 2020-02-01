@@ -1,3 +1,4 @@
+import uuid from 'uuid/v4';
 import { Position } from './common-types';
 
 export interface PlayerData {
@@ -6,8 +7,10 @@ export interface PlayerData {
 
 export class Player {
   readonly position: Position;
+  readonly id: string;
   constructor({ position: addedPosition }: PlayerData) {
     this.position = addedPosition;
+    this.id = uuid();
   }
 }
 
