@@ -3,6 +3,7 @@ import { info } from './logger';
 import { humanReadableLogs } from '../settings';
 import { Player } from './player';
 import { Ground, GroundCreation } from './common-types';
+import uuid from 'uuid/v4';
 
 const defaultDimensions = {
   height: 10,
@@ -20,9 +21,11 @@ export const createGround = ({ dimensions = defaultDimensions, players = default
   if (invalidPositionsOfPlayers.length) {
     throw new PlayersOutsideGridError(players);
   }
+  const id = uuid();
   return {
     dimensions,
     players,
+    id,
   };
 };
 

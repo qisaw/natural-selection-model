@@ -13,7 +13,11 @@ describe('ground', () => {
         const ground = createGround({});
         expect(ground.players).toEqual([]);
       });
-
+      it('should have an id', () => {
+        const ground = createGround({});
+        expect(ground.id).toBeDefined();
+        expect(typeof ground.id).toEqual('string');
+      });
       it('should set dimensions and players', () => {
         const players = [createPlayer({ position: { x: 1, y: 1 } })];
         const dimensions = {

@@ -18,4 +18,5 @@ export interface GroundCreation {
 export interface Ground {
   dimensions: GroundDimensions;
   players: Player[];
+  id: string;
 }
