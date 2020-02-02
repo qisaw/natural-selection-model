@@ -1,9 +1,5 @@
 import uuid from 'uuid/v4';
-import { Position } from './common-types';
-
-export interface PlayerData {
-  position: Position;
-}
+import { PlayerData, Position } from './types';
 
 export class Player {
   readonly position: Position;
@@ -13,5 +9,3 @@ export class Player {
     this.id = uuid();
   }
 }
-
-export const createPlayer = (data: PlayerData): Player => new Player(data);

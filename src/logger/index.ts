@@ -3,12 +3,12 @@ import bunyanFormat from 'bunyan-format';
 import { logLevel, humanReadableLogs } from '../settings';
 
 const format = bunyanFormat({
-  outputMode: humanReadableLogs ? 'short' : 'bunyan',
+  outputMode: humanReadableLogs() ? 'short' : 'bunyan',
 });
 
 const LOG = bunyan.createLogger({
   name: 'ground',
-  level: logLevel,
+  level: logLevel(),
   stream: format,
 });
 

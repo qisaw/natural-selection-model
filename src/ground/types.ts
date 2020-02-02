@@ -1,9 +1,4 @@
-import { Player } from './player';
-
-export interface Position {
-  x: number;
-  y: number;
-}
+import { Player } from '../player/player';
 
 export interface GroundDimensions {
   width: number;
