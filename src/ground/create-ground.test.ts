@@ -30,12 +30,9 @@ describe('createGround', () => {
     });
   });
   describe('unhappy paths', () => {
-    it('should throw InvalidDimensionsError if dimensions are not positive numbers', () => {
-      const dimensions = {
-        height: 0,
-        width: 5,
-      };
-      expect(() => createGround({ dimensions })).toThrow(InvalidDimensionsError);
+    it('should throw InvalidDimensionsError if dimensions are less than 2', () => {
+      expect(() => createGround({ dimensions: { height: 1, width: 2 } })).toThrow(InvalidDimensionsError);
+      expect(() => createGround({ dimensions: { height: 2, width: 1 } })).toThrow(InvalidDimensionsError);
     });
     it('should throw PlayersOutsideGridError if a player is outside the grid', () => {
       const dimensions = {

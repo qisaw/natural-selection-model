@@ -12,7 +12,7 @@ const defaultDimensions = {
 const defaultPlayers: Player[] = [];
 
 export const createGround = ({ dimensions = defaultDimensions, players = defaultPlayers }: GroundCreation): Ground => {
-  if (dimensions.height < 1 || dimensions.width < 1) {
+  if (dimensions.height < 2 || dimensions.width < 2) {
     throw new InvalidDimensionsError(dimensions);
   }
   const invalidPositionsOfPlayers = players.filter(
