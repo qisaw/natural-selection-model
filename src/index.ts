@@ -1,4 +1,5 @@
-import { createGround, printGround } from './ground';
+import { createGround } from './ground/create-ground';
+import { printGround } from './ground/print-ground';
 import { createPlayer } from './player';
 
 const width = 10;

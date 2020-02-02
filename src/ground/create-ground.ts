@@ -3,7 +3,7 @@ import uuid from 'uuid';
 import { Player } from '../player/player';
 import { InvalidDimensionsError } from './errors';
 import { PlayersOutsideGridError } from '../player/errors';
-import { GroundCreation } from './types';
+import { GroundCreation, Ground } from './types';
 
 const defaultDimensions = {
   height: 10,
