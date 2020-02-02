@@ -7,7 +7,7 @@ module.exports = {
   coverageDirectory: 'coverage',
 
   //An array of regexp pattern strings used to skip coverage collection
-  coveragePathIgnorePatterns: ['/node_modules/'],
+  coveragePathIgnorePatterns: ['/node_modules/', './src/settings/', './src/logger/'],
 
   moduleFileExtensions: ['js', 'json', 'jsx', 'ts', 'tsx', 'node'],
 
