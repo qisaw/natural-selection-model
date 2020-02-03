@@ -10,7 +10,7 @@ export const getGroundAsString = (ground: Ground): string => {
         .map((_, columnNumber) => {
           const playerInSpot = playersInThisRow.find(({ position: { y } }) => columnNumber === y);
           if (playerInSpot) {
-            return ' x ';
+            return ` ${playerInSpot.label} `;
           }
           return ' - ';
         })
