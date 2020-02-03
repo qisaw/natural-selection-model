@@ -4,8 +4,8 @@ import { PlayerData, Position } from './types';
 export class Player {
   readonly position: Position;
   readonly id: string;
-  constructor({ position: addedPosition }: PlayerData) {
+  constructor({ position: addedPosition, id }: PlayerData) {
     this.position = addedPosition;
-    this.id = uuid();
+    this.id = id || uuid();
   }
 }
