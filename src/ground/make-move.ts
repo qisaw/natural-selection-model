@@ -1,18 +1,13 @@
 import { Ground } from './types';
-import { Player } from '../player/player';
 import { getNewPlayerPosition } from '../player/get-new-player-position';
 import { createPlayer } from '../player';
 
 export const makeMove = (ground: Ground): Ground => {
   const { players } = ground;
-  const playersWithUpdatedPositions = players.map(
-    (player: Player): Player => {
-      const newPosition = getNewPlayerPosition(player, ground);
-      return createPlayer({ ...player, position: newPosition });
-    },
-  );
-  return {
-    ...ground,
-    players: playersWithUpdatedPositions,
-  };
+  return players.reduce((newGround, player, idx) => {
+    const newPosition = getNewPlayerPosition(player, newGround);
+    const newPlayer = createPlayer({ ...player, position: newPosition });
+    const newPlayerArray = [...newGround.players.slice(0, idx), newPlayer, ...newGround.players.slice(idx + 1)];
+    return { ...newGround, players: newPlayerArray };
+  }, ground);
 };
