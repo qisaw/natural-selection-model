@@ -9,113 +9,39 @@ enum Direction {
   RIGHT,
 }
 
-const getDirectionWhenAllDirectionsAvailable = (): Direction => {
+const getRandomDirection = (availableDirections: Direction[]): Direction => {
+  const sparator = 1 / availableDirections.length;
   const randomValue = Math.random();
-  if (randomValue < 0.25) {
-    return Direction.UP;
-  }
-  if (randomValue < 0.5) {
-    return Direction.DOWN;
-  }
-  if (randomValue < 0.75) {
-    return Direction.LEFT;
-  }
-  return Direction.RIGHT;
+  const index = Math.ceil(randomValue / sparator) - 1;
+  return availableDirections[index];
 };
-const getDirectionWhenInTopRow = (): Direction => {
-  const randomValue = Math.random();
-  if (randomValue < 0.33) {
-    return Direction.DOWN;
-  }
-  if (randomValue < 0.66) {
-    return Direction.LEFT;
-  }
-  return Direction.RIGHT;
-};
-const getDirectionWhenInLeftMostRow = (): Direction => {
-  const randomValue = Math.random();
-  if (randomValue < 0.33) {
-    return Direction.UP;
-  }
-  if (randomValue < 0.66) {
-    return Direction.DOWN;
-  }
-  return Direction.RIGHT;
-};
-const getDirectionWhenInBottomRow = (): Direction => {
-  const randomValue = Math.random();
-  if (randomValue < 0.33) {
-    return Direction.UP;
-  }
-  if (randomValue < 0.66) {
-    return Direction.LEFT;
-  }
-  return Direction.RIGHT;
-};
-const getDirectionWhenInRightMostRow = (): Direction => {
-  const randomValue = Math.random();
-  if (randomValue < 0.33) {
-    return Direction.UP;
-  }
-  if (randomValue < 0.66) {
-    return Direction.DOWN;
-  }
-  return Direction.LEFT;
-};
-const getDirectionWhenInTopLeftCorner = (): Direction => {
-  const randomValue = Math.random();
-  if (randomValue < 0.5) {
-    return Direction.DOWN;
-  }
-  return Direction.RIGHT;
-};
-const getDirectionWhenInTopRightCorner = (): Direction => {
-  const randomValue = Math.random();
-  if (randomValue < 0.5) {
-    return Direction.DOWN;
-  }
-  return Direction.LEFT;
-};
-const getDirectionWhenInBottomLeftCorner = (): Direction => {
-  const randomValue = Math.random();
-  if (randomValue < 0.5) {
-    return Direction.UP;
-  }
-  return Direction.RIGHT;
-};
-const getDirectionWhenInBottomRightCorner = (): Direction => {
-  const randomValue = Math.random();
-  if (randomValue < 0.5) {
-    return Direction.UP;
-  }
-  return Direction.LEFT;
-};
+
 const getDirection = (xValue: number, yValue: number, ground: Ground): Direction => {
   if (yValue === 0 && xValue === 0) {
-    return getDirectionWhenInTopLeftCorner();
+    return getRandomDirection([Direction.DOWN, Direction.RIGHT]);
   }
   if (yValue === 0 && xValue === ground.dimensions.width - 1) {
-    return getDirectionWhenInTopRightCorner();
+    return getRandomDirection([Direction.DOWN, Direction.LEFT]);
   }
   if (yValue === ground.dimensions.height - 1 && xValue === 0) {
-    return getDirectionWhenInBottomLeftCorner();
+    return getRandomDirection([Direction.UP, Direction.RIGHT]);
   }
   if (yValue === ground.dimensions.height - 1 && xValue === ground.dimensions.width - 1) {
-    return getDirectionWhenInBottomRightCorner();
+    return getRandomDirection([Direction.UP, Direction.LEFT]);
   }
   if (yValue === 0) {
-    return getDirectionWhenInTopRow();
+    return getRandomDirection([Direction.DOWN, Direction.LEFT, Direction.RIGHT]);
   }
   if (xValue === 0) {
-    return getDirectionWhenInLeftMostRow();
+    return getRandomDirection([Direction.UP, Direction.DOWN, Direction.RIGHT]);
   }
   if (yValue === ground.dimensions.height - 1) {
-    return getDirectionWhenInBottomRow();
+    return getRandomDirection([Direction.UP, Direction.LEFT, Direction.RIGHT]);
   }
   if (xValue === ground.dimensions.width - 1) {
-    return getDirectionWhenInRightMostRow();
+    return getRandomDirection([Direction.UP, Direction.DOWN, Direction.LEFT]);
   }
-  return getDirectionWhenAllDirectionsAvailable();
+  return getRandomDirection([Direction.UP, Direction.DOWN, Direction.LEFT, Direction.RIGHT]);
 };
 
 export const getNewPlayerPosition = (player: Player, ground: Ground): Position => {
