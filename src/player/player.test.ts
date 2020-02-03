@@ -19,4 +19,12 @@ describe('Player', () => {
     const { id: playerId } = player;
     expect(playerId).toEqual(id);
   });
+  it('should default to x as the label', () => {
+    const player = new Player({ position: { x: 1, y: 2 } });
+    expect(player.label).toEqual('x');
+  });
+  it('should set the label if passed in', () => {
+    const player = new Player({ position: { x: 1, y: 2 }, label: 'a' });
+    expect(player.label).toEqual('a');
+  });
 });
