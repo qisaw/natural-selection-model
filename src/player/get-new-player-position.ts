@@ -17,31 +17,14 @@ const getRandomDirection = (availableDirections: Direction[]): Direction => {
 };
 
 const getDirection = (xValue: number, yValue: number, ground: Ground): Direction => {
-  if (yValue === 0 && xValue === 0) {
-    return getRandomDirection([Direction.DOWN, Direction.RIGHT]);
-  }
-  if (yValue === 0 && xValue === ground.dimensions.width - 1) {
-    return getRandomDirection([Direction.DOWN, Direction.LEFT]);
-  }
-  if (yValue === ground.dimensions.height - 1 && xValue === 0) {
-    return getRandomDirection([Direction.UP, Direction.RIGHT]);
-  }
-  if (yValue === ground.dimensions.height - 1 && xValue === ground.dimensions.width - 1) {
-    return getRandomDirection([Direction.UP, Direction.LEFT]);
-  }
-  if (yValue === 0) {
-    return getRandomDirection([Direction.DOWN, Direction.LEFT, Direction.RIGHT]);
-  }
-  if (xValue === 0) {
-    return getRandomDirection([Direction.UP, Direction.DOWN, Direction.RIGHT]);
-  }
-  if (yValue === ground.dimensions.height - 1) {
-    return getRandomDirection([Direction.UP, Direction.LEFT, Direction.RIGHT]);
-  }
-  if (xValue === ground.dimensions.width - 1) {
-    return getRandomDirection([Direction.UP, Direction.DOWN, Direction.LEFT]);
-  }
-  return getRandomDirection([Direction.UP, Direction.DOWN, Direction.LEFT, Direction.RIGHT]);
+  const directionArray = [
+    { value: Direction.UP, predicate: yValue > 0 },
+    { value: Direction.DOWN, predicate: yValue < ground.dimensions.height - 1 },
+    { value: Direction.LEFT, predicate: xValue > 0 },
+    { value: Direction.RIGHT, predicate: xValue < ground.dimensions.width - 1 },
+  ];
+  const availableDirections = directionArray.filter(({ predicate }) => predicate).map(({ value }) => value);
+  return getRandomDirection(availableDirections);
 };
 
 export const getNewPlayerPosition = (player: Player, ground: Ground): Position => {
