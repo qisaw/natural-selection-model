@@ -31,6 +31,7 @@
     "@types/bunyan": "^1.8.6",
     "@types/bunyan-format": "^0.2.3",
     "@types/jest": "^25.1.1",
+    "@types/lodash.groupby": "^4.6.6",
     "@types/node": "^13.7.0",
     "@types/uuid": "^3.4.7",
     "@typescript-eslint/eslint-plugin": "^2.18.0",
@@ -46,6 +47,7 @@
   "dependencies": {
     "bunyan": "^1.8.12",
     "bunyan-format": "^0.2.1",
+    "lodash.groupby": "^4.6.0",
     "uuid": "^3.4.0"
   }
 }

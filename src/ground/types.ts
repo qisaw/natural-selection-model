@@ -13,5 +13,6 @@ export interface GroundCreation {
 export interface Ground {
   dimensions: GroundDimensions;
   players: Player[];
+  playersDeadThisTurn: Player[];
   id: string;
 }

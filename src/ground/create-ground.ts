@@ -26,5 +26,6 @@ export const createGround = ({ dimensions = defaultDimensions, players = default
     dimensions,
     players,
     id,
+    playersDeadThisTurn: [],
   };
 };
