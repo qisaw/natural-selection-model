@@ -5,9 +5,11 @@ export class Player {
   readonly position: Position;
   readonly id: string;
   readonly label: string;
-  constructor({ position: addedPosition, id, label }: PlayerData) {
+  readonly energy: number;
+  constructor({ position: addedPosition, id, label, energy }: PlayerData) {
     this.position = addedPosition;
     this.id = id || uuid();
     this.label = label || 'x';
+    this.energy = energy || 1000;
   }
 }
