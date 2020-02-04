@@ -1,8 +1,4 @@
-export interface Position {
-  x: number;
-  y: number;
-}
-
+import { Position } from '../global/types';
 export interface PlayerData {
   position: Position;
   id?: string;

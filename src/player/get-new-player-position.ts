@@ -1,5 +1,5 @@
 import { Player } from './player';
-import { Position } from './types';
+import { Position } from '../global/types';
 import { Ground } from '../ground/types';
 
 enum Direction {

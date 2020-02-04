@@ -1,5 +1,6 @@
 import uuid from 'uuid/v4';
-import { PlayerData, Position } from './types';
+import { PlayerData } from './types';
+import { Position } from '../global/types';
 
 export class Player {
   readonly position: Position;
