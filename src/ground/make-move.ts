@@ -11,7 +11,7 @@ export const makeMove = (ground: Ground): Ground => {
   // We'd want to sort the array in a random manner each call of makeMove
   return players.reduce((newGround, player, idx) => {
     const newPosition = getNewPlayerPosition(player, newGround);
-    const newPlayer = createPlayer({ ...player, position: newPosition });
+    const newPlayer = createPlayer({ ...player, position: newPosition, energy: player.energy - 1 });
     const newPlayerArray = [...newGround.players.slice(0, idx), newPlayer, ...newGround.players.slice(idx + 1)];
     return { ...newGround, players: newPlayerArray };
   }, ground);

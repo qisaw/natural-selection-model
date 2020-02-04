@@ -19,9 +19,9 @@ describe('makeMove', () => {
     height: 30,
   };
   const players = [
-    createPlayer({ position: { x: 0, y: 0 } }),
-    createPlayer({ position: { x: 10, y: 10 } }),
-    createPlayer({ position: { x: 20, y: 20 } }),
+    createPlayer({ position: { x: 0, y: 0 }, energy: 10 }),
+    createPlayer({ position: { x: 10, y: 10 }, energy: 10 }),
+    createPlayer({ position: { x: 20, y: 20 }, energy: 10 }),
   ];
   const ground = createGround({ dimensions, players });
   it('should move all players in a random manner', () => {
@@ -33,7 +33,7 @@ describe('makeMove', () => {
       expect(oldPlayer.position).not.toEqual(newPlayer.position);
     });
   });
-  it('should run getNewPlayerPosition sequentially for each player with updated grounds', () => {
+  it('should run getNewPlayerPosition sequentially for each player with updated grounds and energies', () => {
     getNewPlayerPositionMock.mockReturnValue({ x: 1, y: 1 });
     makeMove(ground);
     expect(getNewPlayerPositionMock).toHaveBeenCalledTimes(3);
@@ -42,7 +42,7 @@ describe('makeMove', () => {
       players[1],
       {
         ...ground,
-        players: [createPlayer({ ...players[0], position: { x: 1, y: 1 } }), players[1], players[2]],
+        players: [createPlayer({ ...players[0], position: { x: 1, y: 1 }, energy: 9 }), players[1], players[2]],
       },
     ]);
     expect(getNewPlayerPositionMock.mock.calls[2]).toEqual([
@@ -50,8 +50,8 @@ describe('makeMove', () => {
       {
         ...ground,
         players: [
-          createPlayer({ ...players[0], position: { x: 1, y: 1 } }),
-          createPlayer({ ...players[1], position: { x: 1, y: 1 } }),
+          createPlayer({ ...players[0], position: { x: 1, y: 1 }, energy: 9 }),
+          createPlayer({ ...players[1], position: { x: 1, y: 1 }, energy: 9 }),
           players[2],
         ],
       },
