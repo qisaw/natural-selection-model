@@ -57,7 +57,7 @@ describe('makeMove', () => {
       },
     ]);
   });
-  it.only('should put into the dead players array if their energy has been depleted', () => {
+  it('should put into the dead players array if their energy has been depleted', () => {
     const playersNoEnergy = [createPlayer({ position: { x: 1, y: 1 }, energy: 0 })];
     const ground = createGround({ dimensions, players: playersNoEnergy });
     expect(makeMove(ground)).toEqual({ ...ground, players: [], playersDeadThisTurn: playersNoEnergy });
