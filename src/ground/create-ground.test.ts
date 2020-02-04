@@ -2,6 +2,8 @@ import { createGround } from './create-ground';
 import { createPlayer } from '../player';
 import { InvalidDimensionsError } from './errors';
 import { PlayersOutsideGridError } from '../player/errors';
+import { createFood } from '../food';
+import { FoodOutsideGridError } from '../food/errors';
 
 describe('createGround', () => {
   describe('happy paths', () => {
@@ -28,6 +30,20 @@ describe('createGround', () => {
       expect(ground.dimensions).toEqual({ height: 5, width: 5 });
       expect(ground.players).toEqual(players);
     });
+    it('should set food to empty by default', () => {
+      const ground = createGround({});
+      expect(ground.food).toEqual([]);
+    });
+    it('should food', () => {
+      const dimensions = {
+        height: 5,
+        width: 5,
+      };
+      const food = [createFood({ position: { x: 1, y: 1 } })];
+      const ground = createGround({ dimensions, food });
+      expect(ground.dimensions).toEqual({ height: 5, width: 5 });
+      expect(ground.food).toEqual(food);
+    });
   });
   describe('unhappy paths', () => {
     it('should throw InvalidDimensionsError if dimensions are less than 2', () => {
@@ -47,6 +63,20 @@ describe('createGround', () => {
       expect(() => createGround({ dimensions, players: playersOutsideColumn })).toThrow(PlayersOutsideGridError);
       expect(() => createGround({ dimensions, players: playersInNegativeColumn })).toThrow(PlayersOutsideGridError);
       expect(() => createGround({ dimensions, players: playersInNegativeRow })).toThrow(PlayersOutsideGridError);
+    });
+    it('should throw FoodOutsideGridError if food is outised the grid', () => {
+      const dimensions = {
+        height: 5,
+        width: 5,
+      };
+      const foodOutsideRow = [createFood({ position: { x: 5, y: 0 } })];
+      const foodOutsideColumn = [createFood({ position: { x: 0, y: 5 } })];
+      const foodInNegativeRow = [createFood({ position: { x: -1, y: 0 } })];
+      const foodInNegativeColumn = [createFood({ position: { x: 0, y: -1 } })];
+      expect(() => createGround({ dimensions, food: foodOutsideRow })).toThrow(FoodOutsideGridError);
+      expect(() => createGround({ dimensions, food: foodOutsideColumn })).toThrow(FoodOutsideGridError);
+      expect(() => createGround({ dimensions, food: foodInNegativeColumn })).toThrow(FoodOutsideGridError);
+      expect(() => createGround({ dimensions, food: foodInNegativeRow })).toThrow(FoodOutsideGridError);
     });
   });
 });
