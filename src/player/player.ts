@@ -10,6 +10,6 @@ export class Player {
     this.position = addedPosition;
     this.id = id || uuid();
     this.label = label || 'x';
-    this.energy = energy || 1000;
+    this.energy = energy === undefined ? 1000 : energy;
   }
 }

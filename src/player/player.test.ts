@@ -29,7 +29,9 @@ describe('Player', () => {
   });
   it('should set the energy', () => {
     const player = new Player({ position: { x: 1, y: 2 }, energy: 10 });
+    const player2 = new Player({ position: { x: 1, y: 2 }, energy: 0 });
     expect(player.energy).toEqual(10);
+    expect(player2.energy).toEqual(0);
   });
   it('should set the default energy', () => {
     const player = new Player({ position: { x: 1, y: 2 } });
