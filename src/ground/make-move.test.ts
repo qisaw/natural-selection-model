@@ -57,4 +57,9 @@ describe('makeMove', () => {
       },
     ]);
   });
+  it('should not move a player if their energy has been depleted', () => {
+    const playersNoEnergy = [createPlayer({ position: { x: 1, y: 1 }, energy: 0 })];
+    const ground = createGround({ dimensions, players: playersNoEnergy });
+    expect(makeMove(ground)).toEqual(ground);
+  });
 });

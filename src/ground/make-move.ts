@@ -10,6 +10,9 @@ export const makeMove = (ground: Ground): Ground => {
   // the player earlier in the array will always get the food first.
   // We'd want to sort the array in a random manner each call of makeMove
   return players.reduce((newGround, player, idx) => {
+    if (player.energy === 0) {
+      return newGround;
+    }
     const newPosition = getNewPlayerPosition(player, newGround);
     const newPlayer = createPlayer({ ...player, position: newPosition, energy: player.energy - 1 });
     const newPlayerArray = [...newGround.players.slice(0, idx), newPlayer, ...newGround.players.slice(idx + 1)];
