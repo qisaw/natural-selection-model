@@ -7,9 +7,11 @@ export class Food {
   readonly position: Position;
   readonly id: string;
   readonly energyAddition: number;
-  constructor({ position, energyAddition }: FoodData) {
+  readonly label: string;
+  constructor({ position, energyAddition, label }: FoodData) {
     this.position = position;
     this.id = uuid();
     this.energyAddition = energyAddition || defultEnergyAddition;
+    this.label = label || '*';
   }
 }

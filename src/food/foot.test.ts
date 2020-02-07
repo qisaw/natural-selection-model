@@ -18,5 +18,13 @@ describe('food', () => {
       const food = new Food({ position: { x: 1, y: 1 } });
       expect(food.energyAddition).toEqual(1);
     });
+    it('should set the label', () => {
+      const food = new Food({ position: { x: 1, y: 1 }, label: 'a' });
+      expect(food.label).toEqual('a');
+    });
+    it('should set the default label', () => {
+      const food = new Food({ position: { x: 1, y: 1 } });
+      expect(food.label).toEqual('*');
+    });
   });
 });
