@@ -44,22 +44,22 @@ const players = [
 ];
 
 const food = [
-  createFood({ position: { x: 20, y: 21 }, energyAddition: 300 }),
-  createFood({ position: { x: 20, y: 22 }, energyAddition: 300 }),
-  createFood({ position: { x: 21, y: 23 }, energyAddition: 300 }),
-  createFood({ position: { x: 21, y: 24 }, energyAddition: 300 }),
-  createFood({ position: { x: 21, y: 25 }, energyAddition: 300 }),
-  createFood({ position: { x: 21, y: 26 }, energyAddition: 300 }),
-  createFood({ position: { x: 21, y: 27 }, energyAddition: 300 }),
-  createFood({ position: { x: 21, y: 28 }, energyAddition: 300 }),
-  createFood({ position: { x: 21, y: 29 }, energyAddition: 300 }),
-  createFood({ position: { x: 29, y: 24 }, energyAddition: 300 }),
-  createFood({ position: { x: 28, y: 24 }, energyAddition: 300 }),
-  createFood({ position: { x: 27, y: 24 }, energyAddition: 300 }),
-  createFood({ position: { x: 26, y: 24 }, energyAddition: 300 }),
-  createFood({ position: { x: 25, y: 24 }, energyAddition: 300 }),
-  createFood({ position: { x: 24, y: 24 }, energyAddition: 300 }),
-  createFood({ position: { x: 23, y: 24 }, energyAddition: 300 }),
+  createFood({ position: { x: 20, y: 21 }, energyAddition: 1000 }),
+  createFood({ position: { x: 20, y: 22 }, energyAddition: 1000 }),
+  createFood({ position: { x: 21, y: 23 }, energyAddition: 1000 }),
+  createFood({ position: { x: 21, y: 24 }, energyAddition: 1000 }),
+  createFood({ position: { x: 21, y: 25 }, energyAddition: 1000 }),
+  createFood({ position: { x: 21, y: 26 }, energyAddition: 1000 }),
+  createFood({ position: { x: 21, y: 27 }, energyAddition: 1000 }),
+  createFood({ position: { x: 21, y: 28 }, energyAddition: 1000 }),
+  createFood({ position: { x: 21, y: 29 }, energyAddition: 1000 }),
+  createFood({ position: { x: 29, y: 24 }, energyAddition: 1000 }),
+  createFood({ position: { x: 28, y: 24 }, energyAddition: 1000 }),
+  createFood({ position: { x: 27, y: 24 }, energyAddition: 1000 }),
+  createFood({ position: { x: 26, y: 24 }, energyAddition: 1000 }),
+  createFood({ position: { x: 25, y: 24 }, energyAddition: 1000 }),
+  createFood({ position: { x: 24, y: 24 }, energyAddition: 1000 }),
+  createFood({ position: { x: 23, y: 24 }, energyAddition: 1000 }),
 ];
 const initialGround = createGround({
   dimensions: { width, height },
@@ -77,6 +77,9 @@ const main = async (): Promise<void> => {
   await delay(100);
   for (let i = 0; i < 10000; i++) {
     ground = makeMove(ground);
+    if (i % 1000 === 0) {
+      ground = { ...ground, food: [...ground.food, ...food] };
+    }
     // eslint-disable-next-line no-console
     console.clear();
     // eslint-disable-next-line no-console
