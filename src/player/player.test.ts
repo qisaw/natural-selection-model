@@ -1,5 +1,6 @@
 import { Player } from './player';
 import uuid from 'uuid';
+import { Food } from '../food/food';
 
 describe('Player', () => {
   it('should create a player with position data', () => {
@@ -36,5 +37,14 @@ describe('Player', () => {
   it('should set the default energy', () => {
     const player = new Player({ position: { x: 1, y: 2 } });
     expect(player.energy).toEqual(1000);
+  });
+  it('should set foodEaten', () => {
+    const foodEaten = [new Food({ position: { x: 1, y: 2 } })];
+    const player = new Player({ position: { x: 1, y: 2 }, foodEaten });
+    expect(player.foodEaten).toEqual(foodEaten);
+  });
+  it('should set default foodEaten', () => {
+    const player = new Player({ position: { x: 1, y: 2 } });
+    expect(player.foodEaten).toEqual([]);
   });
 });
