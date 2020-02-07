@@ -75,7 +75,8 @@ const main = async (): Promise<void> => {
   // eslint-disable-next-line no-console
   console.log(getGroundAsString(ground));
   await delay(100);
-  for (let i = 0; i < 10000; i++) {
+  let i = 0;
+  while (ground.players.length) {
     ground = makeMove(ground);
     if (i % 1000 === 0) {
       ground = { ...ground, food: [...ground.food, ...food] };
@@ -87,6 +88,7 @@ const main = async (): Promise<void> => {
     // eslint-disable-next-line no-console
     console.log(getGroundAsString(ground));
     await delay(100);
+    i++;
   }
 };
 main();
