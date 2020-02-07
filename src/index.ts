@@ -88,7 +88,7 @@ const main = async (): Promise<void> => {
     console.log(`--------- ground --------- turn ${i + 1} ---------`);
     // eslint-disable-next-line no-console
     console.log(getGroundAsString(ground));
-    await delay(100);
+    await delay(1);
     i++;
   }
 };
