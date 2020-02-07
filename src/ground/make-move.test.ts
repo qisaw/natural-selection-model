@@ -25,6 +25,7 @@ describe('makeMove', () => {
   ];
   const ground = createGround({ dimensions, players });
   it('should move all players in a random manner', () => {
+    getNewPlayerPositionMock.mockReturnValue({ x: 1, y: 1 });
     const newGround = makeMove(ground);
     newGround.players.forEach(newPlayer => {
       // player is always defined here
@@ -56,10 +57,5 @@ describe('makeMove', () => {
         ],
       },
     ]);
-  });
-  it('should put into the dead players array if their energy has been depleted', () => {
-    const playersNoEnergy = [createPlayer({ position: { x: 1, y: 1 }, energy: 0 })];
-    const ground = createGround({ dimensions, players: playersNoEnergy });
-    expect(makeMove(ground)).toEqual({ ...ground, players: [], playersDeadThisTurn: playersNoEnergy });
   });
 });
