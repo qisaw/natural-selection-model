@@ -2,10 +2,13 @@ import { Player } from './player';
 import { Ground } from '../ground/types';
 import { createPlayer } from '.';
 import { getNewPlayerPosition } from './get-new-player-position';
+import { PlayerNotInGroundError } from '../ground/errors';
 
 export const movePlayer = (player: Player, ground: Ground): Ground => {
-  // @TODO check if idx is -1 and throw an error
   const idx = ground.players.findIndex(({ id }: Player): boolean => id === player.id);
+  if (idx === -1) {
+    throw new PlayerNotInGroundError(player, ground);
+  }
   if (player.energy === 0) {
     return { ...ground, players: ground.players.filter(({ id }: Player): boolean => id !== player.id) };
   }

@@ -1,6 +1,7 @@
 import { createPlayer } from '.';
 import { createGround } from '../ground/create-ground';
 import { movePlayer } from './move-player';
+import { PlayerNotInGroundError } from '../ground/errors';
 
 describe('movePlayer', () => {
   describe('the player has no energy', () => {
@@ -39,6 +40,14 @@ describe('movePlayer', () => {
         expect(newGround.players[i].position).toEqual(players[i].position);
         expect(newGround.players[i].energy).toEqual(1);
       }
+    });
+  });
+  describe('unhappy paths', () => {
+    it('should throw PlayerNotInGroundError error if a player which is not on the ground', () => {
+      const someRandomPlayer = createPlayer({ position: { x: 0, y: 0 }, energy: 1 });
+      const players = [createPlayer({ position: { x: 0, y: 0 }, energy: 1 })];
+      const ground = createGround({ players });
+      expect(() => movePlayer(someRandomPlayer, ground)).toThrow(PlayerNotInGroundError);
     });
   });
 });
