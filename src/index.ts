@@ -6,6 +6,7 @@ import { createFood } from './food';
 
 const width = 30;
 const height = 30;
+const MAX_TURNS = 1000 * 1000;
 
 const players = [
   createPlayer({ position: { x: 0, y: 1 }, label: 'a' }),
@@ -76,7 +77,7 @@ const main = async (): Promise<void> => {
   console.log(getGroundAsString(ground));
   await delay(100);
   let i = 0;
-  while (ground.players.length) {
+  while (ground.players.length && i < MAX_TURNS) {
     ground = makeMove(ground);
     if (i % 1000 === 0) {
       ground = { ...ground, food: [...ground.food, ...food] };
