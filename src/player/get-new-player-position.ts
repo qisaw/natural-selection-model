@@ -70,6 +70,7 @@ const getDirection = (xValue: number, yValue: number, ground: Ground): Direction
 };
 
 export const getNewPlayerPosition = (player: Player, ground: Ground): Position => {
+  // @TODO error checking for player in ground
   const direction = getDirection(player.position.x, player.position.y, ground);
   switch (direction) {
     case Direction.UP:
