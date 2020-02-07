@@ -5,12 +5,17 @@ export const getGroundAsString = (ground: Ground): string => {
     .fill(null)
     .map((_, rowNumber) => {
       const playersInThisRow = ground.players.filter(({ position: { x } }) => rowNumber === x);
+      const foodInThisRow = ground.food.filter(({ position: { x } }) => rowNumber === x);
       const row = new Array(ground.dimensions.width)
         .fill(null)
         .map((_, columnNumber) => {
           const playerInSpot = playersInThisRow.find(({ position: { y } }) => columnNumber === y);
           if (playerInSpot) {
             return ` ${playerInSpot.label} `;
+          }
+          const foodInSpot = foodInThisRow.find(({ position: { y } }) => columnNumber === y);
+          if (foodInSpot) {
+            return ` ${foodInSpot.label} `;
           }
           return ' - ';
         })

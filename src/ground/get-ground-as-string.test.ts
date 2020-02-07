@@ -1,6 +1,7 @@
 import { createGround } from './create-ground';
 import { getGroundAsString } from './get-ground-as-string';
 import { createPlayer } from '../player';
+import { createFood } from '../food';
 
 describe('getGroundAsString', () => {
   it('should return a valid string', () => {
@@ -22,6 +23,17 @@ describe('getGroundAsString', () => {
     const ground = createGround({ dimensions, players });
     const groundAsString = getGroundAsString(ground);
     const expectedString = ['| - | - |', '| a | - |'].join('\n');
+    expect(groundAsString).toEqual(expectedString);
+  });
+  it('should put labels where food is', () => {
+    const food = [createFood({ position: { x: 0, y: 0 } })];
+    const dimensions = {
+      height: 2,
+      width: 2,
+    };
+    const ground = createGround({ dimensions, food });
+    const groundAsString = getGroundAsString(ground);
+    const expectedString = ['| * | - |', '| - | - |'].join('\n');
     expect(groundAsString).toEqual(expectedString);
   });
 });
