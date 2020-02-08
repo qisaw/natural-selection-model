@@ -2,6 +2,7 @@ import uuid from 'uuid/v4';
 import { PlayerData } from './types';
 import { Position } from '../global/types';
 import { Food } from '../food/food';
+import { getStartingPlayerEnergy } from '../settings';
 
 export class Player {
   readonly position: Position;
@@ -13,7 +14,7 @@ export class Player {
     this.position = position;
     this.id = id || uuid();
     this.label = label || 'x';
-    this.energy = energy === undefined ? 1000 : energy;
+    this.energy = energy === undefined ? getStartingPlayerEnergy() : energy;
     this.foodEaten = foodEaten || [];
   }
 }
