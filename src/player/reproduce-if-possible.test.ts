@@ -8,7 +8,7 @@ import { getStartingPlayerEnergy } from '../settings';
 describe('reproduceIfPossible', () => {
   describe('can reproduce cases', () => {
     const foodEaten = [createFood({ position: { x: 1, y: 1 } }), createFood({ position: { x: 1, y: 1 } })];
-    const player = createPlayer({ position: { x: 1, y: 1 }, foodEaten, energy: 30 });
+    const player = createPlayer({ position: { x: 0, y: 1 }, foodEaten, energy: 30 });
     const ground = createGround({ players: [player] });
     const newPlayers = reproduceIfPossible(player, ground);
     it('should return an array with new players if the player has eaten more than 2 food', () => {
@@ -36,20 +36,25 @@ describe('reproduceIfPossible', () => {
   describe('can not reproduce cases', () => {
     it('should return empty array if the player has eaten less than 2 food', () => {
       const foodEaten = [createFood({ position: { x: 1, y: 1 } })];
-      const player = createPlayer({ position: { x: 1, y: 1 }, foodEaten });
+      const player = createPlayer({ position: { x: 0, y: 1 }, foodEaten });
       const ground = createGround({ players: [player] });
       expect(reproduceIfPossible(player, ground)).toEqual([]);
     });
     it('should return empty array if the user has eaten more than 2 food, but there is no available direction to reproduce in', () => {
       const foodEaten = [createFood({ position: { x: 1, y: 1 } }), createFood({ position: { x: 1, y: 1 } })];
-      const player = createPlayer({ position: { x: 1, y: 1 }, foodEaten });
+      const player = createPlayer({ position: { x: 0, y: 1 }, foodEaten });
       const otherPlayers = [
-        createPlayer({ position: { x: 0, y: 1 } }),
-        createPlayer({ position: { x: 2, y: 1 } }),
-        createPlayer({ position: { x: 1, y: 0 } }),
-        createPlayer({ position: { x: 1, y: 2 } }),
+        createPlayer({ position: { x: 0, y: 0 } }),
+        createPlayer({ position: { x: 1, y: 1 } }),
+        createPlayer({ position: { x: 0, y: 2 } }),
       ];
       const ground = createGround({ players: [player, ...otherPlayers] });
+      expect(reproduceIfPossible(player, ground)).toEqual([]);
+    });
+    it('should return empty array if the user is not on the outer edge of the board', () => {
+      const foodEaten = [createFood({ position: { x: 1, y: 1 } }), createFood({ position: { x: 1, y: 1 } })];
+      const player = createPlayer({ position: { x: 1, y: 1 }, foodEaten });
+      const ground = createGround({ players: [player] });
       expect(reproduceIfPossible(player, ground)).toEqual([]);
     });
   });
