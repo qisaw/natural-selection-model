@@ -9,5 +9,5 @@ export const canReproduce = (player: Player, ground: Ground): boolean => {
   if (deepEqual(availablePosition, player.position)) {
     return false;
   }
-  return player.foodEaten.length > 1;
+  return player.foodEaten.length >= 2;
 };
