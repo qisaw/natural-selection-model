@@ -4,14 +4,24 @@ import { createPlayer } from '.';
 import { getNewPlayerPosition } from './get-new-player-position';
 import { PlayerNotInGroundError } from '../ground/errors';
 import { getFoodFromGround } from '../food/get-food-from-ground';
+import { reproduceIfPossible } from './reproduce-if-possible';
 
+const setPlayerInPlayersArray = (player: Player, players: Player[]): Player[] => {
+  const idx = players.findIndex(({ id }: Player): boolean => id === player.id);
+  return [...players.slice(0, idx), player, ...players.slice(idx + 1)];
+};
 export const performAction = (player: Player, ground: Ground): Ground => {
-  const idx = ground.players.findIndex(({ id }: Player): boolean => id === player.id);
-  if (idx === -1) {
+  if (ground.players.findIndex(({ id }: Player): boolean => id === player.id) === -1) {
     throw new PlayerNotInGroundError(player, ground);
   }
   if (player.energy === 0) {
     return { ...ground, players: ground.players.filter(({ id }: Player): boolean => id !== player.id) };
+  }
+  const newPlayers = reproduceIfPossible(player, ground);
+  if (newPlayers.length) {
+    const updatedPlayer = { ...player, foodEaten: [] };
+    const newPlayerArray = [...setPlayerInPlayersArray(updatedPlayer, ground.players), ...newPlayers];
+    return { ...ground, players: newPlayerArray };
   }
   const newPosition = getNewPlayerPosition(player, ground);
   let newEnergy =
@@ -23,7 +33,7 @@ export const performAction = (player: Player, ground: Ground): Ground => {
     newEnergy += food.energyAddition;
   }
   const newPlayer = createPlayer({ ...player, position: newPosition, energy: newEnergy });
-  const newPlayerArray = [...ground.players.slice(0, idx), newPlayer, ...ground.players.slice(idx + 1)];
+  const newPlayerArray = setPlayerInPlayersArray(newPlayer, ground.players);
   return {
     ...ground,
     food: updatedFood,
