@@ -1,6 +1,6 @@
 import { createPlayer } from '.';
 import { createGround } from '../ground/create-ground';
-import { performAction } from './move-player';
+import { performAction } from './perform-action';
 import { PlayerNotInGroundError } from '../ground/errors';
 import { createFood } from '../food';
 

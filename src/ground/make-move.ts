@@ -1,5 +1,5 @@
 import { Ground } from './types';
-import { performAction } from '../player/move-player';
+import { performAction } from '../player/perform-action';
 
 export const makeMove = (ground: Ground): Ground => {
   const { players } = ground;
