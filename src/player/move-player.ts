@@ -5,7 +5,7 @@ import { getNewPlayerPosition } from './get-new-player-position';
 import { PlayerNotInGroundError } from '../ground/errors';
 import { getFoodFromGround } from '../food/get-food-from-ground';
 
-export const movePlayer = (player: Player, ground: Ground): Ground => {
+export const performAction = (player: Player, ground: Ground): Ground => {
   const idx = ground.players.findIndex(({ id }: Player): boolean => id === player.id);
   if (idx === -1) {
     throw new PlayerNotInGroundError(player, ground);

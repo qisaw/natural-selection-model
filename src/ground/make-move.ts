@@ -1,5 +1,5 @@
 import { Ground } from './types';
-import { movePlayer } from '../player/move-player';
+import { performAction } from '../player/move-player';
 
 export const makeMove = (ground: Ground): Ground => {
   const { players } = ground;
@@ -8,5 +8,5 @@ export const makeMove = (ground: Ground): Ground => {
   // This is because if there 2 or more players are competing for a piece of food,
   // the player earlier in the array will always get the food first.
   // We'd want to sort the array in a random manner each call of makeMove
-  return players.reduce((nextGround, player) => movePlayer(player, nextGround), ground);
+  return players.reduce((nextGround, player) => performAction(player, nextGround), ground);
 };
