@@ -6,4 +6,5 @@ export interface PlayerData {
   label?: string;
   energy?: number;
   foodEaten?: Food[];
+  speed?: number;
 }

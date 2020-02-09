@@ -10,11 +10,13 @@ export class Player {
   readonly label: string;
   readonly energy: number;
   readonly foodEaten: Food[];
-  constructor({ position, id, label, energy, foodEaten }: PlayerData) {
+  readonly speed: number;
+  constructor({ position, id, label, energy, foodEaten, speed }: PlayerData) {
     this.position = position;
     this.id = id || uuid();
     this.label = label || 'x';
     this.energy = energy === undefined ? getStartingPlayerEnergy() : energy;
     this.foodEaten = foodEaten || [];
+    this.speed = speed || 10;
   }
 }

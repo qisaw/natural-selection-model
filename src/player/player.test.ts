@@ -48,4 +48,12 @@ describe('Player', () => {
     const player = new Player({ position: { x: 1, y: 2 } });
     expect(player.foodEaten).toEqual([]);
   });
+  it('should set the speed', () => {
+    const player = new Player({ position: { x: 1, y: 2 }, speed: 1 });
+    expect(player.speed).toEqual(1);
+  });
+  it('should set the default speed', () => {
+    const player = new Player({ position: { x: 1, y: 2 } });
+    expect(player.speed).toEqual(10);
+  });
 });
