@@ -1,3 +1,4 @@
+import median from 'median';
 import { createGround } from './ground/create-ground';
 import { createPlayer } from './player';
 import { makeMove } from './ground/make-move';
@@ -91,6 +92,21 @@ const main = async (): Promise<void> => {
     console.log(`--------- ground --------- turn ${turnNumber + 1} ---------`);
     // eslint-disable-next-line no-console
     console.log(getGroundAsString(ground));
+    // eslint-disable-next-line no-console
+    console.log('------------------------ results ------------------------');
+    const playerSpeeds = ground.players.map(({ speed }) => speed);
+    const meanSpeed = playerSpeeds.reduce((sum, next) => sum + next, 0) / playerSpeeds.length;
+    const medianSpeed = median(playerSpeeds);
+    // eslint-disable-next-line no-console
+    console.log(`Num of Players: ${ground.players.length}`);
+    // eslint-disable-next-line no-console
+    console.log(`Num of Food: ${ground.food.length}`);
+    // eslint-disable-next-line no-console
+    console.log(`Mean Speed: ${meanSpeed}`);
+    // eslint-disable-next-line no-console
+    console.log(`Median Speed: ${medianSpeed}`);
+    // eslint-disable-next-line no-console
+    console.log('------------------------ results ------------------------');
     await delay(1);
     turnNumber++;
   }
