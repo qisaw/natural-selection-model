@@ -107,7 +107,6 @@ const main = async (): Promise<void> => {
     console.log(`Median Speed: ${medianSpeed}`);
     // eslint-disable-next-line no-console
     console.log('------------------------ results ------------------------');
-    await delay(1);
     turnNumber++;
   }
 };
