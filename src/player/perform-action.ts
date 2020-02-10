@@ -2,7 +2,6 @@ import { Player } from './player';
 import { Ground } from '../ground/types';
 import { createPlayer } from '.';
 import { getNewPlayerPosition } from './get-new-player-position';
-import { PlayerNotInGroundError } from '../ground/errors';
 import { getFoodFromGround } from '../food/get-food-from-ground';
 import { reproduceIfPossible } from './reproduce-if-possible';
 import { Position } from '../global/types';
@@ -17,7 +16,7 @@ const hasPlayerMoved = (player: Player, position: Position): boolean =>
 
 export const performAction = (player: Player, ground: Ground): Ground => {
   if (ground.players.findIndex(({ id }: Player): boolean => id === player.id) === -1) {
-    throw new PlayerNotInGroundError(player, ground);
+    return ground;
   }
   if (player.energy <= 0) {
     return { ...ground, players: ground.players.filter(({ id }: Player): boolean => id !== player.id) };

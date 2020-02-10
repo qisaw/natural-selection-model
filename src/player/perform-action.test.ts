@@ -1,11 +1,18 @@
 import { createPlayer } from '.';
 import { createGround } from '../ground/create-ground';
 import { performAction } from './perform-action';
-import { PlayerNotInGroundError } from '../ground/errors';
 import { createFood } from '../food';
 import { Player } from './player';
 
 describe('movePlayer', () => {
+  describe('a player not in the board has been passed', () => {
+    it('should return the board with no changes', () => {
+      const players = [createPlayer({ position: { x: 1, y: 1 } })];
+      const ground = createGround({ players });
+      const newGround = performAction(createPlayer({ position: { x: 2, y: 2 } }), ground);
+      expect(newGround).toEqual(ground);
+    });
+  });
   describe('the player has no energy', () => {
     it('should be removed from the players array', () => {
       const players = [createPlayer({ position: { x: 1, y: 1 }, energy: 0 })];
@@ -101,15 +108,6 @@ describe('movePlayer', () => {
         const ground = createGround({ players, food, dimensions });
         expect(performAction(players[0], ground).players[0].energy).toEqual(10);
       });
-    });
-  });
-
-  describe('unhappy paths', () => {
-    it('should throw PlayerNotInGroundError error if a player which is not on the ground', () => {
-      const someRandomPlayer = createPlayer({ position: { x: 0, y: 0 }, energy: 1 });
-      const players = [createPlayer({ position: { x: 0, y: 0 }, energy: 1 })];
-      const ground = createGround({ players });
-      expect(() => performAction(someRandomPlayer, ground)).toThrow(PlayerNotInGroundError);
     });
   });
 });
