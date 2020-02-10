@@ -14,6 +14,14 @@ const numOfFoodToCreate = 50;
 const dimensions = { width, height };
 const MAX_TURNS = 1000 * 1000;
 
+// @TODO implement a solution where players don't repeat the same positions before new food comes out.
+// Currently, any speed less than 1 decreases to 1 because moving faster often means picking the same position
+// out multiple times and moving to it. This means more energy is used, but more ground is not covered at all.
+// Making speed totally unwanted in this simulation. I want to add a set of previously visited places on the board
+// to each player. A player should avoid (only if poosible) moving to a position they have already moved to.
+// Hopefully, this means that speed might be more useful in this simulation.
+// We will also need to clear this list whenever new food is added to the ground, so that players don't actively avoid
+// food spaces simply because the last time they went there, there was no food.
 const createRandomPlayers = (numOfPlayers: number, dimensions: GroundDimensions): Player[] => {
   const players: Player[] = [];
   for (let i = 0; i < numOfPlayers; i++) {
