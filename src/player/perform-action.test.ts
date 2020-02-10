@@ -49,6 +49,18 @@ describe('movePlayer', () => {
         expect(newGround.players[0].id).toEqual(players[0].id);
         expect(newGround.players[0].position).not.toEqual(players[0].position);
       });
+      it('should decrease the energy when a user moves', () => {
+        const players = [createPlayer({ position: { x: 1, y: 1 }, energy: 10, speed: 2 })];
+        const ground = createGround({ players });
+        const newGround = performAction(players[0], ground);
+        expect(newGround.players[0].energy).toEqual(6);
+      });
+      it('should never set the energy to a negative number', () => {
+        const players = [createPlayer({ position: { x: 1, y: 1 }, energy: 1, speed: 2 })];
+        const ground = createGround({ players });
+        const newGround = performAction(players[0], ground);
+        expect(newGround.players[0].energy).toEqual(0);
+      });
       it('should not decrease the energy if the player did not move', () => {
         const players = [
           createPlayer({ position: { x: 0, y: 0 }, energy: 1 }),
