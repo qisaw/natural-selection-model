@@ -36,12 +36,6 @@ describe('movePlayer', () => {
       });
     });
     describe('the user cannot reproduce', () => {
-      it('should decrease the energy of the user', () => {
-        const players = [createPlayer({ position: { x: 1, y: 1 }, energy: 1 })];
-        const ground = createGround({ players });
-        const newGround = performAction(players[0], ground);
-        expect(newGround.players[0].energy).toEqual(0);
-      });
       it('should move the player', () => {
         const players = [createPlayer({ position: { x: 1, y: 1 }, energy: 1 })];
         const ground = createGround({ players });
