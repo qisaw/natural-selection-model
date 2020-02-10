@@ -33,11 +33,13 @@ export const performAction = (player: Player, ground: Ground): Ground => {
     : player.energy;
   const food = getFoodFromGround(ground, newPosition);
   let updatedFood = ground.food;
+  const playerFood = [...player.foodEaten];
   if (food) {
     updatedFood = updatedFood.filter(({ id }) => id !== food.id);
     newEnergy += food.energyAddition;
+    playerFood.push(food);
   }
-  const newPlayer = createPlayer({ ...player, position: newPosition, energy: newEnergy });
+  const newPlayer = createPlayer({ ...player, position: newPosition, energy: newEnergy, foodEaten: playerFood });
   const newPlayerArray = setPlayerInPlayersArray(newPlayer, ground.players);
   return {
     ...ground,
