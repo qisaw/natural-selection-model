@@ -1,5 +1,6 @@
 import { Position } from '../global/types';
 import { Food } from '../food/food';
+import { Player } from './player';
 export interface PlayerData {
   position: Position;
   id?: string;
@@ -8,3 +9,5 @@ export interface PlayerData {
   foodEaten?: Food[];
   speed?: number;
 }
+
+export type PlayerMovementPattern = Map<Player, boolean[]>;
