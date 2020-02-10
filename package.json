@@ -52,6 +52,7 @@
     "deep-equal": "^2.0.1",
     "knuth-shuffle": "^1.0.8",
     "lodash.groupby": "^4.6.0",
+    "median": "0.0.2",
     "uuid": "^3.4.0"
   }
 }
