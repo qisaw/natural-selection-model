@@ -3,34 +3,99 @@ import { createFood } from '../food';
 import { createGround } from '../ground/create-ground';
 import { reproduceIfPossible } from './reproduce-if-possible';
 import { Player } from './player';
-import { getStartingPlayerEnergy } from '../settings';
+import * as settings from '../settings';
 
 describe('reproduceIfPossible', () => {
   describe('can reproduce cases', () => {
-    const foodEaten = [createFood({ position: { x: 1, y: 1 } }), createFood({ position: { x: 1, y: 1 } })];
-    const player = createPlayer({ position: { x: 0, y: 1 }, foodEaten, energy: 30 });
-    const ground = createGround({ players: [player] });
-    const newPlayers = reproduceIfPossible(player, ground);
-    it('should return an array with new players if the player has eaten more than 2 food', () => {
-      expect(newPlayers).toHaveLength(1);
-      expect(newPlayers[0] instanceof Player).toBe(true);
+    describe('generic tests', () => {
+      const foodEaten = [createFood({ position: { x: 1, y: 1 } }), createFood({ position: { x: 1, y: 1 } })];
+      const player = createPlayer({ position: { x: 0, y: 1 }, foodEaten, energy: 30 });
+      const ground = createGround({ players: [player] });
+      const newPlayers = reproduceIfPossible(player, ground);
+      it('should return an array with new players if the player has eaten more than 2 food', () => {
+        expect(newPlayers).toHaveLength(1);
+        expect(newPlayers[0] instanceof Player).toBe(true);
+      });
+      it('new player should have not eaten any food', () => {
+        expect(newPlayers[0].foodEaten).toHaveLength(0);
+      });
+      it('should set new player foodEaten to nothing', () => {
+        expect(newPlayers[0].foodEaten).toHaveLength(0);
+      });
+      it('should set a new id', () => {
+        expect(newPlayers[0].id).toBeDefined();
+        expect(newPlayers[0].id).not.toEqual(player.id);
+      });
+      it('should set a new position', () => {
+        const positon = newPlayers[0].position;
+        expect(positon).not.toEqual(player.position);
+      });
+      it('should set the same energy as the starting energy', () => {
+        expect(newPlayers[0].energy).not.toEqual(settings.getStartingPlayerEnergy());
+      });
     });
-    it('new player should have not eaten any food', () => {
-      expect(newPlayers[0].foodEaten).toHaveLength(0);
-    });
-    it('should set new player foodEaten to nothing', () => {
-      expect(newPlayers[0].foodEaten).toHaveLength(0);
-    });
-    it('should set a new id', () => {
-      expect(newPlayers[0].id).toBeDefined();
-      expect(newPlayers[0].id).not.toEqual(player.id);
-    });
-    it('should set a new position', () => {
-      const positon = newPlayers[0].position;
-      expect(positon).not.toEqual(player.position);
-    });
-    it('should set the same energy as the starting energy', () => {
-      expect(newPlayers[0].energy).not.toEqual(getStartingPlayerEnergy());
+    describe('hasSpeedMutation', () => {
+      let spy: jest.SpyInstance;
+      beforeEach(() => {
+        spy = jest.spyOn(settings, 'shouldMutateSpeed');
+      });
+      afterEach(() => {
+        spy.mockRestore();
+      });
+      describe('off', () => {
+        beforeEach(() => {
+          spy.mockImplementation(() => false);
+        });
+        it('new player should always have the same speed as the parent', () => {
+          const foodEaten = [createFood({ position: { x: 1, y: 1 } }), createFood({ position: { x: 1, y: 1 } })];
+          const player = createPlayer({ position: { x: 0, y: 1 }, foodEaten, energy: 30, speed: 1 });
+          const ground = createGround({ players: [player] });
+          const newPlayers = reproduceIfPossible(player, ground);
+          expect(newPlayers[0].speed).toEqual(1);
+        });
+      });
+      describe('on', () => {
+        let randomMock: jest.SpyInstance;
+        beforeEach(() => {
+          spy.mockImplementation(() => true);
+          randomMock = jest.spyOn(Math, 'random');
+        });
+        afterEach(() => {
+          randomMock.mockRestore();
+        });
+        it('should 33% of the time keep the same player speed', () => {
+          randomMock.mockImplementation(() => 0.32);
+          const foodEaten = [createFood({ position: { x: 1, y: 1 } }), createFood({ position: { x: 1, y: 1 } })];
+          const player = createPlayer({ position: { x: 0, y: 1 }, foodEaten, energy: 30, speed: 1 });
+          const ground = createGround({ players: [player] });
+          const newPlayers = reproduceIfPossible(player, ground);
+          expect(newPlayers[0].speed).toEqual(1);
+        });
+        it('should 33% of the time increase the player speed', () => {
+          randomMock.mockImplementation(() => 0.65);
+          const foodEaten = [createFood({ position: { x: 1, y: 1 } }), createFood({ position: { x: 1, y: 1 } })];
+          const player = createPlayer({ position: { x: 0, y: 1 }, foodEaten, energy: 30, speed: 1 });
+          const ground = createGround({ players: [player] });
+          const newPlayers = reproduceIfPossible(player, ground);
+          expect(newPlayers[0].speed).toEqual(2);
+        });
+        it('should 33% of the time decrease the player speed', () => {
+          randomMock.mockImplementation(() => 0.95);
+          const foodEaten = [createFood({ position: { x: 1, y: 1 } }), createFood({ position: { x: 1, y: 1 } })];
+          const player = createPlayer({ position: { x: 0, y: 1 }, foodEaten, energy: 30, speed: 3 });
+          const ground = createGround({ players: [player] });
+          const newPlayers = reproduceIfPossible(player, ground);
+          expect(newPlayers[0].speed).toEqual(2);
+        });
+        it('should never decrease the player speed to a 0 value', () => {
+          randomMock.mockImplementation(() => 0.95);
+          const foodEaten = [createFood({ position: { x: 1, y: 1 } }), createFood({ position: { x: 1, y: 1 } })];
+          const player = createPlayer({ position: { x: 0, y: 1 }, foodEaten, energy: 30, speed: 1 });
+          const ground = createGround({ players: [player] });
+          const newPlayers = reproduceIfPossible(player, ground);
+          expect(newPlayers[0].speed).toEqual(1);
+        });
+      });
     });
   });
   describe('can not reproduce cases', () => {
