@@ -404,8 +404,7 @@ describe('getNewPlayerPosition', () => {
         const playerToMove = createPlayer({ position: { x: 1, y: 1 }, previousPositions });
         const ground = createGround({ dimensions, players: [playerToMove] });
         const position = getNewPlayerPosition(playerToMove, ground);
-        expect(position.x).not.toEqual(playerToMove.position.x);
-        expect(position.y).not.toEqual(playerToMove.position.y);
+        expect(position).not.toEqual(playerToMove.position);
       });
     });
     describe('collisions', () => {
