@@ -8,6 +8,7 @@ export interface PlayerData {
   energy?: number;
   foodEaten?: Food[];
   speed?: number;
+  previousPositions?: Set<Position>;
 }
 
 export type PlayerMovementPattern = Map<Player, boolean[]>;

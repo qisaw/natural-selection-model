@@ -56,4 +56,13 @@ describe('Player', () => {
     const player = new Player({ position: { x: 1, y: 2 } });
     expect(player.speed).toEqual(10);
   });
+  it('should set previousPositions', () => {
+    const previousPositions = new Set([{ x: 1, y: 1 }]);
+    const player = new Player({ position: { x: 1, y: 2 }, previousPositions });
+    expect(player.previousPositions).toEqual(previousPositions);
+  });
+  it('should default previousPositions to empty array', () => {
+    const player = new Player({ position: { x: 1, y: 2 } });
+    expect(player.previousPositions).toEqual(new Set());
+  });
 });

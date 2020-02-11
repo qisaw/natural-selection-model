@@ -11,12 +11,14 @@ export class Player {
   readonly energy: number;
   readonly foodEaten: Food[];
   readonly speed: number;
-  constructor({ position, id, label, energy, foodEaten, speed }: PlayerData) {
+  readonly previousPositions: Set<Position>;
+  constructor({ position, id, label, energy, foodEaten, speed, previousPositions }: PlayerData) {
     this.position = position;
     this.id = id || uuid();
     this.label = label || 'x';
     this.energy = energy === undefined ? getStartingPlayerEnergy() : energy;
     this.foodEaten = foodEaten || [];
     this.speed = speed || 10;
+    this.previousPositions = previousPositions || new Set();
   }
 }
