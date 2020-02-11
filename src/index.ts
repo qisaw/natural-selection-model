@@ -3,10 +3,9 @@ import { createGround } from './ground/create-ground';
 import { createPlayer } from './player';
 import { makeMove } from './ground/make-move';
 import { getGroundAsString } from './ground/get-ground-as-string';
-import { createFood } from './food';
 import { Player } from './player/player';
 import { GroundDimensions } from './ground/types';
-import { Food } from './food/food';
+import { getNewFoodToAddToBoard } from './food/get-new-food-to-add-to-board';
 
 const width = 30;
 const height = 30;
@@ -42,36 +41,8 @@ const createRandomPlayers = (numOfPlayers: number, dimensions: GroundDimensions)
   return players;
 };
 
-const createRandomFood = (
-  numOfFood: number,
-  dimensions: GroundDimensions,
-  players: Player[],
-  foodAlreadyExisting: Food[],
-): Food[] => {
-  const foodArray: Food[] = [];
-  for (let i = 0; i < numOfFood; i++) {
-    let xPosition = Math.round(Math.random() * (dimensions.width - 1));
-    let yPosition = Math.round(Math.random() * (dimensions.height - 1));
-    while (
-      !!players.find(({ position }) => position.x === xPosition && position.y === yPosition) ||
-      !!foodAlreadyExisting.find(({ position }) => position.x === xPosition && position.y === yPosition) ||
-      !!foodArray.find(({ position }) => position.x === xPosition && position.y === yPosition)
-    ) {
-      xPosition = Math.round(Math.random() * (dimensions.width - 1));
-      yPosition = Math.round(Math.random() * (dimensions.height - 1));
-    }
-    const position = {
-      x: xPosition,
-      y: yPosition,
-    };
-    const food = createFood({ position, energyAddition: 1000 });
-    foodArray.push(food);
-  }
-  return foodArray;
-};
-
 const players = createRandomPlayers(32, dimensions);
-const food = createRandomFood(numOfFoodToCreate, dimensions, players, []);
+const food = getNewFoodToAddToBoard(numOfFoodToCreate, dimensions, players, []);
 
 const initialGround = createGround({
   dimensions,
@@ -91,7 +62,7 @@ const main = async (): Promise<void> => {
   while (ground.players.length && turnNumber < MAX_TURNS) {
     ground = makeMove(ground);
     if (turnNumber % 1000 === 0 && turnNumber > 0) {
-      const newFood = createRandomFood(numOfFoodToCreate, dimensions, ground.players, ground.food);
+      const newFood = getNewFoodToAddToBoard(numOfFoodToCreate, dimensions, ground.players, ground.food);
       ground = { ...ground, food: [...ground.food, ...newFood] };
     }
     // eslint-disable-next-line no-console
