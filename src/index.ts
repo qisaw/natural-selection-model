@@ -90,7 +90,7 @@ const main = async (): Promise<void> => {
   let turnNumber = 0;
   while (ground.players.length && turnNumber < MAX_TURNS) {
     ground = makeMove(ground);
-    if (turnNumber % 1000 === 0) {
+    if (turnNumber % 1000 === 0 && turnNumber > 0) {
       const newFood = createRandomFood(numOfFoodToCreate, dimensions, ground.players, ground.food);
       ground = { ...ground, food: [...ground.food, ...newFood] };
     }
