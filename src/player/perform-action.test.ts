@@ -85,7 +85,11 @@ describe('movePlayer', () => {
         expect(performAction(players[0], ground).food).toEqual(food);
       });
       it('should remove food when eaten', () => {
-        // here the first player only has one available direction (UP) to where the food is
+        /*
+         * | x | F |
+         * | x | y |
+         * here the first player only has one available direction (UP) to where the food is
+         */
         const players = [
           createPlayer({ position: { x: 1, y: 1 }, energy: 1 }),
           createPlayer({ position: { x: 0, y: 1 }, energy: 1 }),
@@ -97,7 +101,11 @@ describe('movePlayer', () => {
         expect(performAction(players[0], ground).food).toHaveLength(0);
       });
       it('should add energy addition to player when food eaten', () => {
-        // here the first player only has one available direction (UP) to where the food is
+        /*
+         * | x | F |
+         * | x | y |
+         * here the first player only has one available direction (UP) to where the food is
+         */
         const players = [
           createPlayer({ position: { x: 1, y: 1 }, energy: 1 }),
           createPlayer({ position: { x: 0, y: 1 }, energy: 1 }),
@@ -109,6 +117,11 @@ describe('movePlayer', () => {
         expect(performAction(players[0], ground).players[0].energy).toEqual(10);
       });
       it('should add the food to the list of food eaten by the player', () => {
+        /*
+         * | x | F |
+         * | x | y |
+         * here the first player only has one available direction (UP) to where the food is
+         */
         const players = [
           createPlayer({ position: { x: 1, y: 1 }, energy: 1 }),
           createPlayer({ position: { x: 0, y: 1 }, energy: 1 }),
