@@ -21,7 +21,16 @@ export const reproduceIfPossible = (player: Player, ground: Ground): Player[] =>
     } else {
       newSpeed = player.speed;
     }
-    return [createPlayer({ ...player, speed: newSpeed, id: undefined, position: newPosition, foodEaten: [] })];
+    return [
+      createPlayer({
+        ...player,
+        speed: newSpeed,
+        id: undefined,
+        position: newPosition,
+        foodEaten: [],
+        previousPositions: new Set(),
+      }),
+    ];
   }
   return [];
 };

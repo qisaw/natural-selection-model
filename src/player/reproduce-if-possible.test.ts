@@ -9,7 +9,12 @@ describe('reproduceIfPossible', () => {
   describe('can reproduce cases', () => {
     describe('generic tests', () => {
       const foodEaten = [createFood({ position: { x: 1, y: 1 } }), createFood({ position: { x: 1, y: 1 } })];
-      const player = createPlayer({ position: { x: 0, y: 1 }, foodEaten, energy: 30 });
+      const player = createPlayer({
+        position: { x: 0, y: 1 },
+        foodEaten,
+        energy: 30,
+        previousPositions: new Set([{ x: 1, y: 1 }]),
+      });
       const ground = createGround({ players: [player] });
       const newPlayers = reproduceIfPossible(player, ground);
       it('should return an array with new players if the player has eaten more than 2 food', () => {
@@ -32,6 +37,9 @@ describe('reproduceIfPossible', () => {
       });
       it('should set the same energy as the starting energy', () => {
         expect(newPlayers[0].energy).not.toEqual(settings.getStartingPlayerEnergy());
+      });
+      it('should set the previousPositions to empty', () => {
+        expect(newPlayers[0].previousPositions).toEqual(new Set());
       });
     });
     describe('hasSpeedMutation', () => {
