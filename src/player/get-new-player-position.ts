@@ -80,11 +80,11 @@ const isPositionFree = (xValue: number, yValue: number, direction: Direction, gr
   return !playerAtPosition;
 };
 
-const getDirection = (xValue: number, yValue: number, ground: Ground): Direction | void => {
-  const canMoveUp = yValue > 0;
-  const canMoveDown = yValue < ground.dimensions.height - 1;
-  const canMoveLeft = xValue > 0;
-  const canMoveRight = xValue < ground.dimensions.width - 1;
+const getDirection = (player: Player, ground: Ground): Direction | void => {
+  const canMoveUp = player.position.y > 0;
+  const canMoveDown = player.position.y < ground.dimensions.height - 1;
+  const canMoveLeft = player.position.x > 0;
+  const canMoveRight = player.position.x < ground.dimensions.width - 1;
   const directionArray = [
     { value: Direction.UP, predicate: canMoveUp },
     { value: Direction.DOWN, predicate: canMoveDown },
@@ -96,14 +96,14 @@ const getDirection = (xValue: number, yValue: number, ground: Ground): Direction
     { value: Direction.DOWN_AND_RIGHT, predicate: canMoveDown && canMoveRight },
   ];
   const availableDirections = directionArray
-    .filter(({ predicate, value }) => predicate && isPositionFree(xValue, yValue, value, ground))
+    .filter(({ predicate, value }) => predicate && isPositionFree(player.position.x, player.position.y, value, ground))
     .map(({ value }) => value);
   return getRandomDirection(availableDirections);
 };
 
 export const getNewPlayerPosition = (player: Player, ground: Ground): Position => {
   // @TODO error checking for player in ground
-  const direction = getDirection(player.position.x, player.position.y, ground);
+  const direction = getDirection(player, ground);
   switch (direction) {
     case Direction.UP:
       return {
