@@ -36,7 +36,7 @@ const createRandomPlayers = (numOfPlayers: number, dimensions: GroundDimensions)
       y: yPosition,
     };
     const label = 'O';
-    const speed = 2;
+    const speed = 1;
     players.push(createPlayer({ position, label, speed }));
   }
   return players;
