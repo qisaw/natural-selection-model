@@ -18,33 +18,61 @@ describe('getNewPlayerPosition', () => {
           dimensions,
           players,
         });
-        it('should move the user up 1/4th of the time', () => {
-          jest.spyOn(Math, 'random').mockReturnValue(0.24);
+        it('should move the user up 1/8th of the time', () => {
+          jest.spyOn(Math, 'random').mockReturnValue(0.125);
           const playerToMove = players[0];
           const position = getNewPlayerPosition(playerToMove, ground);
           expect(position.x).toEqual(playerToMove.position.x);
           expect(position.y).toEqual(playerToMove.position.y - 1);
         });
-        it('should move the user down 1/4 of the time', () => {
-          jest.spyOn(Math, 'random').mockReturnValue(0.49);
+        it('should move the user down 1/8 of the time', () => {
+          jest.spyOn(Math, 'random').mockReturnValue(0.25);
           const playerToMove = players[0];
           const position = getNewPlayerPosition(playerToMove, ground);
           expect(position.x).toEqual(playerToMove.position.x);
           expect(position.y).toEqual(playerToMove.position.y + 1);
         });
-        it('should move the user left 1/4 of the time', () => {
-          jest.spyOn(Math, 'random').mockReturnValue(0.74);
+        it('should move the user left 1/8 of the time', () => {
+          jest.spyOn(Math, 'random').mockReturnValue(0.375);
           const playerToMove = players[0];
           const position = getNewPlayerPosition(playerToMove, ground);
           expect(position.x).toEqual(playerToMove.position.x - 1);
           expect(position.y).toEqual(playerToMove.position.y);
         });
-        it('should move the user right 1/4 of the time', () => {
-          jest.spyOn(Math, 'random').mockReturnValue(0.99);
+        it('should move the user right 1/8 of the time', () => {
+          jest.spyOn(Math, 'random').mockReturnValue(0.5);
           const playerToMove = players[0];
           const position = getNewPlayerPosition(playerToMove, ground);
           expect(position.x).toEqual(playerToMove.position.x + 1);
           expect(position.y).toEqual(playerToMove.position.y);
+        });
+        it('should move the user up and left 1/8 of the time', () => {
+          jest.spyOn(Math, 'random').mockReturnValue(0.625);
+          const playerToMove = players[0];
+          const position = getNewPlayerPosition(playerToMove, ground);
+          expect(position.x).toEqual(playerToMove.position.x - 1);
+          expect(position.y).toEqual(playerToMove.position.y - 1);
+        });
+        it('should move the user up and right 1/8 of the time', () => {
+          jest.spyOn(Math, 'random').mockReturnValue(0.75);
+          const playerToMove = players[0];
+          const position = getNewPlayerPosition(playerToMove, ground);
+          expect(position.x).toEqual(playerToMove.position.x + 1);
+          expect(position.y).toEqual(playerToMove.position.y - 1);
+        });
+        it('should move the user down and left 1/8 of the time', () => {
+          jest.spyOn(Math, 'random').mockReturnValue(0.875);
+          const playerToMove = players[0];
+          const position = getNewPlayerPosition(playerToMove, ground);
+          expect(position.x).toEqual(playerToMove.position.x - 1);
+          expect(position.y).toEqual(playerToMove.position.y + 1);
+        });
+        it('should move the user down and right 1/8 of the time', () => {
+          jest.spyOn(Math, 'random').mockReturnValue(1);
+          const playerToMove = players[0];
+          const position = getNewPlayerPosition(playerToMove, ground);
+          expect(position.x).toEqual(playerToMove.position.x + 1);
+          expect(position.y).toEqual(playerToMove.position.y + 1);
         });
       });
       describe('when the user is in the top row', () => {
@@ -53,26 +81,40 @@ describe('getNewPlayerPosition', () => {
           dimensions,
           players: playersOnTopRow,
         });
-        it('should move the user down 1/3 of the time', () => {
-          jest.spyOn(Math, 'random').mockReturnValue(0.32);
+        it('should move the user down 1/5 of the time', () => {
+          jest.spyOn(Math, 'random').mockReturnValue(0.2);
           const playerToMove = playersOnTopRow[0];
           const position = getNewPlayerPosition(playerToMove, ground);
           expect(position.x).toEqual(playerToMove.position.x);
           expect(position.y).toEqual(playerToMove.position.y + 1);
         });
-        it('should move the user left 1/3 of the time', () => {
-          jest.spyOn(Math, 'random').mockReturnValue(0.65);
+        it('should move the user left 1/5 of the time', () => {
+          jest.spyOn(Math, 'random').mockReturnValue(0.4);
           const playerToMove = playersOnTopRow[0];
           const position = getNewPlayerPosition(playerToMove, ground);
           expect(position.x).toEqual(playerToMove.position.x - 1);
           expect(position.y).toEqual(playerToMove.position.y);
         });
-        it('should move the user right 1/3 of the time', () => {
-          jest.spyOn(Math, 'random').mockReturnValue(0.99);
+        it('should move the user right 1/5 of the time', () => {
+          jest.spyOn(Math, 'random').mockReturnValue(0.6);
           const playerToMove = playersOnTopRow[0];
           const position = getNewPlayerPosition(playerToMove, ground);
           expect(position.x).toEqual(playerToMove.position.x + 1);
           expect(position.y).toEqual(playerToMove.position.y);
+        });
+        it('should move the user down and left 1/5 of the time', () => {
+          jest.spyOn(Math, 'random').mockReturnValue(0.8);
+          const playerToMove = playersOnTopRow[0];
+          const position = getNewPlayerPosition(playerToMove, ground);
+          expect(position.x).toEqual(playerToMove.position.x - 1);
+          expect(position.y).toEqual(playerToMove.position.y + 1);
+        });
+        it('should move the user down and right 1/5 of the time', () => {
+          jest.spyOn(Math, 'random').mockReturnValue(1);
+          const playerToMove = playersOnTopRow[0];
+          const position = getNewPlayerPosition(playerToMove, ground);
+          expect(position.x).toEqual(playerToMove.position.x + 1);
+          expect(position.y).toEqual(playerToMove.position.y + 1);
         });
       });
       describe('when the user is in the left most row', () => {
@@ -81,26 +123,40 @@ describe('getNewPlayerPosition', () => {
           dimensions,
           players: playersLeftMost,
         });
-        it('should move the user up 1/3 of the time', () => {
-          jest.spyOn(Math, 'random').mockReturnValue(0.32);
+        it('should move the user up 1/5 of the time', () => {
+          jest.spyOn(Math, 'random').mockReturnValue(0.2);
           const playerToMove = playersLeftMost[0];
           const position = getNewPlayerPosition(playerToMove, ground);
           expect(position.x).toEqual(playerToMove.position.x);
           expect(position.y).toEqual(playerToMove.position.y - 1);
         });
-        it('should move the user down 1/3 of the time', () => {
-          jest.spyOn(Math, 'random').mockReturnValue(0.65);
+        it('should move the user down 1/5 of the time', () => {
+          jest.spyOn(Math, 'random').mockReturnValue(0.4);
           const playerToMove = playersLeftMost[0];
           const position = getNewPlayerPosition(playerToMove, ground);
           expect(position.x).toEqual(playerToMove.position.x);
           expect(position.y).toEqual(playerToMove.position.y + 1);
         });
-        it('should move the user right 1/3 of the time', () => {
-          jest.spyOn(Math, 'random').mockReturnValue(0.99);
+        it('should move the user right 1/5 of the time', () => {
+          jest.spyOn(Math, 'random').mockReturnValue(0.6);
           const playerToMove = playersLeftMost[0];
           const position = getNewPlayerPosition(playerToMove, ground);
           expect(position.x).toEqual(playerToMove.position.x + 1);
           expect(position.y).toEqual(playerToMove.position.y);
+        });
+        it('should move the user down and right 1/5 of the time', () => {
+          jest.spyOn(Math, 'random').mockReturnValue(0.8);
+          const playerToMove = playersLeftMost[0];
+          const position = getNewPlayerPosition(playerToMove, ground);
+          expect(position.x).toEqual(playerToMove.position.x + 1);
+          expect(position.y).toEqual(playerToMove.position.y - 1);
+        });
+        it('should move the user up and right 1/5 of the time', () => {
+          jest.spyOn(Math, 'random').mockReturnValue(1);
+          const playerToMove = playersLeftMost[0];
+          const position = getNewPlayerPosition(playerToMove, ground);
+          expect(position.x).toEqual(playerToMove.position.x + 1);
+          expect(position.y).toEqual(playerToMove.position.y + 1);
         });
       });
       describe('when the user is in the bottom most row', () => {
@@ -109,26 +165,40 @@ describe('getNewPlayerPosition', () => {
           dimensions,
           players: playersBottom,
         });
-        it('should move the user up 1/3 of the time', () => {
-          jest.spyOn(Math, 'random').mockReturnValue(0.32);
+        it('should move the user up 1/5 of the time', () => {
+          jest.spyOn(Math, 'random').mockReturnValue(0.2);
           const playerToMove = playersBottom[0];
           const position = getNewPlayerPosition(playerToMove, ground);
           expect(position.x).toEqual(playerToMove.position.x);
           expect(position.y).toEqual(playerToMove.position.y - 1);
         });
-        it('should move the user left 1/3 of the time', () => {
-          jest.spyOn(Math, 'random').mockReturnValue(0.65);
+        it('should move the user left 1/5 of the time', () => {
+          jest.spyOn(Math, 'random').mockReturnValue(0.4);
           const playerToMove = playersBottom[0];
           const position = getNewPlayerPosition(playerToMove, ground);
           expect(position.x).toEqual(playerToMove.position.x - 1);
           expect(position.y).toEqual(playerToMove.position.y);
         });
-        it('should move the user right 1/3 of the time', () => {
-          jest.spyOn(Math, 'random').mockReturnValue(0.99);
+        it('should move the user right 1/5 of the time', () => {
+          jest.spyOn(Math, 'random').mockReturnValue(0.6);
           const playerToMove = playersBottom[0];
           const position = getNewPlayerPosition(playerToMove, ground);
           expect(position.x).toEqual(playerToMove.position.x + 1);
           expect(position.y).toEqual(playerToMove.position.y);
+        });
+        it('should move the user up and left 1/5 of the time', () => {
+          jest.spyOn(Math, 'random').mockReturnValue(0.8);
+          const playerToMove = playersBottom[0];
+          const position = getNewPlayerPosition(playerToMove, ground);
+          expect(position.x).toEqual(playerToMove.position.x - 1);
+          expect(position.y).toEqual(playerToMove.position.y - 1);
+        });
+        it('should move the user up and right 1/5 of the time', () => {
+          jest.spyOn(Math, 'random').mockReturnValue(1);
+          const playerToMove = playersBottom[0];
+          const position = getNewPlayerPosition(playerToMove, ground);
+          expect(position.x).toEqual(playerToMove.position.x + 1);
+          expect(position.y).toEqual(playerToMove.position.y - 1);
         });
       });
       describe('when the user is in the right most row', () => {
@@ -137,26 +207,40 @@ describe('getNewPlayerPosition', () => {
           dimensions,
           players: playersRightMost,
         });
-        it('should move the user up 1/3 of the time', () => {
-          jest.spyOn(Math, 'random').mockReturnValue(0.32);
+        it('should move the user up 1/5 of the time', () => {
+          jest.spyOn(Math, 'random').mockReturnValue(0.2);
           const playerToMove = playersRightMost[0];
           const position = getNewPlayerPosition(playerToMove, ground);
           expect(position.x).toEqual(playerToMove.position.x);
           expect(position.y).toEqual(playerToMove.position.y - 1);
         });
-        it('should move the user down 1/3 of the time', () => {
-          jest.spyOn(Math, 'random').mockReturnValue(0.65);
+        it('should move the user down 1/5 of the time', () => {
+          jest.spyOn(Math, 'random').mockReturnValue(0.4);
           const playerToMove = playersRightMost[0];
           const position = getNewPlayerPosition(playerToMove, ground);
           expect(position.x).toEqual(playerToMove.position.x);
           expect(position.y).toEqual(playerToMove.position.y + 1);
         });
-        it('should move the user left 1/3 of the time', () => {
-          jest.spyOn(Math, 'random').mockReturnValue(0.99);
+        it('should move the user left 1/5 of the time', () => {
+          jest.spyOn(Math, 'random').mockReturnValue(0.6);
           const playerToMove = playersRightMost[0];
           const position = getNewPlayerPosition(playerToMove, ground);
           expect(position.x).toEqual(playerToMove.position.x - 1);
           expect(position.y).toEqual(playerToMove.position.y);
+        });
+        it('should move the user down and left 1/5 of the time', () => {
+          jest.spyOn(Math, 'random').mockReturnValue(0.8);
+          const playerToMove = playersRightMost[0];
+          const position = getNewPlayerPosition(playerToMove, ground);
+          expect(position.x).toEqual(playerToMove.position.x - 1);
+          expect(position.y).toEqual(playerToMove.position.y - 1);
+        });
+        it('should move the user up and left 1/5 of the time', () => {
+          jest.spyOn(Math, 'random').mockReturnValue(1);
+          const playerToMove = playersRightMost[0];
+          const position = getNewPlayerPosition(playerToMove, ground);
+          expect(position.x).toEqual(playerToMove.position.x - 1);
+          expect(position.y).toEqual(playerToMove.position.y + 1);
         });
       });
       describe('when the user is in the top left corner', () => {
@@ -165,19 +249,26 @@ describe('getNewPlayerPosition', () => {
           dimensions,
           players: playersTopLeftCorner,
         });
-        it('should move the user down 1/2 of the time', () => {
-          jest.spyOn(Math, 'random').mockReturnValue(0.49);
+        it('should move the user down 1/3 of the time', () => {
+          jest.spyOn(Math, 'random').mockReturnValue(0.33);
           const playerToMove = playersTopLeftCorner[0];
           const position = getNewPlayerPosition(playerToMove, ground);
           expect(position.x).toEqual(playerToMove.position.x);
           expect(position.y).toEqual(playerToMove.position.y + 1);
         });
-        it('should move the user right 1/2 of the time', () => {
-          jest.spyOn(Math, 'random').mockReturnValue(0.99);
+        it('should move the user right 1/3 of the time', () => {
+          jest.spyOn(Math, 'random').mockReturnValue(0.66);
           const playerToMove = playersTopLeftCorner[0];
           const position = getNewPlayerPosition(playerToMove, ground);
           expect(position.x).toEqual(playerToMove.position.x + 1);
           expect(position.y).toEqual(playerToMove.position.y);
+        });
+        it('should move the user down and right 1/3 of the time', () => {
+          jest.spyOn(Math, 'random').mockReturnValue(1);
+          const playerToMove = playersTopLeftCorner[0];
+          const position = getNewPlayerPosition(playerToMove, ground);
+          expect(position.x).toEqual(playerToMove.position.x + 1);
+          expect(position.y).toEqual(playerToMove.position.y + 1);
         });
       });
       describe('when the user is in the top right corner', () => {
@@ -186,19 +277,26 @@ describe('getNewPlayerPosition', () => {
           dimensions,
           players: playersTopRightCorner,
         });
-        it('should move the user down 1/2 of the time', () => {
-          jest.spyOn(Math, 'random').mockReturnValue(0.49);
+        it('should move the user down 1/3 of the time', () => {
+          jest.spyOn(Math, 'random').mockReturnValue(0.33);
           const playerToMove = playersTopRightCorner[0];
           const position = getNewPlayerPosition(playerToMove, ground);
           expect(position.x).toEqual(playerToMove.position.x);
           expect(position.y).toEqual(playerToMove.position.y + 1);
         });
-        it('should move the user left 1/2 of the time', () => {
-          jest.spyOn(Math, 'random').mockReturnValue(0.99);
+        it('should move the user left 1/3 of the time', () => {
+          jest.spyOn(Math, 'random').mockReturnValue(0.66);
           const playerToMove = playersTopRightCorner[0];
           const position = getNewPlayerPosition(playerToMove, ground);
           expect(position.x).toEqual(playerToMove.position.x - 1);
           expect(position.y).toEqual(playerToMove.position.y);
+        });
+        it('should move the user down and left 1/3 of the time', () => {
+          jest.spyOn(Math, 'random').mockReturnValue(1);
+          const playerToMove = playersTopRightCorner[0];
+          const position = getNewPlayerPosition(playerToMove, ground);
+          expect(position.x).toEqual(playerToMove.position.x - 1);
+          expect(position.y).toEqual(playerToMove.position.y + 1);
         });
       });
       describe('when the user is in the bottom left corner', () => {
@@ -207,19 +305,26 @@ describe('getNewPlayerPosition', () => {
           dimensions,
           players: playersBottomLeftCorner,
         });
-        it('should move the user up 1/2 of the time', () => {
-          jest.spyOn(Math, 'random').mockReturnValue(0.49);
+        it('should move the user up 1/3 of the time', () => {
+          jest.spyOn(Math, 'random').mockReturnValue(0.33);
           const playerToMove = playersBottomLeftCorner[0];
           const position = getNewPlayerPosition(playerToMove, ground);
           expect(position.x).toEqual(playerToMove.position.x);
           expect(position.y).toEqual(playerToMove.position.y - 1);
         });
-        it('should move the user right 1/2 of the time', () => {
-          jest.spyOn(Math, 'random').mockReturnValue(0.99);
+        it('should move the user right 1/3 of the time', () => {
+          jest.spyOn(Math, 'random').mockReturnValue(0.66);
           const playerToMove = playersBottomLeftCorner[0];
           const position = getNewPlayerPosition(playerToMove, ground);
           expect(position.x).toEqual(playerToMove.position.x + 1);
           expect(position.y).toEqual(playerToMove.position.y);
+        });
+        it('should move the user up and right 1/3 of the time', () => {
+          jest.spyOn(Math, 'random').mockReturnValue(1);
+          const playerToMove = playersBottomLeftCorner[0];
+          const position = getNewPlayerPosition(playerToMove, ground);
+          expect(position.x).toEqual(playerToMove.position.x + 1);
+          expect(position.y).toEqual(playerToMove.position.y - 1);
         });
       });
       describe('when the user is in the bottom right corner', () => {
@@ -230,28 +335,35 @@ describe('getNewPlayerPosition', () => {
           dimensions,
           players: playersBottomRightCorner,
         });
-        it('should move the user up 1/2 of the time', () => {
-          jest.spyOn(Math, 'random').mockReturnValue(0.49);
+        it('should move the user up 1/3 of the time', () => {
+          jest.spyOn(Math, 'random').mockReturnValue(0.33);
           const playerToMove = playersBottomRightCorner[0];
           const position = getNewPlayerPosition(playerToMove, ground);
           expect(position.x).toEqual(playerToMove.position.x);
           expect(position.y).toEqual(playerToMove.position.y - 1);
         });
-        it('should move the user left 1/2 of the time', () => {
-          jest.spyOn(Math, 'random').mockReturnValue(0.99);
+        it('should move the user left 1/3 of the time', () => {
+          jest.spyOn(Math, 'random').mockReturnValue(0.66);
           const playerToMove = playersBottomRightCorner[0];
           const position = getNewPlayerPosition(playerToMove, ground);
           expect(position.x).toEqual(playerToMove.position.x - 1);
           expect(position.y).toEqual(playerToMove.position.y);
+        });
+        it('should move the user up and left 1/3 of the time', () => {
+          jest.spyOn(Math, 'random').mockReturnValue(1);
+          const playerToMove = playersBottomRightCorner[0];
+          const position = getNewPlayerPosition(playerToMove, ground);
+          expect(position.x).toEqual(playerToMove.position.x - 1);
+          expect(position.y).toEqual(playerToMove.position.y - 1);
         });
       });
     });
     describe('collisions', () => {
       it('should not move to a position where there is another player', () => {
         /*
-         * | - | x | - |
+         * | x | x | x |
          * | x | y | - |
-         * | - | x | - |
+         * | x | x | x |
          * we want to move y
          * the only available move for y is right one
          */
@@ -260,6 +372,10 @@ describe('getNewPlayerPosition', () => {
           createPlayer({ position: { x: 1, y: 0 } }),
           createPlayer({ position: { x: 1, y: 2 } }),
           createPlayer({ position: { x: 1, y: 1 } }),
+          createPlayer({ position: { x: 0, y: 0 } }),
+          createPlayer({ position: { x: 0, y: 2 } }),
+          createPlayer({ position: { x: 2, y: 0 } }),
+          createPlayer({ position: { x: 2, y: 2 } }),
         ];
         const ground = createGround({
           dimensions,
@@ -279,11 +395,10 @@ describe('getNewPlayerPosition', () => {
       });
       it('should not make any moves if a player is totally surrounded', () => {
         /*
-         * | - | x | - |
+         * | x | x | x |
          * | x | y | x |
-         * | - | x | - |
-         * we want to move y
-         * the only available move for y is right one
+         * | x | x | x |
+         * no available moves for y
          */
         const players = [
           createPlayer({ position: { x: 0, y: 1 } }),
@@ -291,6 +406,10 @@ describe('getNewPlayerPosition', () => {
           createPlayer({ position: { x: 1, y: 2 } }),
           createPlayer({ position: { x: 2, y: 1 } }),
           createPlayer({ position: { x: 1, y: 1 } }),
+          createPlayer({ position: { x: 0, y: 0 } }),
+          createPlayer({ position: { x: 0, y: 2 } }),
+          createPlayer({ position: { x: 2, y: 0 } }),
+          createPlayer({ position: { x: 2, y: 2 } }),
         ];
         const playerToMove = players[4];
         const ground = createGround({

@@ -7,6 +7,10 @@ enum Direction {
   DOWN,
   LEFT,
   RIGHT,
+  UP_AND_LEFT,
+  UP_AND_RIGHT,
+  DOWN_AND_LEFT,
+  DOWN_AND_RIGHT,
 }
 
 const getRandomDirection = (availableDirections: Direction[]): Direction | void => {
@@ -36,10 +40,30 @@ const isPositionFree = (xValue: number, yValue: number, direction: Direction, gr
       x: xValue - 1,
       y: yValue,
     };
-  } else {
+  } else if (direction === Direction.RIGHT) {
     nextPosition = {
       x: xValue + 1,
       y: yValue,
+    };
+  } else if (direction === Direction.UP_AND_LEFT) {
+    nextPosition = {
+      x: xValue - 1,
+      y: yValue - 1,
+    };
+  } else if (direction === Direction.UP_AND_RIGHT) {
+    nextPosition = {
+      x: xValue + 1,
+      y: yValue - 1,
+    };
+  } else if (direction === Direction.DOWN_AND_LEFT) {
+    nextPosition = {
+      x: xValue - 1,
+      y: yValue + 1,
+    };
+  } else {
+    nextPosition = {
+      x: xValue + 1,
+      y: yValue + 1,
     };
   }
   if (
@@ -62,6 +86,14 @@ const getDirection = (xValue: number, yValue: number, ground: Ground): Direction
     { value: Direction.DOWN, predicate: yValue < ground.dimensions.height - 1 },
     { value: Direction.LEFT, predicate: xValue > 0 },
     { value: Direction.RIGHT, predicate: xValue < ground.dimensions.width - 1 },
+    // @TODO ensure the left and right movements aswell
+    { value: Direction.UP_AND_LEFT, predicate: yValue > 0 && xValue > 0 },
+    { value: Direction.UP_AND_RIGHT, predicate: yValue > 0 && xValue < ground.dimensions.width - 1 },
+    { value: Direction.DOWN_AND_LEFT, predicate: yValue < ground.dimensions.height - 1 && xValue > 0 },
+    {
+      value: Direction.DOWN_AND_RIGHT,
+      predicate: yValue < ground.dimensions.height - 1 && xValue < ground.dimensions.width - 1,
+    },
   ];
   const availableDirections = directionArray
     .filter(({ predicate, value }) => predicate && isPositionFree(xValue, yValue, value, ground))
@@ -92,6 +124,26 @@ export const getNewPlayerPosition = (player: Player, ground: Ground): Position =
       return {
         x: player.position.x + 1,
         y: player.position.y,
+      };
+    case Direction.DOWN_AND_LEFT:
+      return {
+        x: player.position.x - 1,
+        y: player.position.y + 1,
+      };
+    case Direction.DOWN_AND_RIGHT:
+      return {
+        x: player.position.x + 1,
+        y: player.position.y + 1,
+      };
+    case Direction.UP_AND_LEFT:
+      return {
+        x: player.position.x - 1,
+        y: player.position.y - 1,
+      };
+    case Direction.UP_AND_RIGHT:
+      return {
+        x: player.position.x + 1,
+        y: player.position.y - 1,
       };
     default:
       return {

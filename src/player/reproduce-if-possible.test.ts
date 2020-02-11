@@ -106,12 +106,24 @@ describe('reproduceIfPossible', () => {
       expect(reproduceIfPossible(player, ground)).toEqual([]);
     });
     it('should return empty array if the user has eaten more than 2 food, but there is no available direction to reproduce in', () => {
+      /*
+       * | x | x | x |
+       * | x | y | x |
+       * | x | x | x |
+       * No available moves for y
+       */
+
       const foodEaten = [createFood({ position: { x: 1, y: 1 } }), createFood({ position: { x: 1, y: 1 } })];
-      const player = createPlayer({ position: { x: 0, y: 1 }, foodEaten });
+      const player = createPlayer({ position: { x: 1, y: 1 }, foodEaten });
       const otherPlayers = [
+        createPlayer({ position: { x: 0, y: 1 } }),
+        createPlayer({ position: { x: 1, y: 0 } }),
+        createPlayer({ position: { x: 1, y: 2 } }),
+        createPlayer({ position: { x: 2, y: 1 } }),
         createPlayer({ position: { x: 0, y: 0 } }),
-        createPlayer({ position: { x: 1, y: 1 } }),
         createPlayer({ position: { x: 0, y: 2 } }),
+        createPlayer({ position: { x: 2, y: 0 } }),
+        createPlayer({ position: { x: 2, y: 2 } }),
       ];
       const ground = createGround({ players: [player, ...otherPlayers] });
       expect(reproduceIfPossible(player, ground)).toEqual([]);

@@ -13,11 +13,22 @@ describe('canReproduce', () => {
         expect(canReproduce(player, ground)).toEqual(true);
       });
       it('should return false if there is no available spot to put the new player', () => {
-        const player = createPlayer({ position: { x: 0, y: 1 }, foodEaten });
+        const player = createPlayer({ position: { x: 1, y: 1 }, foodEaten });
+        /*
+         * | x | x | x |
+         * | x | y | x |
+         * | x | x | x |
+         * no available moves for y
+         */
         const otherPlayers = [
+          createPlayer({ position: { x: 0, y: 1 } }),
+          createPlayer({ position: { x: 1, y: 0 } }),
+          createPlayer({ position: { x: 1, y: 2 } }),
+          createPlayer({ position: { x: 2, y: 1 } }),
           createPlayer({ position: { x: 0, y: 0 } }),
-          createPlayer({ position: { x: 1, y: 1 } }),
           createPlayer({ position: { x: 0, y: 2 } }),
+          createPlayer({ position: { x: 2, y: 0 } }),
+          createPlayer({ position: { x: 2, y: 2 } }),
         ];
         const ground = createGround({ players: [player, ...otherPlayers] });
         expect(canReproduce(player, ground)).toEqual(false);
