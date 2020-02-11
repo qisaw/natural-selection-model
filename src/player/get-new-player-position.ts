@@ -81,19 +81,19 @@ const isPositionFree = (xValue: number, yValue: number, direction: Direction, gr
 };
 
 const getDirection = (xValue: number, yValue: number, ground: Ground): Direction | void => {
+  const canMoveUp = yValue > 0;
+  const canMoveDown = yValue < ground.dimensions.height - 1;
+  const canMoveLeft = xValue > 0;
+  const canMoveRight = xValue < ground.dimensions.width - 1;
   const directionArray = [
-    { value: Direction.UP, predicate: yValue > 0 },
-    { value: Direction.DOWN, predicate: yValue < ground.dimensions.height - 1 },
-    { value: Direction.LEFT, predicate: xValue > 0 },
-    { value: Direction.RIGHT, predicate: xValue < ground.dimensions.width - 1 },
-    // @TODO ensure the left and right movements aswell
-    { value: Direction.UP_AND_LEFT, predicate: yValue > 0 && xValue > 0 },
-    { value: Direction.UP_AND_RIGHT, predicate: yValue > 0 && xValue < ground.dimensions.width - 1 },
-    { value: Direction.DOWN_AND_LEFT, predicate: yValue < ground.dimensions.height - 1 && xValue > 0 },
-    {
-      value: Direction.DOWN_AND_RIGHT,
-      predicate: yValue < ground.dimensions.height - 1 && xValue < ground.dimensions.width - 1,
-    },
+    { value: Direction.UP, predicate: canMoveUp },
+    { value: Direction.DOWN, predicate: canMoveDown },
+    { value: Direction.LEFT, predicate: canMoveLeft },
+    { value: Direction.RIGHT, predicate: canMoveRight },
+    { value: Direction.UP_AND_LEFT, predicate: canMoveUp && canMoveLeft },
+    { value: Direction.UP_AND_RIGHT, predicate: canMoveUp && canMoveRight },
+    { value: Direction.DOWN_AND_LEFT, predicate: canMoveDown && canMoveLeft },
+    { value: Direction.DOWN_AND_RIGHT, predicate: canMoveDown && canMoveRight },
   ];
   const availableDirections = directionArray
     .filter(({ predicate, value }) => predicate && isPositionFree(xValue, yValue, value, ground))
