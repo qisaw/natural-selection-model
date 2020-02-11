@@ -4,6 +4,7 @@ import { getNewPlayerPosition } from './get-new-player-position';
 import { createPlayer } from '.';
 import { canReproduce } from './can-reproduce';
 import { shouldMutateSpeed } from '../settings';
+import { DeepSet } from '../utils/deep-set';
 
 export const reproduceIfPossible = (player: Player, ground: Ground): Player[] => {
   if (canReproduce(player, ground)) {
@@ -28,7 +29,7 @@ export const reproduceIfPossible = (player: Player, ground: Ground): Player[] =>
         id: undefined,
         position: newPosition,
         foodEaten: [],
-        previousPositions: new Set(),
+        previousPositions: new DeepSet(),
       }),
     ];
   }

@@ -4,6 +4,7 @@ import { createGround } from '../ground/create-ground';
 import { reproduceIfPossible } from './reproduce-if-possible';
 import { Player } from './player';
 import * as settings from '../settings';
+import { DeepSet } from '../utils/deep-set';
 
 describe('reproduceIfPossible', () => {
   describe('can reproduce cases', () => {
@@ -13,7 +14,7 @@ describe('reproduceIfPossible', () => {
         position: { x: 0, y: 1 },
         foodEaten,
         energy: 30,
-        previousPositions: new Set([{ x: 1, y: 1 }]),
+        previousPositions: new DeepSet([{ x: 1, y: 1 }]),
       });
       const ground = createGround({ players: [player] });
       const newPlayers = reproduceIfPossible(player, ground);
@@ -39,7 +40,7 @@ describe('reproduceIfPossible', () => {
         expect(newPlayers[0].energy).not.toEqual(settings.getStartingPlayerEnergy());
       });
       it('should set the previousPositions to empty', () => {
-        expect(newPlayers[0].previousPositions).toEqual(new Set());
+        expect(newPlayers[0].previousPositions).toEqual(new DeepSet());
       });
     });
     describe('hasSpeedMutation', () => {

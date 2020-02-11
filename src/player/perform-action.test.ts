@@ -3,6 +3,7 @@ import { createGround } from '../ground/create-ground';
 import { performAction } from './perform-action';
 import { createFood } from '../food';
 import { Player } from './player';
+import { DeepSet } from '../utils/deep-set';
 
 describe('movePlayer', () => {
   describe('a player not in the board has been passed', () => {
@@ -46,14 +47,14 @@ describe('movePlayer', () => {
       it('should move the player', () => {
         const previousPositions = [{ x: 1, y: 1 }];
         const players = [
-          createPlayer({ position: { x: 1, y: 1 }, energy: 1, previousPositions: new Set(previousPositions) }),
+          createPlayer({ position: { x: 1, y: 1 }, energy: 1, previousPositions: new DeepSet(previousPositions) }),
         ];
         const ground = createGround({ players });
         const newGround = performAction(players[0], ground);
         expect(newGround.players[0].id).toEqual(players[0].id);
         expect(newGround.players[0].position).not.toEqual(players[0].position);
         expect(newGround.players[0].previousPositions).toEqual(
-          new Set([...previousPositions, newGround.players[0].position]),
+          new DeepSet([...previousPositions, newGround.players[0].position]),
         );
       });
       it('should decrease the energy when a user moves', () => {

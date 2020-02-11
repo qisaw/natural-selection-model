@@ -6,6 +6,7 @@ import { getFoodFromGround } from '../food/get-food-from-ground';
 import { reproduceIfPossible } from './reproduce-if-possible';
 import { Position } from '../global/types';
 import { getEnergyConsumption } from './get-energy-consumption';
+import { DeepSet } from '../utils/deep-set';
 
 const setPlayerInPlayersArray = (player: Player, players: Player[]): Player[] => {
   const idx = players.findIndex(({ id }: Player): boolean => id === player.id);
@@ -44,7 +45,7 @@ export const performAction = (player: Player, ground: Ground): Ground => {
     position: newPosition,
     energy: newEnergy,
     foodEaten: playerFood,
-    previousPositions: new Set(player.previousPositions).add(newPosition),
+    previousPositions: new DeepSet(Array.from(player.previousPositions.values())).add(newPosition),
   });
   const newPlayerArray = setPlayerInPlayersArray(newPlayer, ground.players);
   return {

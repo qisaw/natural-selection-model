@@ -2,6 +2,7 @@ import { createPlayer } from '../player';
 import { createFood } from '.';
 import { createGround } from '../ground/create-ground';
 import { addNewFoodToGround } from './add-food-to-ground';
+import { DeepSet } from '../utils/deep-set';
 
 describe('addNewFoodToGround', () => {
   const dimensions = {
@@ -14,7 +15,7 @@ describe('addNewFoodToGround', () => {
    * |   |   |
    * here there are 2 available spots for food and we choose x: 1 y: 1
    */
-  const previousPositions = new Set([{ x: 0, y: 0 }]);
+  const previousPositions = new DeepSet([{ x: 0, y: 0 }]);
   const players = [createPlayer({ position: { x: 0, y: 0 }, previousPositions })];
   const foodAlreadyExisting = [createFood({ position: { x: 1, y: 0 } })];
   const ground = createGround({ dimensions, food: foodAlreadyExisting, players });
@@ -26,7 +27,7 @@ describe('addNewFoodToGround', () => {
       expect(newGround.food.map(({ id }) => id).sort()).toEqual([foodAlreadyExisting[0].id, newFood[0].id].sort());
     });
     it('should clear all players previousPositions', () => {
-      expect(newGround.players[0].previousPositions).toEqual(new Set());
+      expect(newGround.players[0].previousPositions).toEqual(new DeepSet());
     });
   });
   describe('food is not added', () => {

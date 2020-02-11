@@ -1,6 +1,7 @@
 import { Position } from '../global/types';
 import { Food } from '../food/food';
 import { Player } from './player';
+import { DeepSet } from '../utils/deep-set';
 export interface PlayerData {
   position: Position;
   id?: string;
@@ -8,7 +9,7 @@ export interface PlayerData {
   energy?: number;
   foodEaten?: Food[];
   speed?: number;
-  previousPositions?: Set<Position>;
+  previousPositions?: DeepSet<Position>;
 }
 
 export type PlayerMovementPattern = Map<Player, boolean[]>;
