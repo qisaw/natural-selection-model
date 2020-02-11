@@ -28,7 +28,7 @@ const createRandomPlayers = (numOfPlayers: number, dimensions: GroundDimensions)
       y: yPosition,
     };
     const label = 'O';
-    const speed = 1;
+    const speed = 2;
     players.push(createPlayer({ position, label, speed }));
   }
   return players;
@@ -43,14 +43,12 @@ const initialGround = createGround({
   food,
 });
 
-const delay = (ms: number): Promise<void> => new Promise(res => setTimeout(res, ms));
-const main = async (): Promise<void> => {
+const main = (): void => {
   let ground = initialGround;
   // eslint-disable-next-line no-console
   console.log('--------- ground --------- turn 0 ---------');
   // eslint-disable-next-line no-console
   console.log(getGroundAsString(ground));
-  await delay(100);
   let turnNumber = 0;
   while (ground.players.length && turnNumber < MAX_TURNS) {
     ground = makeMove(ground);
