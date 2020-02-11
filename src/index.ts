@@ -6,6 +6,7 @@ import { getGroundAsString } from './ground/get-ground-as-string';
 import { Player } from './player/player';
 import { GroundDimensions } from './ground/types';
 import { getNewFoodToAddToBoard } from './food/get-new-food-to-add-to-board';
+import { addNewFoodToGround } from './food/add-food-to-ground';
 
 const width = 30;
 const height = 30;
@@ -63,7 +64,7 @@ const main = async (): Promise<void> => {
     ground = makeMove(ground);
     if (turnNumber % 1000 === 0 && turnNumber > 0) {
       const newFood = getNewFoodToAddToBoard(numOfFoodToCreate, dimensions, ground.players, ground.food);
-      ground = { ...ground, food: [...ground.food, ...newFood] };
+      ground = addNewFoodToGround(ground, newFood);
     }
     // eslint-disable-next-line no-console
     console.clear();
