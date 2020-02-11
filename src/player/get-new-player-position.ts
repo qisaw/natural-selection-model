@@ -23,49 +23,56 @@ const getRandomDirection = (availableDirections: Direction[]): Direction | void 
   return availableDirections[index];
 };
 
-const isPositionFree = (xValue: number, yValue: number, direction: Direction, ground: Ground): boolean => {
-  let nextPosition: Position;
+const getNextPosition = (xValue: number, yValue: number, direction: Direction): Position => {
   if (direction === Direction.UP) {
-    nextPosition = {
+    return {
       x: xValue,
       y: yValue - 1,
     };
-  } else if (direction === Direction.DOWN) {
-    nextPosition = {
+  }
+  if (direction === Direction.DOWN) {
+    return {
       x: xValue,
-      y: yValue + 1,
-    };
-  } else if (direction === Direction.LEFT) {
-    nextPosition = {
-      x: xValue - 1,
-      y: yValue,
-    };
-  } else if (direction === Direction.RIGHT) {
-    nextPosition = {
-      x: xValue + 1,
-      y: yValue,
-    };
-  } else if (direction === Direction.UP_AND_LEFT) {
-    nextPosition = {
-      x: xValue - 1,
-      y: yValue - 1,
-    };
-  } else if (direction === Direction.UP_AND_RIGHT) {
-    nextPosition = {
-      x: xValue + 1,
-      y: yValue - 1,
-    };
-  } else if (direction === Direction.DOWN_AND_LEFT) {
-    nextPosition = {
-      x: xValue - 1,
-      y: yValue + 1,
-    };
-  } else {
-    nextPosition = {
-      x: xValue + 1,
       y: yValue + 1,
     };
   }
+  if (direction === Direction.LEFT) {
+    return {
+      x: xValue - 1,
+      y: yValue,
+    };
+  }
+  if (direction === Direction.RIGHT) {
+    return {
+      x: xValue + 1,
+      y: yValue,
+    };
+  }
+  if (direction === Direction.UP_AND_LEFT) {
+    return {
+      x: xValue - 1,
+      y: yValue - 1,
+    };
+  }
+  if (direction === Direction.UP_AND_RIGHT) {
+    return {
+      x: xValue + 1,
+      y: yValue - 1,
+    };
+  }
+  if (direction === Direction.DOWN_AND_LEFT) {
+    return {
+      x: xValue - 1,
+      y: yValue + 1,
+    };
+  }
+  return {
+    x: xValue + 1,
+    y: yValue + 1,
+  };
+};
+const isPositionFree = (xValue: number, yValue: number, direction: Direction, ground: Ground): boolean => {
+  const nextPosition = getNextPosition(xValue, yValue, direction);
   if (
     nextPosition.x > ground.dimensions.width - 1 ||
     nextPosition.x < 0 ||
@@ -95,10 +102,17 @@ const getDirection = (player: Player, ground: Ground): Direction | void => {
     { value: Direction.DOWN_AND_LEFT, predicate: canMoveDown && canMoveLeft },
     { value: Direction.DOWN_AND_RIGHT, predicate: canMoveDown && canMoveRight },
   ];
-  const availableDirections = directionArray
-    .filter(({ predicate, value }) => predicate && isPositionFree(player.position.x, player.position.y, value, ground))
-    .map(({ value }) => value);
-  return getRandomDirection(availableDirections);
+  const directionsAvailableToPlayer = directionArray.filter(
+    ({ predicate, value }) => predicate && isPositionFree(player.position.x, player.position.y, value, ground),
+  );
+  const directionsPlayerHasYetToMoveTo = directionsAvailableToPlayer.filter(({ value }) => {
+    const possibleNextPosition = getNextPosition(player.position.x, player.position.y, value);
+    return !player.previousPositions.has(possibleNextPosition);
+  });
+  const availableDirections = directionsPlayerHasYetToMoveTo.length
+    ? directionsPlayerHasYetToMoveTo
+    : directionsAvailableToPlayer;
+  return getRandomDirection(availableDirections.map(({ value }) => value));
 };
 
 export const getNewPlayerPosition = (player: Player, ground: Ground): Position => {

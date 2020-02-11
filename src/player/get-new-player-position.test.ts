@@ -1,6 +1,7 @@
 import { createPlayer } from '.';
 import { createGround } from '../ground/create-ground';
 import { getNewPlayerPosition } from './get-new-player-position';
+import { DeepSet } from '../utils/deep-set';
 
 const dimensions = {
   width: 10,
@@ -356,6 +357,55 @@ describe('getNewPlayerPosition', () => {
           expect(position.x).toEqual(playerToMove.position.x - 1);
           expect(position.y).toEqual(playerToMove.position.y - 1);
         });
+      });
+    });
+    describe('preventing going back over the same places', () => {
+      it('should move the user to places where they have not yet been first', () => {
+        /*
+         * | M | M | M |
+         * | M | X | M |
+         * |   | M | M |
+         *  Here the user has already moved everywhere except the bottom left
+         */
+        const previousPositions = new DeepSet([
+          { x: 0, y: 0 },
+          { x: 0, y: 1 },
+          { x: 0, y: 2 },
+          { x: 1, y: 0 },
+          { x: 1, y: 1 },
+          { x: 1, y: 2 },
+          { x: 2, y: 1 },
+          { x: 2, y: 2 },
+        ]);
+        const playerToMove = createPlayer({ position: { x: 1, y: 1 }, previousPositions });
+        const ground = createGround({ dimensions, players: [playerToMove] });
+        const position = getNewPlayerPosition(playerToMove, ground);
+        expect(position.x).toEqual(playerToMove.position.x + 1);
+        expect(position.y).toEqual(playerToMove.position.y - 1);
+      });
+      it('should just pick a valid direction if the user already moved all possible ways', () => {
+        /*
+         * | M | M | M |
+         * | M | X | M |
+         * | M | M | M |
+         *  Here the user has already moved everywhere
+         */
+        const previousPositions = new DeepSet([
+          { x: 0, y: 0 },
+          { x: 0, y: 1 },
+          { x: 0, y: 2 },
+          { x: 1, y: 0 },
+          { x: 1, y: 1 },
+          { x: 1, y: 2 },
+          { x: 2, y: 0 },
+          { x: 2, y: 1 },
+          { x: 2, y: 2 },
+        ]);
+        const playerToMove = createPlayer({ position: { x: 1, y: 1 }, previousPositions });
+        const ground = createGround({ dimensions, players: [playerToMove] });
+        const position = getNewPlayerPosition(playerToMove, ground);
+        expect(position.x).not.toEqual(playerToMove.position.x);
+        expect(position.y).not.toEqual(playerToMove.position.y);
       });
     });
     describe('collisions', () => {
