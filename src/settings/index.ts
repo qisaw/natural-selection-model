@@ -6,8 +6,30 @@ export enum LOG_LEVEL {
   fatal,
 }
 
-export const logLevel = (): LOG_LEVEL => (process.env.LOG_LEVEl || LOG_LEVEL.info) as LOG_LEVEL;
-export const humanReadableLogs = (): boolean => (process.env.HUMAN_READABLE_LOG === 'true' ? true : false);
-export const getStartingPlayerEnergy = (): number => 1000;
-export const shouldMutateSpeed = (): boolean => (process.env.MUTATE_SPEED === 'false' ? false : true);
-export const maxNumOfAttemptsToGetEmptySpot = (): number => 100;
+type Overrides = {
+  logLevel?: LOG_LEVEL;
+  humanReadableLogs?: boolean;
+  getStartingPlayerEnergy?: number;
+  shouldMutateSpeed?: boolean;
+  maxNumOfAttemptsToGetEmptySpot?: number;
+};
+let overrides: Overrides = {};
+
+export const setOverrides = (addedOvedrrides: Overrides): void => {
+  overrides = { ...addedOvedrrides };
+};
+
+type AllowedKeys = keyof Overrides;
+export const unsetOverrides = (keys: AllowedKeys[]): void => {
+  for (const key of keys) {
+    overrides[key] = undefined;
+  }
+};
+
+export const logLevel = (): LOG_LEVEL => overrides.logLevel || LOG_LEVEL.info;
+export const humanReadableLogs = (): boolean =>
+  overrides.humanReadableLogs === undefined ? true : overrides.humanReadableLogs;
+export const getStartingPlayerEnergy = (): number => overrides.getStartingPlayerEnergy || 1000;
+export const shouldMutateSpeed = (): boolean =>
+  overrides.shouldMutateSpeed === undefined ? true : overrides.shouldMutateSpeed;
+export const maxNumOfAttemptsToGetEmptySpot = (): number => overrides.maxNumOfAttemptsToGetEmptySpot || 100;
