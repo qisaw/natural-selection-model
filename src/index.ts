@@ -1,12 +1,10 @@
 import median from 'median';
 import { createGround } from './ground/create-ground';
-import { createPlayer } from './player';
 import { makeMove } from './ground/make-move';
 import { getGroundAsString } from './ground/get-ground-as-string';
-import { Player } from './player/player';
-import { GroundDimensions } from './ground/types';
 import { getNewFoodToAddToBoard } from './food/get-new-food-to-add-to-board';
 import { addNewFoodToGround } from './food/add-food-to-ground';
+import { createPlayersInRandomPositions } from './player/create-players-in-random-positions';
 
 const width = 30;
 const height = 30;
@@ -14,27 +12,7 @@ const numOfFoodToCreate = 50;
 const dimensions = { width, height };
 const MAX_TURNS = 1000 * 1000;
 
-const createRandomPlayers = (numOfPlayers: number, dimensions: GroundDimensions): Player[] => {
-  const players: Player[] = [];
-  for (let i = 0; i < numOfPlayers; i++) {
-    let xPosition = Math.round(Math.random() * (dimensions.width - 1));
-    let yPosition = Math.round(Math.random() * (dimensions.height - 1));
-    while (!!players.find(({ position }) => position.x === xPosition && position.y && yPosition)) {
-      xPosition = Math.round(Math.random() * (dimensions.width - 1));
-      yPosition = Math.round(Math.random() * (dimensions.height - 1));
-    }
-    const position = {
-      x: xPosition,
-      y: yPosition,
-    };
-    const label = 'O';
-    const speed = 2;
-    players.push(createPlayer({ position, label, speed }));
-  }
-  return players;
-};
-
-const players = createRandomPlayers(32, dimensions);
+const players = createPlayersInRandomPositions(32, dimensions, [], []);
 const food = getNewFoodToAddToBoard(numOfFoodToCreate, dimensions, players, []);
 
 const initialGround = createGround({
