@@ -24,7 +24,7 @@ export const performAction = (player: Player, ground: Ground): Ground => {
   }
   const newPlayers = reproduceIfPossible(player, ground);
   if (newPlayers.length) {
-    const updatedPlayer = { ...player, foodEaten: [] };
+    const updatedPlayer = { ...player, foodEaten: player.foodEaten.slice(2) };
     const newPlayerArray = [...setPlayerInPlayersArray(updatedPlayer, ground.players), ...newPlayers];
     return { ...ground, players: newPlayerArray };
   }

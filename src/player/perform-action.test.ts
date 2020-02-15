@@ -24,7 +24,11 @@ describe('movePlayer', () => {
   });
   describe('the player still has energy', () => {
     describe('the player can reproduce', () => {
-      const foodEaten = [createFood({ position: { x: 1, y: 1 } }), createFood({ position: { x: 1, y: 1 } })];
+      const foodEaten = [
+        createFood({ position: { x: 1, y: 1 } }),
+        createFood({ position: { x: 1, y: 1 } }),
+        createFood({ position: { x: 1, y: 1 } }),
+      ];
       const player = createPlayer({ position: { x: 0, y: 1 }, energy: 1, foodEaten });
       const ground = createGround({ players: [player] });
       const newGround = performAction(player, ground);
@@ -36,7 +40,7 @@ describe('movePlayer', () => {
         expect(samePlayer.position).toEqual(player.position);
       });
       it('should clear the food eaten', () => {
-        expect(samePlayer.foodEaten).toEqual([]);
+        expect(samePlayer.foodEaten).toHaveLength(1);
       });
       it('should create a new player in a different position', () => {
         const otherPlayer = newGround.players.find(({ id }) => id !== player.id) as Player;
