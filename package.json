@@ -7,10 +7,14 @@
     "build": "babel src --extensions .ts --out-dir build",
     "typecheck": "tsc --noEmit",
     "start:dev": "HUMAN_READABLE_LOG=true babel-node --extensions .ts src/index.ts",
+    "start:cli":"npm run build && node build/cli/index.js",
     "start": "node build/index.js",
     "lint": "eslint ./ --ext .js,.ts",
     "format": "eslint ./ --ext .js,.ts --fix",
     "test": "jest"
+  },
+  "bin": {
+    "natural-selection-model": "build/cli/index.js"
   },
   "repository": {
     "type": "git",
@@ -53,6 +57,7 @@
     "knuth-shuffle": "^1.0.8",
     "lodash.groupby": "^4.6.0",
     "median": "0.0.2",
-    "uuid": "^3.4.0"
+    "uuid": "^3.4.0",
+    "yargs": "^15.1.0"
   }
 }
