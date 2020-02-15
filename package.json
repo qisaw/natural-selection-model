@@ -6,7 +6,6 @@
   "scripts": {
     "build": "babel src --extensions .ts --out-dir build",
     "typecheck": "tsc --noEmit",
-    "start:dev": "HUMAN_READABLE_LOG=true babel-node --extensions .ts src/index.ts",
     "start:cli":"npm run build && node build/cli/index.js",
     "start": "node build/index.js",
     "lint": "eslint ./ --ext .js,.ts",
