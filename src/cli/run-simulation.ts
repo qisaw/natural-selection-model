@@ -95,28 +95,24 @@ export const command: CommandModule<{}, Arguments> = {
         describe: 'The width of the ground the players will move on',
         demandOption: false,
         type: 'number',
-        alias: 'w',
         default: 10,
       })
       .option('height', {
         describe: 'The height of the ground the players will move on',
         demandOption: false,
         type: 'number',
-        alias: 'h',
         default: 10,
       })
       .option('initalNumOfPlayers', {
         describe: 'The number of players that should be placed on the board at the beginning',
         type: 'number',
         default: 10,
-        alias: 'p',
         demandOption: false,
       })
       .option('initialNumOfFood', {
         describe: 'The amount of players that should be placed on the board at the beginning',
         type: 'number',
         default: 10,
-        alias: 'f',
         demandOption: false,
       })
       .option('maxNumOfTurns', {
@@ -124,28 +120,24 @@ export const command: CommandModule<{}, Arguments> = {
           'The maximum number of turns to play. The program runs until there are no more players on the board or until the max number of turns are played',
         type: 'number',
         default: 10000,
-        alias: 't',
         demandOption: false,
       })
       .option('numOfTurnsBetweenFood', {
         describe: 'The number of turns between addition of food',
         type: 'number',
         default: 1000,
-        alias: 'b',
         demandOption: false,
       })
       .option('energyAdditionForFood', {
         describe: 'The amount of energy eating food gives a player',
         type: 'number',
         default: 1000,
-        alias: 'e',
         demandOption: false,
       })
       .option('startingPlayerEnergy', {
         describe: 'The number of moves a player with 1 speed can move before dying',
         type: 'number',
         default: 1000,
-        alias: 's',
         demandOption: false,
       })
       .usage('$0 Runs the natural selection simulation with output in the terminal')
