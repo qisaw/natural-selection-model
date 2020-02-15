@@ -2,8 +2,7 @@ import { GroundDimensions } from '../ground/types';
 import { Player } from '../player/player';
 import { Food } from './food';
 import { createFood } from '.';
-
-const MAX_NUM_OF_ATTEMPTS_TO_GET_EMPTY_FOOD_SPOT = 100;
+import { maxNumOfAttemptsToGetEmptySpot } from '../settings';
 
 export const getNewFoodToAddToBoard = (
   idealNumOfFoodToAdd: number,
@@ -22,7 +21,7 @@ export const getNewFoodToAddToBoard = (
       !!foodAlreadyExisting.find(({ position }) => position.x === xPosition && position.y === yPosition) ||
       !!foodArray.find(({ position }) => position.x === xPosition && position.y === yPosition)
     ) {
-      if (attempts >= MAX_NUM_OF_ATTEMPTS_TO_GET_EMPTY_FOOD_SPOT) {
+      if (attempts >= maxNumOfAttemptsToGetEmptySpot()) {
         positionFound = false;
         break;
       }

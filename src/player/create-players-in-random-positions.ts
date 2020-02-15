@@ -2,8 +2,7 @@ import { GroundDimensions } from '../ground/types';
 import { Player } from './player';
 import { createPlayer } from '.';
 import { Food } from '../food/food';
-
-const MAX_NUM_OF_ATTEMPTS_TO_GET_EMPTY_FOOD_SPOT = 100;
+import { maxNumOfAttemptsToGetEmptySpot } from '../settings';
 
 export const createPlayersInRandomPositions = (
   idealNumOfPlayersToAdd: number,
@@ -22,7 +21,7 @@ export const createPlayersInRandomPositions = (
       !!existingPlayers.find(({ position }) => position.x === xPosition && position.y === yPosition) ||
       !!players.find(({ position }) => position.x === xPosition && position.y && yPosition)
     ) {
-      if (attempts >= MAX_NUM_OF_ATTEMPTS_TO_GET_EMPTY_FOOD_SPOT) {
+      if (attempts >= maxNumOfAttemptsToGetEmptySpot()) {
         positionFound = false;
         break;
       }
