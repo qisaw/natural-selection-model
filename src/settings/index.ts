@@ -13,6 +13,7 @@ type Overrides = {
   shouldMutateSpeed?: boolean;
   maxNumOfAttemptsToGetEmptySpot?: number;
   energyAdditionForFood?: number;
+  startingPlayerSpeed?: number;
 };
 let overrides: Overrides = {};
 
@@ -35,3 +36,4 @@ export const shouldMutateSpeed = (): boolean =>
   overrides.shouldMutateSpeed === undefined ? true : overrides.shouldMutateSpeed;
 export const maxNumOfAttemptsToGetEmptySpot = (): number => overrides.maxNumOfAttemptsToGetEmptySpot || 100;
 export const energyAdditionForFood = (): number => overrides.energyAdditionForFood || 1000;
+export const startingPlayerSpeed = (): number => overrides.startingPlayerSpeed || 2;

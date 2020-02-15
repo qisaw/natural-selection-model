@@ -55,7 +55,7 @@ describe('Player', () => {
   });
   it('should set the default speed', () => {
     const player = new Player({ position: { x: 1, y: 2 } });
-    expect(player.speed).toEqual(10);
+    expect(player.speed).toEqual(2);
   });
   it('should set previousPositions', () => {
     const previousPositions = new DeepSet([{ x: 1, y: 1 }]);

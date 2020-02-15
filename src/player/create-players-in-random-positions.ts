@@ -2,7 +2,7 @@ import { GroundDimensions } from '../ground/types';
 import { Player } from './player';
 import { createPlayer } from '.';
 import { Food } from '../food/food';
-import { maxNumOfAttemptsToGetEmptySpot } from '../settings';
+import { maxNumOfAttemptsToGetEmptySpot, startingPlayerSpeed } from '../settings';
 
 export const createPlayersInRandomPositions = (
   idealNumOfPlayersToAdd: number,
@@ -35,7 +35,7 @@ export const createPlayersInRandomPositions = (
         y: yPosition,
       };
       const label = 'x';
-      const speed = 2;
+      const speed = startingPlayerSpeed();
       players.push(createPlayer({ position, label, speed }));
     }
   }

@@ -2,7 +2,7 @@ import uuid from 'uuid/v4';
 import { PlayerData } from './types';
 import { Position } from '../global/types';
 import { Food } from '../food/food';
-import { startingPlayerEnergy } from '../settings';
+import { startingPlayerEnergy, startingPlayerSpeed } from '../settings';
 import { DeepSet } from '../utils/deep-set';
 
 export class Player {
@@ -19,7 +19,7 @@ export class Player {
     this.label = label || 'x';
     this.energy = energy === undefined ? startingPlayerEnergy() : energy;
     this.foodEaten = foodEaten || [];
-    this.speed = speed || 10;
+    this.speed = speed || startingPlayerSpeed();
     this.previousPositions = previousPositions || new DeepSet();
   }
 }
