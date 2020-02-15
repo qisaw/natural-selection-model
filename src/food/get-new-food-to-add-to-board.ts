@@ -2,11 +2,10 @@ import { GroundDimensions } from '../ground/types';
 import { Player } from '../player/player';
 import { Food } from './food';
 import { createFood } from '.';
-import { maxNumOfAttemptsToGetEmptySpot } from '../settings';
+import { maxNumOfAttemptsToGetEmptySpot, energyAdditionForFood } from '../settings';
 
 export const getNewFoodToAddToBoard = (
   idealNumOfFoodToAdd: number,
-  energyAddition: number,
   dimensions: GroundDimensions,
   players: Player[],
   foodAlreadyExisting: Food[],
@@ -35,7 +34,7 @@ export const getNewFoodToAddToBoard = (
         x: xPosition,
         y: yPosition,
       };
-      const food = createFood({ position, energyAddition });
+      const food = createFood({ position, energyAddition: energyAdditionForFood() });
       foodArray.push(food);
     }
   }
