@@ -6,6 +6,7 @@ import { maxNumOfAttemptsToGetEmptySpot } from '../settings';
 
 export const getNewFoodToAddToBoard = (
   idealNumOfFoodToAdd: number,
+  energyAddition: number,
   dimensions: GroundDimensions,
   players: Player[],
   foodAlreadyExisting: Food[],
@@ -34,7 +35,7 @@ export const getNewFoodToAddToBoard = (
         x: xPosition,
         y: yPosition,
       };
-      const food = createFood({ position, energyAddition: 1000 });
+      const food = createFood({ position, energyAddition });
       foodArray.push(food);
     }
   }

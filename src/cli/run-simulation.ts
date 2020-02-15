@@ -17,6 +17,7 @@ type Arguments = {
   initialNumOfFood: number;
   maxNumOfTurns: number;
   numOfTurnsBetweenFood: number;
+  foodEnergyAddition: number;
 };
 
 const printLine = (word: string, ground: Ground): void => {
@@ -51,13 +52,21 @@ export const command: CommandModule<{}, Arguments> = {
   command: 'run-simulation',
   describe: 'Run the natural selection simulation in your terminal',
   aliases: ['sim'],
-  handler: ({ width, height, initalNumOfPlayers, initialNumOfFood, maxNumOfTurns, numOfTurnsBetweenFood }) => {
+  handler: ({
+    width,
+    height,
+    initalNumOfPlayers,
+    initialNumOfFood,
+    maxNumOfTurns,
+    numOfTurnsBetweenFood,
+    foodEnergyAddition,
+  }) => {
     const dimensions = {
       height,
       width,
     };
     const players = createPlayersInRandomPositions(initalNumOfPlayers, dimensions, [], []);
-    const food = getNewFoodToAddToBoard(initialNumOfFood, dimensions, players, []);
+    const food = getNewFoodToAddToBoard(initialNumOfFood, foodEnergyAddition, dimensions, players, []);
     let ground = createGround({
       dimensions,
       players,
@@ -67,7 +76,13 @@ export const command: CommandModule<{}, Arguments> = {
     while (ground.players.length && turn < maxNumOfTurns) {
       turn++;
       if (turn % (numOfTurnsBetweenFood + 1) === 0) {
-        const newFood = getNewFoodToAddToBoard(initialNumOfFood, dimensions, ground.players, ground.food);
+        const newFood = getNewFoodToAddToBoard(
+          initialNumOfFood,
+          foodEnergyAddition,
+          dimensions,
+          ground.players,
+          ground.food,
+        );
         ground = addNewFoodToGround(ground, newFood);
       }
       ground = makeMove(ground);
@@ -119,6 +134,13 @@ export const command: CommandModule<{}, Arguments> = {
         type: 'number',
         default: 1000,
         alias: 'b',
+        demandOption: false,
+      })
+      .option('foodEnergyAddition', {
+        describe: 'The amount of energy eating food gives a player',
+        type: 'number',
+        default: 1000,
+        alias: 'e',
         demandOption: false,
       })
       .usage('$0 Runs the natural selection simulation with output in the terminal')
