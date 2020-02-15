@@ -25,9 +25,6 @@ describe('reproduceIfPossible', () => {
       it('new player should have not eaten any food', () => {
         expect(newPlayers[0].foodEaten).toHaveLength(0);
       });
-      it('should set new player foodEaten to nothing', () => {
-        expect(newPlayers[0].foodEaten).toHaveLength(0);
-      });
       it('should set a new id', () => {
         expect(newPlayers[0].id).toBeDefined();
         expect(newPlayers[0].id).not.toEqual(player.id);
