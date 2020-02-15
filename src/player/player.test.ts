@@ -1,7 +1,7 @@
 import { Player } from './player';
 import uuid from 'uuid';
 import { Food } from '../food/food';
-import { getStartingPlayerEnergy } from '../settings';
+import { startingPlayerEnergy } from '../settings';
 import { DeepSet } from '../utils/deep-set';
 
 describe('Player', () => {
@@ -38,7 +38,7 @@ describe('Player', () => {
   });
   it('should set the default energy', () => {
     const player = new Player({ position: { x: 1, y: 2 } });
-    expect(player.energy).toEqual(getStartingPlayerEnergy());
+    expect(player.energy).toEqual(startingPlayerEnergy());
   });
   it('should set foodEaten', () => {
     const foodEaten = [new Food({ position: { x: 1, y: 2 } })];

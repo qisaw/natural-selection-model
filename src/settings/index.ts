@@ -9,7 +9,7 @@ export enum LOG_LEVEL {
 type Overrides = {
   logLevel?: LOG_LEVEL;
   humanReadableLogs?: boolean;
-  getStartingPlayerEnergy?: number;
+  startingPlayerEnergy?: number;
   shouldMutateSpeed?: boolean;
   maxNumOfAttemptsToGetEmptySpot?: number;
   energyAdditionForFood?: number;
@@ -30,7 +30,7 @@ export const unsetOverrides = (keys: AllowedKeys[]): void => {
 export const logLevel = (): LOG_LEVEL => overrides.logLevel || LOG_LEVEL.info;
 export const humanReadableLogs = (): boolean =>
   overrides.humanReadableLogs === undefined ? true : overrides.humanReadableLogs;
-export const getStartingPlayerEnergy = (): number => overrides.getStartingPlayerEnergy || 1000;
+export const startingPlayerEnergy = (): number => overrides.startingPlayerEnergy || 1000;
 export const shouldMutateSpeed = (): boolean =>
   overrides.shouldMutateSpeed === undefined ? true : overrides.shouldMutateSpeed;
 export const maxNumOfAttemptsToGetEmptySpot = (): number => overrides.maxNumOfAttemptsToGetEmptySpot || 100;

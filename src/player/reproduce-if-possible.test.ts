@@ -34,7 +34,7 @@ describe('reproduceIfPossible', () => {
         expect(positon).not.toEqual(player.position);
       });
       it('should set the same energy as the starting energy', () => {
-        expect(newPlayers[0].energy).not.toEqual(settings.getStartingPlayerEnergy());
+        expect(newPlayers[0].energy).not.toEqual(settings.startingPlayerEnergy());
       });
       it('should set the previousPositions to empty', () => {
         expect(newPlayers[0].previousPositions).toEqual(new DeepSet());
