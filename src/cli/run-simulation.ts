@@ -20,6 +20,7 @@ type Arguments = {
   numOfTurnsBetweenFood: number;
   energyAdditionForFood: number;
   startingPlayerEnergy: number;
+  shouldMutateSpeed: boolean;
 };
 
 const printLine = (word: string, ground: Ground): void => {
@@ -63,10 +64,12 @@ export const command: CommandModule<{}, Arguments> = {
     numOfTurnsBetweenFood,
     energyAdditionForFood,
     startingPlayerEnergy,
+    shouldMutateSpeed,
   }) => {
     setOverrides({
       energyAdditionForFood,
       startingPlayerEnergy,
+      shouldMutateSpeed,
     });
     const dimensions = { height, width };
     const players = createPlayersInRandomPositions(initalNumOfPlayers, dimensions, [], []);
@@ -138,6 +141,12 @@ export const command: CommandModule<{}, Arguments> = {
         describe: 'The number of moves a player with 1 speed can move before dying',
         type: 'number',
         default: 1000,
+        demandOption: false,
+      })
+      .option('shouldMutateSpeed', {
+        describe: 'Shoud the simulation mutate speed',
+        type: 'boolean',
+        default: true,
         demandOption: false,
       })
       .usage('$0 Runs the natural selection simulation with output in the terminal')
