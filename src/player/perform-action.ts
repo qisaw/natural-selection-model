@@ -22,10 +22,12 @@ export const performAction = (player: Player, ground: Ground): Ground => {
   if (player.energy <= 0) {
     return { ...ground, players: ground.players.filter(({ id }: Player): boolean => id !== player.id) };
   }
-  const newPlayers = reproduceIfPossible(player, ground);
-  if (newPlayers.length) {
-    const updatedPlayer = { ...player, foodEaten: player.foodEaten.slice(2) };
-    const newPlayerArray = [...setPlayerInPlayersArray(updatedPlayer, ground.players), ...newPlayers];
+  const reproductionResult = reproduceIfPossible(player, ground);
+  if (reproductionResult.newPlayers.length) {
+    const newPlayerArray = [
+      ...setPlayerInPlayersArray(reproductionResult.originalPlayer, ground.players),
+      ...reproductionResult.newPlayers,
+    ];
     return { ...ground, players: newPlayerArray };
   }
   const newPosition = getNewPlayerPosition(player, ground);

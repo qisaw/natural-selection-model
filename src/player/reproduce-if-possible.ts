@@ -6,7 +6,12 @@ import { canReproduce } from './can-reproduce';
 import { shouldMutateSpeed } from '../settings';
 import { DeepSet } from '../utils/deep-set';
 
-export const reproduceIfPossible = (player: Player, ground: Ground): Player[] => {
+interface ReproductionResult {
+  originalPlayer: Player;
+  newPlayers: Player[];
+}
+
+export const reproduceIfPossible = (player: Player, ground: Ground): ReproductionResult => {
   if (canReproduce(player, ground)) {
     const newPosition = getNewPlayerPosition(player, ground);
     let newSpeed;
@@ -22,16 +27,22 @@ export const reproduceIfPossible = (player: Player, ground: Ground): Player[] =>
     } else {
       newSpeed = player.speed;
     }
-    return [
-      createPlayer({
-        ...player,
-        speed: newSpeed,
-        id: undefined,
-        position: newPosition,
-        foodEaten: [],
-        previousPositions: new DeepSet(),
-      }),
-    ];
+    const originalPlayer = { ...player, foodEaten: player.foodEaten.slice(2) };
+    const newPlayer = createPlayer({
+      ...player,
+      speed: newSpeed,
+      id: undefined,
+      position: newPosition,
+      foodEaten: [],
+      previousPositions: new DeepSet(),
+    });
+    return {
+      originalPlayer,
+      newPlayers: [newPlayer],
+    };
   }
-  return [];
+  return {
+    originalPlayer: player,
+    newPlayers: [],
+  };
 };

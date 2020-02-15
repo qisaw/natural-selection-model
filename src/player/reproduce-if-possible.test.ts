@@ -9,7 +9,11 @@ import { DeepSet } from '../utils/deep-set';
 describe('reproduceIfPossible', () => {
   describe('can reproduce cases', () => {
     describe('generic tests', () => {
-      const foodEaten = [createFood({ position: { x: 1, y: 1 } }), createFood({ position: { x: 1, y: 1 } })];
+      const foodEaten = [
+        createFood({ position: { x: 1, y: 1 } }),
+        createFood({ position: { x: 1, y: 1 } }),
+        createFood({ position: { x: 1, y: 1 } }),
+      ];
       const player = createPlayer({
         position: { x: 0, y: 1 },
         foodEaten,
@@ -17,7 +21,7 @@ describe('reproduceIfPossible', () => {
         previousPositions: new DeepSet([{ x: 1, y: 1 }]),
       });
       const ground = createGround({ players: [player] });
-      const newPlayers = reproduceIfPossible(player, ground);
+      const { newPlayers, originalPlayer } = reproduceIfPossible(player, ground);
       it('should return an array with new players if the player has eaten more than 2 food', () => {
         expect(newPlayers).toHaveLength(1);
         expect(newPlayers[0] instanceof Player).toBe(true);
@@ -39,6 +43,9 @@ describe('reproduceIfPossible', () => {
       it('should set the previousPositions to empty', () => {
         expect(newPlayers[0].previousPositions).toEqual(new DeepSet());
       });
+      it('should reduce the originalPlayers food by 2', () => {
+        expect(originalPlayer.foodEaten).toHaveLength(1);
+      });
     });
     describe('hasSpeedMutation', () => {
       let spy: jest.SpyInstance;
@@ -56,7 +63,7 @@ describe('reproduceIfPossible', () => {
           const foodEaten = [createFood({ position: { x: 1, y: 1 } }), createFood({ position: { x: 1, y: 1 } })];
           const player = createPlayer({ position: { x: 0, y: 1 }, foodEaten, energy: 30, speed: 1 });
           const ground = createGround({ players: [player] });
-          const newPlayers = reproduceIfPossible(player, ground);
+          const { newPlayers } = reproduceIfPossible(player, ground);
           expect(newPlayers[0].speed).toEqual(1);
         });
       });
@@ -74,7 +81,7 @@ describe('reproduceIfPossible', () => {
           const foodEaten = [createFood({ position: { x: 1, y: 1 } }), createFood({ position: { x: 1, y: 1 } })];
           const player = createPlayer({ position: { x: 0, y: 1 }, foodEaten, energy: 30, speed: 1 });
           const ground = createGround({ players: [player] });
-          const newPlayers = reproduceIfPossible(player, ground);
+          const { newPlayers } = reproduceIfPossible(player, ground);
           expect(newPlayers[0].speed).toEqual(1);
         });
         it('should 33% of the time increase the player speed', () => {
@@ -82,7 +89,7 @@ describe('reproduceIfPossible', () => {
           const foodEaten = [createFood({ position: { x: 1, y: 1 } }), createFood({ position: { x: 1, y: 1 } })];
           const player = createPlayer({ position: { x: 0, y: 1 }, foodEaten, energy: 30, speed: 1 });
           const ground = createGround({ players: [player] });
-          const newPlayers = reproduceIfPossible(player, ground);
+          const { newPlayers } = reproduceIfPossible(player, ground);
           expect(newPlayers[0].speed).toEqual(2);
         });
         it('should 33% of the time decrease the player speed', () => {
@@ -90,7 +97,7 @@ describe('reproduceIfPossible', () => {
           const foodEaten = [createFood({ position: { x: 1, y: 1 } }), createFood({ position: { x: 1, y: 1 } })];
           const player = createPlayer({ position: { x: 0, y: 1 }, foodEaten, energy: 30, speed: 3 });
           const ground = createGround({ players: [player] });
-          const newPlayers = reproduceIfPossible(player, ground);
+          const { newPlayers } = reproduceIfPossible(player, ground);
           expect(newPlayers[0].speed).toEqual(2);
         });
         it('should never decrease the player speed to a 0 value', () => {
@@ -98,20 +105,20 @@ describe('reproduceIfPossible', () => {
           const foodEaten = [createFood({ position: { x: 1, y: 1 } }), createFood({ position: { x: 1, y: 1 } })];
           const player = createPlayer({ position: { x: 0, y: 1 }, foodEaten, energy: 30, speed: 1 });
           const ground = createGround({ players: [player] });
-          const newPlayers = reproduceIfPossible(player, ground);
+          const { newPlayers } = reproduceIfPossible(player, ground);
           expect(newPlayers[0].speed).toEqual(1);
         });
       });
     });
   });
   describe('can not reproduce cases', () => {
-    it('should return empty array if the player has eaten less than 2 food', () => {
+    it('should return empty array and unchanged player if the player has eaten less than 2 food', () => {
       const foodEaten = [createFood({ position: { x: 1, y: 1 } })];
       const player = createPlayer({ position: { x: 0, y: 1 }, foodEaten });
       const ground = createGround({ players: [player] });
-      expect(reproduceIfPossible(player, ground)).toEqual([]);
+      expect(reproduceIfPossible(player, ground)).toEqual({ originalPlayer: player, newPlayers: [] });
     });
-    it('should return empty array if the user has eaten more than 2 food, but there is no available direction to reproduce in', () => {
+    it('should return empty array and unchanged player if the user has eaten more than 2 food, but there is no available direction to reproduce in', () => {
       /*
        * | x | x | x |
        * | x | y | x |
@@ -132,13 +139,13 @@ describe('reproduceIfPossible', () => {
         createPlayer({ position: { x: 2, y: 2 } }),
       ];
       const ground = createGround({ players: [player, ...otherPlayers] });
-      expect(reproduceIfPossible(player, ground)).toEqual([]);
+      expect(reproduceIfPossible(player, ground)).toEqual({ originalPlayer: player, newPlayers: [] });
     });
-    it('should return empty array if the user is not on the outer edge of the board', () => {
+    it('should return empty array and unchanged player if the user is not on the outer edge of the board', () => {
       const foodEaten = [createFood({ position: { x: 1, y: 1 } }), createFood({ position: { x: 1, y: 1 } })];
       const player = createPlayer({ position: { x: 1, y: 1 }, foodEaten });
       const ground = createGround({ players: [player] });
-      expect(reproduceIfPossible(player, ground)).toEqual([]);
+      expect(reproduceIfPossible(player, ground)).toEqual({ originalPlayer: player, newPlayers: [] });
     });
   });
 });
