@@ -150,6 +150,7 @@ export const command: CommandModule<{}, Arguments> = {
       })
       .usage('$0 Runs the natural selection simulation with output in the terminal')
       .version(false)
+      .strict()
       .help();
   },
 };
