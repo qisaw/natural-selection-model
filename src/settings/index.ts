@@ -1,10 +1,4 @@
-export enum LOG_LEVEL {
-  debug,
-  info,
-  warn,
-  error,
-  fatal,
-}
+import { LOG_LEVEL } from '../logger/log-levels';
 
 type Overrides = {
   logLevel?: LOG_LEVEL;
