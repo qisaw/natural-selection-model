@@ -5,4 +5,3 @@ export enum LOG_LEVEL {
   error,
   fatal,
 }
-
