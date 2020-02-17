@@ -22,6 +22,7 @@ type Arguments = {
   startingPlayerEnergy: number;
   shouldMutateSpeed: boolean;
   startingPlayerSpeed: number;
+  defaultPlayerTimeToLive: number;
 };
 
 const printLine = (word: string, ground: Ground): void => {
@@ -67,12 +68,14 @@ export const command: CommandModule<{}, Arguments> = {
     startingPlayerEnergy,
     shouldMutateSpeed,
     startingPlayerSpeed,
+    defaultPlayerTimeToLive,
   }) => {
     setOverrides({
       energyAdditionForFood,
       startingPlayerEnergy,
       shouldMutateSpeed,
       startingPlayerSpeed,
+      defaultPlayerTimeToLive,
     });
     const dimensions = { height, width };
     const players = createPlayersInRandomPositions(initalNumOfPlayers, dimensions, [], []);
@@ -156,6 +159,12 @@ export const command: CommandModule<{}, Arguments> = {
         describe: 'The initial speed of all the players',
         type: 'number',
         default: 1,
+        demandOption: false,
+      })
+      .option('defaultPlayerTimeToLive', {
+        describe: 'The number of turns a player can be alive for',
+        type: 'number',
+        default: '100',
         demandOption: false,
       })
       .usage('$0 Runs the natural selection simulation with output in the terminal')
