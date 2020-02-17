@@ -3,7 +3,7 @@ import { Ground } from '../ground/types';
 import { getNewPlayerPosition } from './get-new-player-position';
 import { createPlayer } from '.';
 import { canReproduce } from './can-reproduce';
-import { shouldMutateSpeed } from '../settings';
+import { shouldMutateSpeed, defaultPlayerTimeToLive } from '../settings';
 import { DeepSet } from '../utils/deep-set';
 
 interface ReproductionResult {
@@ -35,6 +35,7 @@ export const reproduceIfPossible = (player: Player, ground: Ground): Reproductio
       position: newPosition,
       foodEaten: [],
       previousPositions: new DeepSet(),
+      timeToLive: defaultPlayerTimeToLive(),
     });
     return {
       originalPlayer,

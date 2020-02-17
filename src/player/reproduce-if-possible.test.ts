@@ -19,6 +19,7 @@ describe('reproduceIfPossible', () => {
         foodEaten,
         energy: 30,
         previousPositions: new DeepSet([{ x: 1, y: 1 }]),
+        timeToLive: 2,
       });
       const ground = createGround({ players: [player] });
       const { newPlayers, originalPlayer } = reproduceIfPossible(player, ground);
@@ -45,6 +46,9 @@ describe('reproduceIfPossible', () => {
       });
       it('should reduce the originalPlayers food by 2', () => {
         expect(originalPlayer.foodEaten).toHaveLength(1);
+      });
+      it('should set the new players time to live back to default', () => {
+        expect(newPlayers[0].timeToLive).toEqual(settings.defaultPlayerTimeToLive());
       });
     });
     describe('hasSpeedMutation', () => {
