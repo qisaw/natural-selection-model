@@ -164,7 +164,7 @@ export const command: CommandModule<{}, Arguments> = {
       .option('defaultPlayerTimeToLive', {
         describe: 'The number of turns a player can be alive for',
         type: 'number',
-        default: '100',
+        default: 100,
         demandOption: false,
       })
       .usage('$0 Runs the natural selection simulation with output in the terminal')
