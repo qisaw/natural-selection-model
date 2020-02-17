@@ -8,6 +8,7 @@ type Overrides = {
   maxNumOfAttemptsToGetEmptySpot?: number;
   energyAdditionForFood?: number;
   startingPlayerSpeed?: number;
+  defaultPlayerTimeToLive?: number;
 };
 let overrides: Overrides = {};
 
@@ -31,3 +32,4 @@ export const shouldMutateSpeed = (): boolean =>
 export const maxNumOfAttemptsToGetEmptySpot = (): number => overrides.maxNumOfAttemptsToGetEmptySpot || 100;
 export const energyAdditionForFood = (): number => overrides.energyAdditionForFood || 1000;
 export const startingPlayerSpeed = (): number => overrides.startingPlayerSpeed || 2;
+export const defaultPlayerTimeToLive = (): number => overrides.defaultPlayerTimeToLive || 10;

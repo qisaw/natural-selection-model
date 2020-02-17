@@ -1,7 +1,7 @@
 import { Player } from './player';
 import uuid from 'uuid';
 import { Food } from '../food/food';
-import { startingPlayerEnergy } from '../settings';
+import { startingPlayerEnergy, defaultPlayerTimeToLive } from '../settings';
 import { DeepSet } from '../utils/deep-set';
 
 describe('Player', () => {
@@ -65,5 +65,13 @@ describe('Player', () => {
   it('should default previousPositions to empty array', () => {
     const player = new Player({ position: { x: 1, y: 2 } });
     expect(player.previousPositions).toEqual(new DeepSet());
+  });
+  it('should set the default player time to live', () => {
+    const player = new Player({ position: { x: 1, y: 1 } });
+    expect(player.timeToLive).toEqual(defaultPlayerTimeToLive());
+  });
+  it('should set the player time to live', () => {
+    const player = new Player({ position: { x: 1, y: 1 }, timeToLive: 2 });
+    expect(player.timeToLive).toEqual(2);
   });
 });

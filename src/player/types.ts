@@ -10,6 +10,7 @@ export interface PlayerData {
   foodEaten?: Food[];
   speed?: number;
   previousPositions?: DeepSet<Position>;
+  timeToLive?: number;
 }
 
 export type PlayerMovementPattern = Map<Player, boolean[]>;
