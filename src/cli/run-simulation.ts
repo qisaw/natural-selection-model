@@ -23,6 +23,7 @@ type Arguments = {
   shouldMutateSpeed: boolean;
   startingPlayerSpeed: number;
   defaultPlayerTimeToLive: number;
+  useTimeToLive: boolean;
 };
 
 const printLine = (word: string, ground: Ground): void => {
@@ -69,6 +70,7 @@ export const command: CommandModule<{}, Arguments> = {
     shouldMutateSpeed,
     startingPlayerSpeed,
     defaultPlayerTimeToLive,
+    useTimeToLive,
   }) => {
     setOverrides({
       energyAdditionForFood,
@@ -76,6 +78,7 @@ export const command: CommandModule<{}, Arguments> = {
       shouldMutateSpeed,
       startingPlayerSpeed,
       defaultPlayerTimeToLive,
+      useTimeToLive,
     });
     const dimensions = { height, width };
     const players = createPlayersInRandomPositions(initalNumOfPlayers, dimensions, [], []);
@@ -166,6 +169,12 @@ export const command: CommandModule<{}, Arguments> = {
         type: 'number',
         default: 100,
         demandOption: false,
+      })
+      .option('useTimeToLive', {
+        describe: 'Should a player have a time to live. If this is set, then defaultPlayerTimeToLive is ignored',
+        demandOption: false,
+        default: true,
+        type: 'boolean',
       })
       .usage('$0 Runs the natural selection simulation with output in the terminal')
       .version(false)
