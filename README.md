@@ -16,6 +16,9 @@
 ## Motivation
 `@TODO add motivation`
 
+## Installation
+`@TODO add installation instructions`
+
 ## Documentation
 `@TODO add rules and more documentation on how to use.`
 ~~~
