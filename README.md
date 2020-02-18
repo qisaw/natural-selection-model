@@ -21,6 +21,18 @@
 
 ## Documentation
 `@TODO add rules and more documentation on how to use.`
+
+### Parameters
+You may use the following parameters to configure different aspects of the simulation. The following options can be varied both in the cli command and programatically via the library.
+
+#### General
+The following parameters are general simulation
+
+| Name           | Description                                                                                                                                                                                                                                                                                                                                                                                                    | Required |  Type  | Default Value |
+|----------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------:|:------:|:-------------:|
+| width          | The width of the ground the players will move around in.<br>The width defines how many turns a player with 1 speed will take to cross from the left most position to the right most position on the ground<br>`A player with 1 speed will take 10 turns to move from the left edge to the right edge of a ground of width 10.`                                                                                 |   false  | number |       10      |
+| height         | The height of the ground the players will move around in.<br>The height defines how many turns a player with 1 speed will take to cross from the top most position to the bottom most position on the ground<br>`A player with 1 speed will take 10 turns to move from the top edge to the bottom edge of a ground of width 10.`                                                                               |   false  | number |       10      |
+| maxNumOfTurns  | The maximum number of turns to simulate.<br>The simulation will terminate if either this number of turns is reached, or no players are left on the board.<br>A "turn" is defined as complete when all players on the board have performed actions that correspond to their speed.<br>`A player with 1 speed will complete 1 action in a turn. A player with 2 speed, will complete 2 actions in the same turn` |   false  | number |     10000     |
 ~~~
 // DO NOT USE THIS COMMAND, this is not the api of the package
 npm run start:cli -- sim \

@@ -121,16 +121,25 @@ export const command: CommandModule<{}, Arguments> = {
   builder: yargs => {
     return yargs
       .option('width', {
-        describe: 'The width of the ground the players will move on',
+        describe:
+          'The width of the ground the players will move around in. The width defines how many turns a player with 1 speed will take to cross from the left most position to the right most position on the ground. A player with 1 speed will take 10 turns to move from the left edge to the right edge of a ground of width 10.',
         demandOption: false,
         type: 'number',
         default: 10,
       })
       .option('height', {
-        describe: 'The height of the ground the players will move on',
+        describe:
+          'The height of the ground the players will move around in.The height defines how many turns a player with 1 speed will take to cross from the top most position to the bottom most position on the ground. A player with 1 speed will take 10 turns to move from the top edge to the bottom edge of a ground of width 10.',
         demandOption: false,
         type: 'number',
         default: 10,
+      })
+      .option('maxNumOfTurns', {
+        describe:
+          'The maximum number of turns to play. The program runs until there are no more players on the board or until the max number of turns are played',
+        type: 'number',
+        default: 10000,
+        demandOption: false,
       })
       .option('initalNumOfPlayers', {
         describe: 'The number of players that should be placed on the board at the beginning',
@@ -142,13 +151,6 @@ export const command: CommandModule<{}, Arguments> = {
         describe: 'The amount of players that should be placed on the board at the beginning',
         type: 'number',
         default: 10,
-        demandOption: false,
-      })
-      .option('maxNumOfTurns', {
-        describe:
-          'The maximum number of turns to play. The program runs until there are no more players on the board or until the max number of turns are played',
-        type: 'number',
-        default: 10000,
         demandOption: false,
       })
       .option('numOfTurnsBetweenFood', {
