@@ -7,3 +7,20 @@
 This repository tries to model natural selection. It runs simulations of multiple players on a single board moving around.
 
 `@TODO add rules and more documentation on how to use.`
+
+## Example command
+~~~
+npm run start:cli -- sim \
+  --width=40\
+  --height=40\
+  --initalNumOfPlayers=30\
+  --initialNumOfFood=10\
+  --maxNumOfTurns=100000\
+  --numOfTurnsBetweenFood=20\
+  --energyAdditionForFood=5000\
+  --startingPlayerEnergy=250\
+  --shouldMutateSpeed=true\
+  --startingPlayerSpeed=1\
+  --defaultPlayerTimeToLive=1000\
+  --useTimeToLive=true
+~~~
