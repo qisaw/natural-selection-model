@@ -2,14 +2,24 @@
 
 ![](https://github.com/qisaw/natural-selection-model/workflows/Node.js%20CI/badge.svg)
 
-**Note that this repository is currently a work in progress. The end goal of this is to create a package where by users may configure different parameters of a natural selection model and get the results.**
+> :warning: **This package is currently in BETA and not feature complete. This means breaking changes to the api may be made at any time. Be careful when upgrading!! Follow the progress toward feature completion [here](https://github.com/qisaw/natural-selection-model/milestone/1) and keep up to date on work in progress [here](https://github.com/qisaw/natural-selection-model/projects/1).** 
 
-This repository tries to model natural selection. It runs simulations of multiple players on a single board moving around.
+## Introducton
+`@TODO add introduction`
 
+## Goals
+`@TODO add goals here.`
+
+## Background
+`@TODO add backround`
+
+## Motivation
+`@TODO add motivation`
+
+## Documentation
 `@TODO add rules and more documentation on how to use.`
-
-## Example command
 ~~~
+// DO NOT USE THIS COMMAND, this is not the api of the package
 npm run start:cli -- sim \
   --width=40\
   --height=40\
@@ -24,3 +34,7 @@ npm run start:cli -- sim \
   --defaultPlayerTimeToLive=1000\
   --useTimeToLive=true
 ~~~
+
+
+## Contributing
+`@TODO add contribution guidelines`
