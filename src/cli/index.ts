@@ -7,4 +7,4 @@ yargs
   .command(command)
   .demandCommand()
   .wrap(80)
-  .version('1.0.0').argv;
+  .version('0.0.1').argv;
