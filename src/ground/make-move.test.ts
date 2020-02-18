@@ -2,6 +2,7 @@ import { createPlayer } from '../player';
 import { createGround } from './create-ground';
 import { makeMove } from './make-move';
 import { Player } from '../player/player';
+import { setOverrides, unsetOverrides } from '../settings';
 describe('makeMove', () => {
   const dimensions = {
     width: 30,
@@ -23,16 +24,45 @@ describe('makeMove', () => {
       expect(oldPlayer.position).not.toEqual(newPlayer.position);
     });
   });
-  it('should filter out all players with 0 timeToLive', () => {
-    const players = [createPlayer({ position: { x: 0, y: 0 }, energy: 10, timeToLive: 0 })];
-    const ground = createGround({ dimensions, players });
-    const newGround = makeMove(ground);
-    expect(newGround.players).toHaveLength(0);
+  describe('when useTimetoLive is set', () => {
+    beforeEach(() => {
+      setOverrides({ useTimeToLive: true });
+    });
+    afterEach(() => {
+      unsetOverrides(['useTimeToLive']);
+    });
+    it('should filter out all players with 0 timeToLive', () => {
+      const players = [createPlayer({ position: { x: 0, y: 0 }, energy: 10, timeToLive: 0 })];
+      const ground = createGround({ dimensions, players });
+      const newGround = makeMove(ground);
+      expect(newGround.players).toHaveLength(0);
+    });
+    it('should reduce player numbers by 1 on every call of makeMove', () => {
+      const players = [createPlayer({ position: { x: 0, y: 0 }, energy: 10, timeToLive: 1 })];
+      const ground = createGround({ dimensions, players });
+      const newGround = makeMove(ground);
+      expect(newGround.players[0].timeToLive).toEqual(0);
+    });
   });
-  it('should reduce player numbers by 1 on every call of makeMove', () => {
-    const players = [createPlayer({ position: { x: 0, y: 0 }, energy: 10, timeToLive: 1 })];
-    const ground = createGround({ dimensions, players });
-    const newGround = makeMove(ground);
-    expect(newGround.players[0].timeToLive).toEqual(0);
+  describe('when useTimetoLive is not set', () => {
+    beforeEach(() => {
+      setOverrides({ useTimeToLive: false });
+    });
+    afterEach(() => {
+      unsetOverrides(['useTimeToLive']);
+    });
+    it('should not filter out all players with 0 timeToLive', () => {
+      const players = [createPlayer({ position: { x: 0, y: 0 }, energy: 10, timeToLive: 0 })];
+      const ground = createGround({ dimensions, players });
+      const newGround = makeMove(ground);
+      expect(newGround.players).toHaveLength(1);
+      expect(newGround.players[0].id).toEqual(players[0].id);
+    });
+    it('should reduce player numbers by 1 on every call of makeMove', () => {
+      const players = [createPlayer({ position: { x: 0, y: 0 }, energy: 10, timeToLive: 1 })];
+      const ground = createGround({ dimensions, players });
+      const newGround = makeMove(ground);
+      expect(newGround.players[0].timeToLive).toEqual(1);
+    });
   });
 });
