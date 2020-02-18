@@ -39,12 +39,29 @@ const printLine = (word: string, ground: Ground): void => {
 const printStats = (ground: Ground): void => {
   printLine('RESULTS', ground);
   const playerSpeeds = ground.players.map(({ speed }) => speed);
-  const meanSpeed = playerSpeeds.reduce((sum, next) => sum + next, 0) / playerSpeeds.length;
+  const { sumSpeeds: sum, minSpeed: min, maxSpeed: max } = playerSpeeds.reduce(
+    ({ sumSpeeds, minSpeed, maxSpeed }, next) => {
+      return {
+        sumSpeeds: sumSpeeds + next,
+        minSpeed: next < minSpeed ? next : minSpeed,
+        maxSpeed: next > maxSpeed ? next : maxSpeed,
+      };
+    },
+    {
+      sumSpeeds: 0,
+      minSpeed: 1,
+      maxSpeed: 0,
+    },
+  );
+
+  const meanSpeed = sum / playerSpeeds.length;
   const medianSpeed = median(playerSpeeds);
   console.log(`Num of Players: ${ground.players.length}`);
   console.log(`Num of Food:    ${ground.food.length}`);
   console.log(`Mean Speed:     ${meanSpeed}`);
   console.log(`Median Speed:   ${medianSpeed}`);
+  console.log(`Min Speed:      ${min}`);
+  console.log(`Max Speed:      ${max}`);
   printLine('DONE', ground);
 };
 
