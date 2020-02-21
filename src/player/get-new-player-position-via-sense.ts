@@ -3,6 +3,8 @@ import { Ground } from '../ground/types';
 import { Direction } from '../global/direction';
 import { Position } from '../global/types';
 import { Food } from '../food/food';
+import { isPositionFreeOfPlayers } from './is-position-free-of-players';
+import { getPositionFromDirection } from '../utils/get-position-from-direction';
 
 const getNextDirectionToTargetPosition = (currentPosition: Position, targetPosition: Position): Direction => {
   if (currentPosition.x < targetPosition.x) {
@@ -60,5 +62,7 @@ export const getMovementDirectionViaSense = (player: Player, ground: Ground): Di
   if (!bestFoodWithinSense) {
     return Direction.NO_DIRECTION;
   }
-  return getNextDirectionToTargetPosition(player.position, bestFoodWithinSense.position);
+  const nextDirection = getNextDirectionToTargetPosition(player.position, bestFoodWithinSense.position);
+  const nextPosition = getPositionFromDirection(player.position, nextDirection);
+  return isPositionFreeOfPlayers(nextPosition, ground) ? nextDirection : Direction.NO_DIRECTION;
 };

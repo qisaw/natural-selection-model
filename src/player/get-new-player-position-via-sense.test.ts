@@ -109,7 +109,7 @@ describe('getNewPlayerPositionViaSense', () => {
         });
       });
       describe('obstacles in the way', () => {
-        it.skip('should return NO_DIRECTION if the position is blocked', () => {
+        it('should return NO_DIRECTION if the position is blocked', () => {
           const player = createPlayer({ position: { x: 1, y: 1 }, sense: 2 });
           const dimensions = { width: 10, height: 10 };
           /*
