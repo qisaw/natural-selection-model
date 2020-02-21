@@ -24,6 +24,8 @@ type Arguments = {
   startingPlayerSpeed: number;
   defaultPlayerTimeToLive: number;
   useTimeToLive: boolean;
+  defaultSense: number;
+  useSense: boolean;
 };
 
 const printLine = (word: string, ground: Ground): void => {
@@ -88,6 +90,8 @@ export const command: CommandModule<{}, Arguments> = {
     startingPlayerSpeed,
     defaultPlayerTimeToLive,
     useTimeToLive,
+    useSense,
+    defaultSense,
   }) => {
     setOverrides({
       energyAdditionForFood,
@@ -96,6 +100,8 @@ export const command: CommandModule<{}, Arguments> = {
       startingPlayerSpeed,
       defaultPlayerTimeToLive,
       useTimeToLive,
+      useSense,
+      defaultSense,
     });
     const dimensions = { height, width };
     const players = createPlayersInRandomPositions(initalNumOfPlayers, dimensions, [], []);
@@ -191,6 +197,18 @@ export const command: CommandModule<{}, Arguments> = {
       })
       .option('useTimeToLive', {
         describe: 'Should a player have a time to live. If this is set, then defaultPlayerTimeToLive is ignored',
+        demandOption: false,
+        default: true,
+        type: 'boolean',
+      })
+      .option('defaultSense', {
+        describe: 'The default number number of positions users can see food from',
+        demandOption: false,
+        default: 1,
+        type: 'number',
+      })
+      .option('useSense', {
+        describe: 'Should players have senses. Senses allow users to move towards food when they see it',
         demandOption: false,
         default: true,
         type: 'boolean',
