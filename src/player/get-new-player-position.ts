@@ -4,6 +4,7 @@ import { Ground } from '../ground/types';
 import { Direction } from '../global/direction';
 import { getPositionFromDirection } from '../utils/get-position-from-direction';
 import { isPositionFreeOfPlayers } from './is-position-free-of-players';
+import { getMovementDirectionViaSense } from './get-new-player-position-via-sense';
 
 const getRandomDirection = (availableDirections: Direction[]): Direction => {
   if (!availableDirections.length) {
@@ -50,6 +51,8 @@ const getDirection = (player: Player, ground: Ground): Direction => {
 
 export const getNewPlayerPosition = (player: Player, ground: Ground): Position => {
   // @TODO error checking for player in ground
-  const direction = getDirection(player, ground);
+  const senseDirection = getMovementDirectionViaSense(player, ground);
+  const randomDirection = getDirection(player, ground);
+  const direction = senseDirection === Direction.NO_DIRECTION ? randomDirection : senseDirection;
   return getPositionFromDirection(player.position, direction);
 };
