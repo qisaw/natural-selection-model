@@ -109,7 +109,23 @@ describe('getNewPlayerPositionViaSense', () => {
         });
       });
       describe('obstacles in the way', () => {
-        it.todo('should avoid players, in its way');
+        it.todo('should avoid players, in its way', () => {
+          const player = createPlayer({ position: { x: 1, y: 1 }, sense: 2 });
+          const dimensions = { width: 10, height: 10 };
+          /*
+           * | - | - | - |
+           * | - | y | - |
+           * | - | x | x |
+           * | - | F | x |
+           */
+          const food = [createFood({ position: { x: 1, y: 3 } })];
+          const blockingPlayers = [
+            createPlayer({ position: { x: 1, y: 2 } }),
+            createPlayer({ position: { x: 2, y: 2 } }),
+          ];
+          const ground = createGround({ dimensions, players: [player, ...blockingPlayers], food });
+          expect(getMovementDirectionViaSense(player, ground)).toEqual(Direction.DOWN_AND_LEFT);
+        });
         it.todo('should pick another food to go for if the user cannot see around the player');
         it.todo('should return NO_DIRECTION if it can not reach any food because of player obstacles');
         it.todo('should move through food to get to its target');
