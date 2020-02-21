@@ -3,6 +3,7 @@ import { Position } from '../global/types';
 import { Ground } from '../ground/types';
 import { Direction } from '../global/direction';
 import { getPositionFromDirection } from '../utils/get-position-from-direction';
+import { isPositionFreeOfPlayers } from './is-position-free-of-players';
 
 const getRandomDirection = (availableDirections: Direction[]): Direction => {
   if (!availableDirections.length) {
@@ -14,20 +15,9 @@ const getRandomDirection = (availableDirections: Direction[]): Direction => {
   return availableDirections[index];
 };
 
-const isPositionFree = (xValue: number, yValue: number, direction: Direction, ground: Ground): boolean => {
-  const nextPosition = getPositionFromDirection({ x: xValue, y: yValue }, direction);
-  if (
-    nextPosition.x > ground.dimensions.width - 1 ||
-    nextPosition.x < 0 ||
-    nextPosition.y > ground.dimensions.height - 1 ||
-    nextPosition.y < 0
-  ) {
-    return false;
-  }
-  const playerAtPosition = ground.players.find(
-    ({ position }) => position.x === nextPosition.x && position.y === nextPosition.y,
-  );
-  return !playerAtPosition;
+const isPositionFree = (position: Position, direction: Direction, ground: Ground): boolean => {
+  const nextPosition = getPositionFromDirection(position, direction);
+  return isPositionFreeOfPlayers(nextPosition, ground);
 };
 
 const getDirection = (player: Player, ground: Ground): Direction => {
@@ -46,7 +36,7 @@ const getDirection = (player: Player, ground: Ground): Direction => {
     { value: Direction.DOWN_AND_RIGHT, predicate: canMoveDown && canMoveRight },
   ];
   const directionsAvailableToPlayer = directionArray.filter(
-    ({ predicate, value }) => predicate && isPositionFree(player.position.x, player.position.y, value, ground),
+    ({ predicate, value }) => predicate && isPositionFree(player.position, value, ground),
   );
   const directionsPlayerHasYetToMoveTo = directionsAvailableToPlayer.filter(({ value }) => {
     const possibleNextPosition = getPositionFromDirection(player.position, value);
