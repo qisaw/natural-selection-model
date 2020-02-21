@@ -2,7 +2,7 @@ import uuid from 'uuid/v4';
 import { PlayerData } from './types';
 import { Position } from '../global/types';
 import { Food } from '../food/food';
-import { startingPlayerEnergy, startingPlayerSpeed, defaultPlayerTimeToLive } from '../settings';
+import { startingPlayerEnergy, startingPlayerSpeed, defaultPlayerTimeToLive, defaultSense } from '../settings';
 import { DeepSet } from '../utils/deep-set';
 
 export class Player {
@@ -14,8 +14,9 @@ export class Player {
   readonly speed: number;
   readonly previousPositions: DeepSet<Position>;
   readonly timeToLive: number;
+  readonly sense: number;
 
-  constructor({ position, id, label, energy, foodEaten, speed, previousPositions, timeToLive }: PlayerData) {
+  constructor({ position, id, label, energy, foodEaten, speed, previousPositions, timeToLive, sense }: PlayerData) {
     this.position = position;
     this.id = id || uuid();
     this.label = label || 'x';
@@ -24,5 +25,6 @@ export class Player {
     this.speed = speed || startingPlayerSpeed();
     this.previousPositions = previousPositions || new DeepSet();
     this.timeToLive = timeToLive === undefined ? defaultPlayerTimeToLive() : timeToLive;
+    this.sense = sense === undefined ? defaultSense() : sense;
   }
 }

@@ -1,7 +1,7 @@
 import { Player } from './player';
 import uuid from 'uuid';
 import { Food } from '../food/food';
-import { startingPlayerEnergy, defaultPlayerTimeToLive } from '../settings';
+import { startingPlayerEnergy, defaultPlayerTimeToLive, defaultSense } from '../settings';
 import { DeepSet } from '../utils/deep-set';
 
 describe('Player', () => {
@@ -73,5 +73,13 @@ describe('Player', () => {
   it('should set the player time to live', () => {
     const player = new Player({ position: { x: 1, y: 1 }, timeToLive: 2 });
     expect(player.timeToLive).toEqual(2);
+  });
+  it('should set the sense', () => {
+    const player = new Player({ position: { x: 1, y: 1 }, sense: 0 });
+    expect(player.sense).toEqual(0);
+  });
+  it('should default the sense', () => {
+    const player = new Player({ position: { x: 1, y: 1 } });
+    expect(player.sense).toEqual(defaultSense());
   });
 });

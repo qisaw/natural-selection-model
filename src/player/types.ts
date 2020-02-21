@@ -11,6 +11,7 @@ export interface PlayerData {
   speed?: number;
   previousPositions?: DeepSet<Position>;
   timeToLive?: number;
+  sense?: number;
 }
 
 export type PlayerMovementPattern = Map<Player, boolean[]>;

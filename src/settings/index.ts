@@ -10,6 +10,7 @@ type Overrides = {
   startingPlayerSpeed?: number;
   defaultPlayerTimeToLive?: number;
   useTimeToLive?: boolean;
+  defaultSense?: number;
 };
 let overrides: Overrides = {};
 
@@ -35,3 +36,4 @@ export const energyAdditionForFood = (): number => overrides.energyAdditionForFo
 export const startingPlayerSpeed = (): number => overrides.startingPlayerSpeed || 2;
 export const defaultPlayerTimeToLive = (): number => overrides.defaultPlayerTimeToLive || 10;
 export const useTimeToLive = (): boolean => (overrides.useTimeToLive === undefined ? true : overrides.useTimeToLive);
+export const defaultSense = (): number => (overrides.defaultSense === undefined ? 1 : overrides.defaultSense);
