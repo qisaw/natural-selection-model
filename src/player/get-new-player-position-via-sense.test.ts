@@ -89,12 +89,23 @@ describe('getNewPlayerPositionViaSense', () => {
     });
   });
   describe('it cannot reach a piece of food this turn', () => {
-    it('should return undefined if the user cannot sense any food', () => {
-      const player = createPlayer({ position: { x: 1, y: 1 }, sense: 1 });
-      const dimensions = { width: 10, height: 10 };
-      const food = [createFood({ position: { x: 1, y: 3 } })];
-      const ground = createGround({ dimensions, players: [player], food });
-      expect(getMovementDirectionViaSense(player, ground)).toBeUndefined();
+    describe('no food within the players sense', () => {
+      it('should return undefined if the user cannot sense any food', () => {
+        const player = createPlayer({ position: { x: 1, y: 1 }, sense: 1 });
+        const dimensions = { width: 10, height: 10 };
+        const food = [createFood({ position: { x: 1, y: 3 } })];
+        const ground = createGround({ dimensions, players: [player], food });
+        expect(getMovementDirectionViaSense(player, ground)).toBeUndefined();
+      });
+    });
+    describe('food within the players sense', () => {
+      it('should move toward the food', () => {
+        const player = createPlayer({ position: { x: 1, y: 1 }, sense: 2 });
+        const dimensions = { width: 10, height: 10 };
+        const food = [createFood({ position: { x: 1, y: 3 } })];
+        const ground = createGround({ dimensions, players: [player], food });
+        expect(getMovementDirectionViaSense(player, ground)).toEqual(Direction.DOWN);
+      });
     });
   });
 });

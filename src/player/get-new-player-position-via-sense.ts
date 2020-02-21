@@ -46,8 +46,8 @@ export const getMovementDirectionViaSense = (player: Player, ground: Ground): Di
     const {
       position: { x, y },
     } = food;
-    const isWithinXSense = x >= player.position.x - 1 && x <= player.position.x + 1;
-    const isWithinYSense = y >= player.position.y - 1 && y <= player.position.y + 1;
+    const isWithinXSense = x >= player.position.x - player.sense && x <= player.position.x + player.sense;
+    const isWithinYSense = y >= player.position.y - player.sense && y <= player.position.y + player.sense;
     if (isWithinYSense && isWithinXSense) {
       if (!bestFood) {
         return food;
