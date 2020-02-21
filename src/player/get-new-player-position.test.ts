@@ -3,6 +3,8 @@ import { createGround } from '../ground/create-ground';
 import { getNewPlayerPosition } from './get-new-player-position';
 import { DeepSet } from '../utils/deep-set';
 import { createFood } from '../food';
+import { setOverrides, unsetOverrides } from '../settings';
+import * as Sense from './get-new-player-position-via-sense';
 
 const dimensions = {
   width: 10,
@@ -409,22 +411,56 @@ describe('getNewPlayerPosition', () => {
       });
     });
     describe('senses', () => {
-      it('should move to food, if they can see it', () => {
-        /*
-         * | - | - | - |
-         * | F | y | - |
-         * | - | - | - |
-         * we want to move y
-         * the only available move for y is right one
-         */
-        const players = [createPlayer({ position: { x: 1, y: 1 } })];
-        const food = [createFood({ position: { x: 0, y: 1 } })];
-        const ground = createGround({
-          dimensions,
-          players,
-          food,
+      beforeEach(() => {
+        jest.spyOn(Sense, 'getMovementDirectionViaSense');
+      });
+      describe('useSense is set', () => {
+        beforeEach(() => {
+          setOverrides({
+            useSense: true,
+          });
         });
-        expect(getNewPlayerPosition(players[0], ground)).toEqual({ x: 0, y: 1 });
+        afterEach(() => {
+          unsetOverrides(['useSense']);
+        });
+        it('should move to food, if they can see it', () => {
+          /*
+           * | - | - | - |
+           * | F | y | - |
+           * | - | - | - |
+           * we want to move y
+           * the only available move for y is right one
+           */
+          const players = [createPlayer({ position: { x: 1, y: 1 } })];
+          const food = [createFood({ position: { x: 0, y: 1 } })];
+          const ground = createGround({ dimensions, players, food });
+          expect(getNewPlayerPosition(players[0], ground)).toEqual({ x: 0, y: 1 });
+          expect(Sense.getMovementDirectionViaSense).toHaveBeenCalled();
+        });
+      });
+      describe('useSense is not set', () => {
+        beforeEach(() => {
+          setOverrides({
+            useSense: false,
+          });
+        });
+        afterEach(() => {
+          unsetOverrides(['useSense']);
+        });
+        it('should not call getMovementDirectionViaSense', () => {
+          /*
+           * | - | - | - |
+           * | F | y | - |
+           * | - | - | - |
+           * we want to move y
+           * the only available move for y is right one
+           */
+          const players = [createPlayer({ position: { x: 1, y: 1 } })];
+          const food = [createFood({ position: { x: 0, y: 1 } })];
+          const ground = createGround({ dimensions, players, food });
+          getNewPlayerPosition(players[0], ground);
+          expect(Sense.getMovementDirectionViaSense).not.toHaveBeenCalled();
+        });
       });
     });
     describe('collisions', () => {
