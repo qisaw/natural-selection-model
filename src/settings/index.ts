@@ -1,7 +1,6 @@
 import { LOG_LEVEL } from '../logger/log-levels';
 
 type Overrides = {
-  logLevel?: LOG_LEVEL;
   humanReadableLogs?: boolean;
   startingPlayerEnergy?: number;
   shouldMutateSpeed?: boolean;
@@ -16,7 +15,7 @@ type Overrides = {
 let overrides: Overrides = {};
 
 export const setOverrides = (addedOvedrrides: Overrides): void => {
-  overrides = { ...addedOvedrrides };
+  overrides = { ...overrides, ...addedOvedrrides };
 };
 
 type AllowedKeys = keyof Overrides;
@@ -26,7 +25,7 @@ export const unsetOverrides = (keys: AllowedKeys[]): void => {
   }
 };
 
-export const logLevel = (): LOG_LEVEL => overrides.logLevel || LOG_LEVEL.info;
+export const logLevel = (): LOG_LEVEL => (process.env.LOG_LEVEL as LOG_LEVEL) || LOG_LEVEL.info;
 export const humanReadableLogs = (): boolean =>
   overrides.humanReadableLogs === undefined ? true : overrides.humanReadableLogs;
 export const startingPlayerEnergy = (): number => overrides.startingPlayerEnergy || 1000;
