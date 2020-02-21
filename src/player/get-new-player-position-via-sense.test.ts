@@ -32,6 +32,18 @@ describe('getNewPlayerPositionViaSense', () => {
     });
   });
   describe('it can reach a piece of food this turn', () => {
+    it('should pick the food with the highest energy consumption if it can reach more than 1 piece of food', () => {
+      const player = createPlayer({ position: { x: 1, y: 1 }, sense: 1 });
+      const dimensions = { width: 10, height: 10 };
+      const food = [
+        createFood({ position: { x: 1, y: 2 }, energyAddition: 1 }),
+        createFood({ position: { x: 0, y: 2 }, energyAddition: 2 }),
+        createFood({ position: { x: 0, y: 0 }, energyAddition: 3 }),
+        createFood({ position: { x: 0, y: 1 }, energyAddition: 1 }),
+      ];
+      const ground = createGround({ dimensions, players: [player], food });
+      expect(getMovementDirectionViaSense(player, ground)).toEqual(Direction.UP_AND_LEFT);
+    });
     it('should return the food position if the food if there is only one piece of food', () => {
       const player = createPlayer({ position: { x: 1, y: 1 }, sense: 1 });
       const dimensions = { width: 10, height: 10 };

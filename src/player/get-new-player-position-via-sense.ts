@@ -2,6 +2,7 @@ import { Player } from './player';
 import { Ground } from '../ground/types';
 import { Direction } from '../global/direction';
 import { Position } from '../global/types';
+import { Food } from '../food/food';
 
 const getNextDirectionToTargetPosition = (currentPosition: Position, targetPosition: Position): Direction | void => {
   if (currentPosition.x < targetPosition.x) {
@@ -41,13 +42,22 @@ export const getMovementDirectionViaSense = (player: Player, ground: Ground): Di
   if (!ground.players.find(({ id }) => id === player.id)) {
     return;
   }
-  const closesetFoodWithinSense = ground.food.find(({ position: { x, y } }) => {
+  const bestFoodWithinSense = ground.food.reduce((bestFood: Food | void, food) => {
+    const {
+      position: { x, y },
+    } = food;
     const isWithinXSense = x >= player.position.x - 1 && x <= player.position.x + 1;
     const isWithinYSense = y >= player.position.y - 1 && y <= player.position.y + 1;
-    return isWithinXSense && isWithinYSense;
-  });
-  if (!closesetFoodWithinSense) {
+    if (isWithinYSense && isWithinXSense) {
+      if (!bestFood) {
+        return food;
+      }
+      return bestFood.energyAddition >= food.energyAddition ? bestFood : food;
+    }
+    return bestFood;
+  }, undefined);
+  if (!bestFoodWithinSense) {
     return;
   }
-  return getNextDirectionToTargetPosition(player.position, closesetFoodWithinSense.position);
+  return getNextDirectionToTargetPosition(player.position, bestFoodWithinSense.position);
 };
