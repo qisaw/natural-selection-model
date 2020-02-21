@@ -4,7 +4,7 @@ import { Direction } from '../global/direction';
 import { Position } from '../global/types';
 import { Food } from '../food/food';
 
-const getNextDirectionToTargetPosition = (currentPosition: Position, targetPosition: Position): Direction | void => {
+const getNextDirectionToTargetPosition = (currentPosition: Position, targetPosition: Position): Direction => {
   if (currentPosition.x < targetPosition.x) {
     if (currentPosition.y === targetPosition.y) {
       return Direction.RIGHT;
@@ -30,17 +30,18 @@ const getNextDirectionToTargetPosition = (currentPosition: Position, targetPosit
   if (currentPosition.y > targetPosition.y) {
     return Direction.UP;
   }
+  return Direction.NO_DIRECTION;
 };
 
-export const getMovementDirectionViaSense = (player: Player, ground: Ground): Direction | void => {
+export const getMovementDirectionViaSense = (player: Player, ground: Ground): Direction => {
   if (player.sense === 0) {
-    return;
+    return Direction.NO_DIRECTION;
   }
   if (ground.food.length === 0) {
-    return;
+    return Direction.NO_DIRECTION;
   }
   if (!ground.players.find(({ id }) => id === player.id)) {
-    return;
+    return Direction.NO_DIRECTION;
   }
   const bestFoodWithinSense = ground.food.reduce((bestFood: Food | void, food) => {
     const {
@@ -57,7 +58,7 @@ export const getMovementDirectionViaSense = (player: Player, ground: Ground): Di
     return bestFood;
   }, undefined);
   if (!bestFoodWithinSense) {
-    return;
+    return Direction.NO_DIRECTION;
   }
   return getNextDirectionToTargetPosition(player.position, bestFoodWithinSense.position);
 };

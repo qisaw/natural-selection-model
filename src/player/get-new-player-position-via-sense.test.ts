@@ -6,29 +6,29 @@ import { Direction } from '../global/direction';
 
 describe('getNewPlayerPositionViaSense', () => {
   describe('players with no sense', () => {
-    it('shoud always return undefined', () => {
+    it('shoud always return NO_DIRECTION', () => {
       const playerWithNoSense = createPlayer({ position: { x: 1, y: 1 }, sense: 0 });
       const food = [createFood({ position: { x: 2, y: 2 } })];
       const dimensions = { width: 10, height: 10 };
       const ground = createGround({ dimensions, players: [playerWithNoSense], food });
-      expect(getMovementDirectionViaSense(playerWithNoSense, ground)).not.toBeDefined();
+      expect(getMovementDirectionViaSense(playerWithNoSense, ground)).toEqual(Direction.NO_DIRECTION);
     });
   });
   describe('players not in the board', () => {
-    it('shoud always return undefined', () => {
+    it('shoud always return NO_DIRECTION', () => {
       const player = createPlayer({ position: { x: 1, y: 1 } });
       const dimensions = { width: 10, height: 10 };
       const food = [createFood({ position: { x: 2, y: 2 } })];
       const ground = createGround({ dimensions, players: [], food });
-      expect(getMovementDirectionViaSense(player, ground)).not.toBeDefined();
+      expect(getMovementDirectionViaSense(player, ground)).toEqual(Direction.NO_DIRECTION);
     });
   });
   describe('no food on the board', () => {
-    it('shoud always return undefined', () => {
+    it('shoud always return NO_DIRECTION', () => {
       const player = createPlayer({ position: { x: 1, y: 1 } });
       const dimensions = { width: 10, height: 10 };
       const ground = createGround({ dimensions, players: [player] });
-      expect(getMovementDirectionViaSense(player, ground)).not.toBeDefined();
+      expect(getMovementDirectionViaSense(player, ground)).toEqual(Direction.NO_DIRECTION);
     });
   });
   describe('it can reach a piece of food this turn', () => {
@@ -90,12 +90,12 @@ describe('getNewPlayerPositionViaSense', () => {
   });
   describe('it cannot reach a piece of food this turn', () => {
     describe('no food within the players sense', () => {
-      it('should return undefined if the user cannot sense any food', () => {
+      it('should return NO_DIRECTION if the user cannot sense any food', () => {
         const player = createPlayer({ position: { x: 1, y: 1 }, sense: 1 });
         const dimensions = { width: 10, height: 10 };
         const food = [createFood({ position: { x: 1, y: 3 } })];
         const ground = createGround({ dimensions, players: [player], food });
-        expect(getMovementDirectionViaSense(player, ground)).toBeUndefined();
+        expect(getMovementDirectionViaSense(player, ground)).toEqual(Direction.NO_DIRECTION);
       });
     });
     describe('food within the players sense', () => {
@@ -111,7 +111,7 @@ describe('getNewPlayerPositionViaSense', () => {
       describe('obstacles in the way', () => {
         it.todo('should avoid players, in its way');
         it.todo('should pick another food to go for if the user cannot see around the player');
-        it.todo('should return undefined if it can not reach any food because of player obstacles');
+        it.todo('should return NO_DIRECTION if it can not reach any food because of player obstacles');
         it.todo('should move through food to get to its target');
       });
     });
