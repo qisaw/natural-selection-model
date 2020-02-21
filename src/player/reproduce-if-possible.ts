@@ -11,22 +11,23 @@ interface ReproductionResult {
   newPlayers: Player[];
 }
 
+const getSpeedOfChild = (parentSpeed: number): number => {
+  if (shouldMutateSpeed()) {
+    const rand = Math.random();
+    if (rand <= 0.333) {
+      return parentSpeed;
+    } else if (rand <= 0.666) {
+      return parentSpeed + 1;
+    }
+    return Math.max(1, parentSpeed - 1);
+  }
+  return parentSpeed;
+};
+
 export const reproduceIfPossible = (player: Player, ground: Ground): ReproductionResult => {
   if (canReproduce(player, ground)) {
     const newPosition = getNewPlayerPosition(player, ground);
-    let newSpeed;
-    if (shouldMutateSpeed()) {
-      const rand = Math.random();
-      if (rand <= 0.333) {
-        newSpeed = player.speed;
-      } else if (rand <= 0.666) {
-        newSpeed = player.speed + 1;
-      } else {
-        newSpeed = Math.max(1, player.speed - 1);
-      }
-    } else {
-      newSpeed = player.speed;
-    }
+    const newSpeed = getSpeedOfChild(player.speed);
     const originalPlayer = { ...player, foodEaten: player.foodEaten.slice(2) };
     const newPlayer = createPlayer({
       ...player,
