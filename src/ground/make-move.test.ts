@@ -3,6 +3,7 @@ import { createGround } from './create-ground';
 import { makeMove } from './make-move';
 import { Player } from '../player/player';
 import { setOverrides, unsetOverrides } from '../settings';
+import { createFood } from '../food';
 describe('makeMove', () => {
   const dimensions = {
     width: 30,
@@ -42,6 +43,24 @@ describe('makeMove', () => {
       const ground = createGround({ dimensions, players });
       const newGround = makeMove(ground);
       expect(newGround.players[0].timeToLive).toEqual(0);
+    });
+    it('should filter out players that have died after they have reproduced', () => {
+      const players = [
+        createPlayer({
+          position: { x: 0, y: 0 },
+          energy: 10,
+          timeToLive: 1,
+          speed: 1,
+          foodEaten: [createFood({ position: { x: 1, y: 1 } }), createFood({ position: { x: 1, y: 1 } })],
+        }),
+      ];
+      const ground = createGround({ dimensions, players });
+      const nextGround = makeMove(ground);
+      // created user now has time to live 0
+      expect(nextGround.players).toHaveLength(2);
+      const groundWhereUserOneIsDead = makeMove(nextGround);
+      expect(groundWhereUserOneIsDead.players).toHaveLength(1);
+      expect(groundWhereUserOneIsDead.players[0].id).not.toEqual(players[0].id);
     });
   });
   describe('when useTimetoLive is not set', () => {
