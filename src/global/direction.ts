@@ -7,4 +7,5 @@ export enum Direction {
   UP_AND_RIGHT,
   DOWN_AND_LEFT,
   DOWN_AND_RIGHT,
+  NO_DIRECTION,
 }
