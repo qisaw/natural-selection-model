@@ -1,6 +1,5 @@
 import { Position } from '../global/types';
 import { Food } from '../food/food';
-import { Player } from './player';
 import { DeepSet } from '../utils/deep-set';
 export interface PlayerData {
   position: Position;
