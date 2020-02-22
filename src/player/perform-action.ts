@@ -7,6 +7,7 @@ import { reproduceIfPossible } from './reproduce-if-possible';
 import { Position } from '../global/types';
 import { getEnergyConsumption } from './get-energy-consumption';
 import { DeepSet } from '../utils/deep-set';
+import { PlayerNotInGroundError } from './errors';
 
 const setPlayerInPlayersArray = (player: Player, players: Player[]): Player[] => {
   const idx = players.findIndex(({ id }: Player): boolean => id === player.id);
@@ -16,9 +17,8 @@ const hasPlayerMoved = (player: Player, position: Position): boolean =>
   position.x !== player.position.x || position.y !== player.position.y;
 
 export const performAction = (player: Player, ground: Ground): Ground => {
-  // If the player does not exist in the ground anymore, don't do anything
   if (ground.players.findIndex(({ id }: Player): boolean => id === player.id) === -1) {
-    return ground;
+    throw new PlayerNotInGroundError(player, ground.dimensions);
   }
 
   // If the player has no energy left to move, we consider that player dead, and remove them from the board

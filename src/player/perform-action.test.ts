@@ -4,14 +4,14 @@ import { performAction } from './perform-action';
 import { createFood } from '../food';
 import { Player } from './player';
 import { DeepSet } from '../utils/deep-set';
+import { PlayerNotInGroundError } from './errors';
 
 describe('movePlayer', () => {
   describe('a player not in the board has been passed', () => {
-    it('should return the board with no changes', () => {
+    it('should throw player not in ground error', () => {
       const players = [createPlayer({ position: { x: 1, y: 1 } })];
       const ground = createGround({ players });
-      const newGround = performAction(createPlayer({ position: { x: 2, y: 2 } }), ground);
-      expect(newGround).toEqual(ground);
+      expect(() => performAction(createPlayer({ position: { x: 2, y: 2 } }), ground)).toThrow(PlayerNotInGroundError);
     });
   });
   describe('the player has no energy', () => {
