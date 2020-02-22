@@ -52,16 +52,12 @@ describe('reproduceIfPossible', () => {
       });
     });
     describe('hasSpeedMutation', () => {
-      let spy: jest.SpyInstance;
-      beforeEach(() => {
-        spy = jest.spyOn(settings, 'shouldMutateSpeed');
-      });
-      afterEach(() => {
-        spy.mockRestore();
-      });
       describe('off', () => {
         beforeEach(() => {
-          spy.mockImplementation(() => false);
+          settings.setOverrides({ shouldMutateSpeed: false });
+        });
+        afterEach(() => {
+          settings.unsetOverrides(['shouldMutateSpeed']);
         });
         it('new player should always have the same speed as the parent', () => {
           const foodEaten = [createFood({ position: { x: 1, y: 1 } }), createFood({ position: { x: 1, y: 1 } })];
@@ -74,11 +70,12 @@ describe('reproduceIfPossible', () => {
       describe('on', () => {
         let randomMock: jest.SpyInstance;
         beforeEach(() => {
-          spy.mockImplementation(() => true);
+          settings.setOverrides({ shouldMutateSpeed: true });
           randomMock = jest.spyOn(Math, 'random');
         });
         afterEach(() => {
           randomMock.mockRestore();
+          settings.unsetOverrides(['shouldMutateSpeed']);
         });
         it('should 33% of the time keep the same player speed', () => {
           randomMock.mockImplementation(() => 0.32);
