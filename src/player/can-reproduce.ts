@@ -9,6 +9,7 @@ export const canReproduce = (player: Player, ground: Ground): boolean => {
   if (!isOnOuterEdge(player.position, ground)) {
     return false;
   }
+  // @TODO, just find an empty spot
   if (deepEqual(getNewPlayerPosition(player, ground), player.position)) {
     return false;
   }

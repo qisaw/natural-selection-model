@@ -26,6 +26,7 @@ const getSpeedOfChild = (parentSpeed: number): number => {
 
 export const reproduceIfPossible = (player: Player, ground: Ground): ReproductionResult => {
   if (canReproduce(player, ground)) {
+    // @TODO, just get an empty spot
     const newPosition = getNewPlayerPosition(player, ground);
     const newSpeed = getSpeedOfChild(player.speed);
     const originalPlayer = { ...player, foodEaten: player.foodEaten.slice(2) };
@@ -35,7 +36,7 @@ export const reproduceIfPossible = (player: Player, ground: Ground): Reproductio
       id: undefined,
       position: newPosition,
       foodEaten: [],
-      previousPositions: new DeepSet(),
+      previousPositions: new DeepSet([newPosition]),
       timeToLive: defaultPlayerTimeToLive(),
     });
     return {

@@ -22,6 +22,7 @@ interface WithPositions {
 const getInvalidPositionedItems = <T extends WithPositions>(things: T[], dimensions: GroundDimensions): T[] =>
   things.filter(({ position: { x, y } }) => x >= dimensions.width || x < 0 || y >= dimensions.height || y < 0);
 
+// @TODO enforce that food and players don't intersect
 export const createGround = ({
   dimensions = defaultDimensions,
   players = defaultPlayers,
