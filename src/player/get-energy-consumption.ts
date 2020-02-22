@@ -4,5 +4,5 @@ import { Player } from './player';
 // Change this later when we are adding variables
 const mass = 1;
 export const getEnergyConsumption = (player: Player): number => {
-  return mass * Math.pow(player.speed, 2);
+  return mass * Math.pow(player.speed, 2) * player.sense;
 };
