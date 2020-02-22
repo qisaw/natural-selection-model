@@ -57,7 +57,7 @@ export const performAction = (player: Player, ground: Ground): Ground => {
     position: newPosition,
     energy: newEnergy,
     foodEaten: playerFood,
-    previousPositions: new DeepSet(Array.from(player.previousPositions.values())).add(newPosition),
+    previousPositions: new DeepSet(Array.from(player.previousPositions.values())).add(player.position),
   });
   const newPlayerArray = setPlayerInPlayersArray(newPlayer, ground.players);
   return {

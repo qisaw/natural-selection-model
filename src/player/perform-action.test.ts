@@ -49,7 +49,7 @@ describe('movePlayer', () => {
     });
     describe('the user cannot reproduce', () => {
       it('should move the player', () => {
-        const previousPositions = [{ x: 1, y: 1 }];
+        const previousPositions = [{ x: 1, y: 2 }];
         const players = [
           createPlayer({ position: { x: 1, y: 1 }, energy: 1, previousPositions: new DeepSet(previousPositions) }),
         ];
@@ -57,9 +57,15 @@ describe('movePlayer', () => {
         const newGround = performAction(players[0], ground);
         expect(newGround.players[0].id).toEqual(players[0].id);
         expect(newGround.players[0].position).not.toEqual(players[0].position);
-        expect(newGround.players[0].previousPositions).toEqual(
-          new DeepSet([...previousPositions, newGround.players[0].position]),
-        );
+      });
+      it('should set the players previous position in the previousPositions set ', () => {
+        const previousPositions = [{ x: 1, y: 2 }];
+        const players = [
+          createPlayer({ position: { x: 1, y: 1 }, energy: 1, previousPositions: new DeepSet(previousPositions) }),
+        ];
+        const ground = createGround({ players });
+        const newGround = performAction(players[0], ground);
+        expect(newGround.players[0].previousPositions).toEqual(new DeepSet([...previousPositions, { x: 1, y: 1 }]));
       });
       it('should decrease the energy when a user moves', () => {
         const players = [createPlayer({ position: { x: 1, y: 1 }, energy: 10, speed: 2 })];
