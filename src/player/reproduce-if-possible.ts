@@ -36,7 +36,7 @@ export const reproduceIfPossible = (player: Player, ground: Ground): Reproductio
       id: undefined,
       position: newPosition,
       foodEaten: [],
-      previousPositions: new DeepSet([newPosition]),
+      previousPositions: new DeepSet(),
       timeToLive: defaultPlayerTimeToLive(),
     });
     return {
