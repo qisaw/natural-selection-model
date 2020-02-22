@@ -56,15 +56,33 @@ const printStats = (ground: Ground): void => {
       maxSpeed: 0,
     },
   );
-
   const meanSpeed = sum / playerSpeeds.length;
   const medianSpeed = median(playerSpeeds);
+
+  const playerSenses = ground.players.map(({ sense }) => sense);
+  const { sumSense, minSense, maxSense } = playerSenses.reduce(
+    ({ sumSense: sumSpeeds, minSense: minSpeed, maxSense: maxSpeed }, next) => {
+      return {
+        sumSense: sumSpeeds + next,
+        minSense: next < minSpeed ? next : minSpeed,
+        maxSense: next > maxSpeed ? next : maxSpeed,
+      };
+    },
+    {
+      sumSense: 0,
+      minSense: 1,
+      maxSense: 0,
+    },
+  );
+  const meanSense = sumSense / playerSenses.length;
+  const medianSense = median(playerSenses);
+
   console.log(`Num of Players: ${ground.players.length}`);
   console.log(`Num of Food:    ${ground.food.length}`);
-  console.log(`Mean Speed:     ${meanSpeed}`);
-  console.log(`Median Speed:   ${medianSpeed}`);
-  console.log(`Min Speed:      ${min}`);
-  console.log(`Max Speed:      ${max}`);
+  console.log(`Mean Speed:     ${meanSpeed}    : Mean Sense     ${meanSense}`);
+  console.log(`Median Speed:   ${medianSpeed}  : Median Sense   ${medianSense}`);
+  console.log(`Min Speed:      ${min}          : Min Sense      ${minSense}`);
+  console.log(`Max Speed:      ${max}          : Max Sense      ${maxSense}`);
   printLine('DONE', ground);
 };
 
