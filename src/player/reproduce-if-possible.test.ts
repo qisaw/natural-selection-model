@@ -51,6 +51,66 @@ describe('reproduceIfPossible', () => {
         expect(newPlayers[0].timeToLive).toEqual(settings.defaultPlayerTimeToLive());
       });
     });
+    describe('hasSenseMutation', () => {
+      describe('off', () => {
+        beforeEach(() => {
+          settings.setOverrides({ mutateSense: false });
+        });
+        afterEach(() => {
+          settings.unsetOverrides(['mutateSense']);
+        });
+        it('new player should always have the same sense as the parent', () => {
+          const foodEaten = [createFood({ position: { x: 1, y: 1 } }), createFood({ position: { x: 1, y: 1 } })];
+          const player = createPlayer({ position: { x: 0, y: 1 }, foodEaten, energy: 30, sense: 10 });
+          const ground = createGround({ players: [player] });
+          const { newPlayers } = reproduceIfPossible(player, ground);
+          expect(newPlayers[0].sense).toEqual(10);
+        });
+      });
+      describe('on', () => {
+        let randomMock: jest.SpyInstance;
+        beforeEach(() => {
+          settings.setOverrides({ mutateSense: true });
+          randomMock = jest.spyOn(Math, 'random');
+        });
+        afterEach(() => {
+          randomMock.mockRestore();
+          settings.unsetOverrides(['mutateSense']);
+        });
+        it('should 33% of the time keep the same player sense', () => {
+          randomMock.mockImplementation(() => 0.32);
+          const foodEaten = [createFood({ position: { x: 1, y: 1 } }), createFood({ position: { x: 1, y: 1 } })];
+          const player = createPlayer({ position: { x: 0, y: 1 }, foodEaten, energy: 30, sense: 1 });
+          const ground = createGround({ players: [player] });
+          const { newPlayers } = reproduceIfPossible(player, ground);
+          expect(newPlayers[0].sense).toEqual(1);
+        });
+        it('should 33% of the time increase the player sense', () => {
+          randomMock.mockImplementation(() => 0.65);
+          const foodEaten = [createFood({ position: { x: 1, y: 1 } }), createFood({ position: { x: 1, y: 1 } })];
+          const player = createPlayer({ position: { x: 0, y: 1 }, foodEaten, energy: 30, sense: 1 });
+          const ground = createGround({ players: [player] });
+          const { newPlayers } = reproduceIfPossible(player, ground);
+          expect(newPlayers[0].sense).toEqual(2);
+        });
+        it('should 33% of the time decrease the player sense', () => {
+          randomMock.mockImplementation(() => 0.95);
+          const foodEaten = [createFood({ position: { x: 1, y: 1 } }), createFood({ position: { x: 1, y: 1 } })];
+          const player = createPlayer({ position: { x: 0, y: 1 }, foodEaten, energy: 30, sense: 3 });
+          const ground = createGround({ players: [player] });
+          const { newPlayers } = reproduceIfPossible(player, ground);
+          expect(newPlayers[0].sense).toEqual(2);
+        });
+        it('should never decrease the player sense to a 0 value', () => {
+          randomMock.mockImplementation(() => 0.95);
+          const foodEaten = [createFood({ position: { x: 1, y: 1 } }), createFood({ position: { x: 1, y: 1 } })];
+          const player = createPlayer({ position: { x: 0, y: 1 }, foodEaten, energy: 30, sense: 1 });
+          const ground = createGround({ players: [player] });
+          const { newPlayers } = reproduceIfPossible(player, ground);
+          expect(newPlayers[0].sense).toEqual(1);
+        });
+      });
+    });
     describe('hasSpeedMutation', () => {
       describe('off', () => {
         beforeEach(() => {
