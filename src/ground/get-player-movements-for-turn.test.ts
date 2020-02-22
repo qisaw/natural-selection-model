@@ -25,7 +25,7 @@ describe('getPlayerMovementsForTurns', () => {
     const playerMovementForTurns = getPlayerMovementsForTurns(players);
     const expectedKeys = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
     expectedKeys.forEach(key => {
-      expect(playerMovementForTurns.get(key)).toEqual(players);
+      expect(playerMovementForTurns.get(key)).toEqual(players.map(({ id }) => id));
     });
   });
   it('should add each player same number of times its speed is', () => {
@@ -39,9 +39,9 @@ describe('getPlayerMovementsForTurns', () => {
     let playerTwoCount = 0;
     let playerThreeCount = 0;
     for (const value of playerMovementForTurns.values()) {
-      const doesPlayerOneExist = value.find(({ id }) => id === playerOne.id);
-      const doesPlayerTwoExist = value.find(({ id }) => id === playerTwo.id);
-      const doesPlayerThreeExist = value.find(({ id }) => id === playerThree.id);
+      const doesPlayerOneExist = value.find(id => id === playerOne.id);
+      const doesPlayerTwoExist = value.find(id => id === playerTwo.id);
+      const doesPlayerThreeExist = value.find(id => id === playerThree.id);
       if (doesPlayerOneExist) {
         playerOneCount += 1;
       }

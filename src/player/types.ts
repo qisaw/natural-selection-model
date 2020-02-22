@@ -14,4 +14,4 @@ export interface PlayerData {
   sense?: number;
 }
 
-export type PlayerMovementPattern = Map<Player, boolean[]>;
+export type PlayerMovementPattern = Map<string, boolean[]>;
