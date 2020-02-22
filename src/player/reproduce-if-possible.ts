@@ -1,10 +1,10 @@
 import { Player } from './player';
 import { Ground } from '../ground/types';
-import { getNewPlayerPosition } from './get-new-player-position';
 import { createPlayer } from '.';
 import { canReproduce } from './can-reproduce';
 import { shouldMutateSpeed, defaultPlayerTimeToLive } from '../settings';
 import { DeepSet } from '../utils/deep-set';
+import { getFreePostionsAroundPlayer } from './get-free-positions-around-player';
 
 interface ReproductionResult {
   originalPlayer: Player;
@@ -26,8 +26,7 @@ const getSpeedOfChild = (parentSpeed: number): number => {
 
 export const reproduceIfPossible = (player: Player, ground: Ground): ReproductionResult => {
   if (canReproduce(player, ground)) {
-    // @TODO, just get an empty spot
-    const newPosition = getNewPlayerPosition(player, ground);
+    const newPosition = getFreePostionsAroundPlayer(player, ground, false)[0];
     const newSpeed = getSpeedOfChild(player.speed);
     const originalPlayer = { ...player, foodEaten: player.foodEaten.slice(2) };
     const newPlayer = createPlayer({
