@@ -22,6 +22,9 @@
 ## Documentation
 `@TODO add rules and more documentation on how to use.`
 
+### Vocabulary
+`@TODO terms and definitions`
+
 ### Parameters
 You may use the following parameters to configure different aspects of the simulation. The following options can be varied both in the cli command and programatically via the library.
 
