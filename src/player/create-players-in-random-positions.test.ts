@@ -5,7 +5,7 @@ import { createFood } from '../food';
 import { Player } from '../player/player';
 
 describe('createPlayersInRandomPositions', () => {
-  it('should add food to the board', () => {
+  it('should add player to the board', () => {
     const dimensions = {
       width: 10,
       height: 10,
