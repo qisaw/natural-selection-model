@@ -11,6 +11,7 @@ type Overrides = {
   useTimeToLive?: boolean;
   defaultSense?: number;
   useSense?: boolean;
+  mutateSense?: boolean;
 };
 let overrides: Overrides = {};
 
@@ -38,3 +39,4 @@ export const defaultPlayerTimeToLive = (): number => overrides.defaultPlayerTime
 export const useTimeToLive = (): boolean => (overrides.useTimeToLive === undefined ? true : overrides.useTimeToLive);
 export const defaultSense = (): number => (overrides.defaultSense === undefined ? 1 : overrides.defaultSense);
 export const useSense = (): boolean => (overrides.useSense === undefined ? true : overrides.useSense);
+export const mutateSense = (): boolean => (overrides.mutateSense === undefined ? true : overrides.mutateSense);

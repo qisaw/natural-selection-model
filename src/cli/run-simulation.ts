@@ -26,6 +26,7 @@ type Arguments = {
   useTimeToLive: boolean;
   defaultSense: number;
   useSense: boolean;
+  mutateSense: boolean;
 };
 
 const printLine = (word: string, ground: Ground): void => {
@@ -92,6 +93,7 @@ export const command: CommandModule<{}, Arguments> = {
     useTimeToLive,
     useSense,
     defaultSense,
+    mutateSense,
   }) => {
     setOverrides({
       energyAdditionForFood,
@@ -102,6 +104,7 @@ export const command: CommandModule<{}, Arguments> = {
       useTimeToLive,
       useSense,
       defaultSense,
+      mutateSense,
     });
     const dimensions = { height, width };
     const players = createPlayersInRandomPositions(initalNumOfPlayers, dimensions, [], []);
@@ -209,6 +212,12 @@ export const command: CommandModule<{}, Arguments> = {
       })
       .option('useSense', {
         describe: 'Should players have senses. Senses allow users to move towards food when they see it',
+        demandOption: false,
+        default: true,
+        type: 'boolean',
+      })
+      .option('mutateSense', {
+        describe: 'Should sense mutate on reproduction',
         demandOption: false,
         default: true,
         type: 'boolean',
