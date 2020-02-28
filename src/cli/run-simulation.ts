@@ -176,7 +176,8 @@ export const command: CommandModule<{}, Arguments> = {
         demandOption: false,
       })
       .option('initialNumOfFood', {
-        describe: 'The amount of players that should be placed on the board at the beginning',
+        describe:
+          'The number of pieces of food on the ground in the first turn. This food will be put in random positions on the ground.',
         type: 'number',
         default: 10,
         demandOption: false,
