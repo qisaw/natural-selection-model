@@ -175,6 +175,18 @@ export const command: CommandModule<{}, Arguments> = {
         default: 10,
         demandOption: false,
       })
+      .option('startingPlayerEnergy', {
+        describe: 'The number of moves a player with 1 speed can move before dying',
+        type: 'number',
+        default: 1000,
+        demandOption: false,
+      })
+      .option('startingPlayerSpeed', {
+        describe: 'The initial speed of all the players',
+        type: 'number',
+        default: 1,
+        demandOption: false,
+      })
       .option('initialNumOfFood', {
         describe:
           'The number of pieces of food on the ground on the first turn. This food will be put in random positions on the ground.',
@@ -195,22 +207,10 @@ export const command: CommandModule<{}, Arguments> = {
         default: 1000,
         demandOption: false,
       })
-      .option('startingPlayerEnergy', {
-        describe: 'The number of moves a player with 1 speed can move before dying',
-        type: 'number',
-        default: 1000,
-        demandOption: false,
-      })
       .option('shouldMutateSpeed', {
         describe: 'Shoud the simulation mutate speed',
         type: 'boolean',
         default: true,
-        demandOption: false,
-      })
-      .option('startingPlayerSpeed', {
-        describe: 'The initial speed of all the players',
-        type: 'number',
-        default: 1,
         demandOption: false,
       })
       .option('defaultPlayerTimeToLive', {
