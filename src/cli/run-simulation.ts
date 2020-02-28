@@ -176,15 +176,53 @@ export const command: CommandModule<{}, Arguments> = {
         demandOption: false,
       })
       .option('startingPlayerEnergy', {
-        describe: 'The number of moves a player with 1 speed can move before dying',
+        describe: 'The amount of energy a newly created player starts with.',
         type: 'number',
         default: 1000,
         demandOption: false,
       })
+      .option('useTimeToLive', {
+        describe:
+          'Should a player have a time to live. If this is not set, then a player lives until their energy runs out.',
+        demandOption: false,
+        default: true,
+        type: 'boolean',
+      })
+      .option('defaultPlayerTimeToLive', {
+        describe: 'The mamimum number of turns a player can be alive for. Is only respected if useTimeToLive is set.',
+        type: 'number',
+        default: 100,
+        demandOption: false,
+      })
+      .option('useSense', {
+        describe:
+          'Should players be able to see what is around them. If not set, the player always moves in a random direction.',
+        demandOption: false,
+        default: true,
+        type: 'boolean',
+      })
+      .option('defaultSense', {
+        describe: 'How many positions around the players on the ground on the first turn should be able so see.',
+        demandOption: false,
+        default: 1,
+        type: 'number',
+      })
+      .option('mutateSense', {
+        describe: 'Should a child player sense mutate from their parent during reproducton.',
+        demandOption: false,
+        default: true,
+        type: 'boolean',
+      })
       .option('startingPlayerSpeed', {
-        describe: 'The initial speed of all the players',
+        describe: 'The speed of players on the ground on the first turn.',
         type: 'number',
         default: 1,
+        demandOption: false,
+      })
+      .option('shouldMutateSpeed', {
+        describe: 'Should a child player speed mutate from their parent during reproducton.',
+        type: 'boolean',
+        default: true,
         demandOption: false,
       })
       .option('initialNumOfFood', {
@@ -206,42 +244,6 @@ export const command: CommandModule<{}, Arguments> = {
         type: 'number',
         default: 1000,
         demandOption: false,
-      })
-      .option('shouldMutateSpeed', {
-        describe: 'Shoud the simulation mutate speed',
-        type: 'boolean',
-        default: true,
-        demandOption: false,
-      })
-      .option('defaultPlayerTimeToLive', {
-        describe: 'The number of turns a player can be alive for',
-        type: 'number',
-        default: 100,
-        demandOption: false,
-      })
-      .option('useTimeToLive', {
-        describe: 'Should a player have a time to live. If this is set, then defaultPlayerTimeToLive is ignored',
-        demandOption: false,
-        default: true,
-        type: 'boolean',
-      })
-      .option('defaultSense', {
-        describe: 'The default number number of positions users can see food from',
-        demandOption: false,
-        default: 1,
-        type: 'number',
-      })
-      .option('useSense', {
-        describe: 'Should players have senses. Senses allow users to move towards food when they see it',
-        demandOption: false,
-        default: true,
-        type: 'boolean',
-      })
-      .option('mutateSense', {
-        describe: 'Should sense mutate on reproduction',
-        demandOption: false,
-        default: true,
-        type: 'boolean',
       })
       .usage('$0 Runs the natural selection simulation with output in the terminal')
       .version(false)
