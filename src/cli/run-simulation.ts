@@ -170,7 +170,7 @@ export const command: CommandModule<{}, Arguments> = {
       })
       .option('initalNumOfPlayers', {
         describe:
-          'The number of playerso on the board in the first turn. These players will be put on random positions on the ground.',
+          'The number of players on the board in the first turn. These players will be put in random positions on the ground.',
         type: 'number',
         default: 10,
         demandOption: false,
