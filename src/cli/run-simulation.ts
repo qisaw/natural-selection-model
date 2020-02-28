@@ -170,14 +170,14 @@ export const command: CommandModule<{}, Arguments> = {
       })
       .option('initalNumOfPlayers', {
         describe:
-          'The number of players on the ground in the first turn. These players will be put in random positions on the ground.',
+          'The number of players on the ground on the first turn. These players will be put in random positions on the ground.',
         type: 'number',
         default: 10,
         demandOption: false,
       })
       .option('initialNumOfFood', {
         describe:
-          'The number of pieces of food on the ground in the first turn. This food will be put in random positions on the ground.',
+          'The number of pieces of food on the ground on the first turn. This food will be put in random positions on the ground.',
         type: 'number',
         default: 10,
         demandOption: false,
@@ -190,7 +190,7 @@ export const command: CommandModule<{}, Arguments> = {
         demandOption: false,
       })
       .option('energyAdditionForFood', {
-        describe: 'The amount of energy eating food gives a player',
+        describe: 'The amount of energy a player gains from eating this food.',
         type: 'number',
         default: 1000,
         demandOption: false,
