@@ -24,6 +24,12 @@
 
 ### Vocabulary
 `@TODO terms and definitions`
+#### Turn
+#### Energy
+#### Time To Live
+#### Speed
+#### Sense
+#### Mutation
 
 ### Parameters
 You may use the following parameters to configure different aspects of the simulation. The following options can be varied both in the cli command and programatically via the library.
