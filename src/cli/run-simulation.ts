@@ -183,7 +183,8 @@ export const command: CommandModule<{}, Arguments> = {
         demandOption: false,
       })
       .option('numOfTurnsBetweenFood', {
-        describe: 'The number of turns between addition of food',
+        describe:
+          'The number of turns between addition on new food to the ground. The amount of food added will be dependant on the initialNumOfFood parameter.',
         type: 'number',
         default: 1000,
         demandOption: false,
