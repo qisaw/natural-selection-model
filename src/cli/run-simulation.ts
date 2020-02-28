@@ -163,7 +163,7 @@ export const command: CommandModule<{}, Arguments> = {
       })
       .option('maxNumOfTurns', {
         describe:
-          'The maximum number of turns to play. The program runs until there are no more players on the board or until the max number of turns are played',
+          'The maximum number of turns to play. The program runs until there are no more players on the ground or until the max number of turns are played',
         type: 'number',
         default: 10000,
         demandOption: false,
