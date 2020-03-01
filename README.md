@@ -91,3 +91,4 @@ The following parameters affect food and their properties
 
 ## Contributing
 `@TODO add contribution guidelines`
+Please read our [CODE_OF_CONDUCT](./CODE_OF_CONDUCT.md) before contributing.
