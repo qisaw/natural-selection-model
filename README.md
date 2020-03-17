@@ -24,44 +24,52 @@
 ### Vocabulary
 
 #### Player
-A player in this simulation represents a single living unit.
-A player has the following properties:
+A Player in this simulation represents a single living unit.
+A Player has the following properties:
 * [Energy](#energy)
 * [Speed](#speed)
 * [Sense](#sense)
 * [Time To Live](#time-to-live)
 
-On any given turn, a player will may perform one or more of the following actions:
-* Move around the Ground
-* Eat Food or other Players **Player eating not implemented yet see [#22](https://github.com/qisaw/natural-selection-model/issues/22)**
-* Reproduce
-* Die
+On any given turn, a Player will may perform one or more of the following actions:
+* Move around the [Ground](#ground)
+* Eat [Food](#fod) or other [Players](#player) **Player eating not implemented yet see [#22](https://github.com/qisaw/natural-selection-model/issues/22)**
+* [Reproduce](#reproduction)
+* [Die](#death)
 
 #### Ground
-The ground is the plane in which all Players and Food interact with each other.
+The Ground is the plane in which all [Players](#player) and [Food](#food) interact with each other.
 
 #### Food
 #### Turn
 #### Energy
-Each Player will have some amount of energy when they are created.
-This energy will then be consumed while the player moves.
-Energy consumption of uses the following formula `energy consumption = mass * speed ^2 * sense`.
-If a Player has no energy left, then that Player will be considered "Dead" and removed from the ground.
+Each [Player](#player) will have some amount of Energy when they are created.
+This Energy will then be consumed while the [Player](#player) moves.
+If a [Player](#player) has no energy left, then that [Player](#player) will be considered [Dead](#death).
 
-A player may replenish their available energy by eating one of the following:
-* Moving to a piece of food on the board. The Player will gain the amount of energy defined by the food in the `energyAdditionForFood` property.
-* Moving to a another Player at least 20% smaller than the player. The Player eating will gain the energy the Player being eaten has remaining. **Player eating not implemented yet see [#22](https://github.com/qisaw/natural-selection-model/issues/22)**
+**Energy consumption of uses the following formula `energyConsumption = mass * speed ^2 * sense`.**
+
+A [Player](#player) may replenish their available Energy by eating one of the following:
+* Moving to a piece of [Food](#food) on the [Ground](#ground). The [Player](#player) will gain the amount of Energy defined by the [Food](#food) in the `energyAdditionForFood` property.
+* Moving to a another [Player](#player) at least 20% smaller than the Player. The [Player](#player) eating will gain the Energy the [Player](#player) being eaten has remaining. **Player eating not implemented yet see [#22](https://github.com/qisaw/natural-selection-model/issues/22)**
 
 #### Time To Live
-Each Player may have a `Time To Live` property.
-This dictates the maximum number of Turns the player will be an interactive movable unit on the ground.
-If the player has not died before this number of turns, this player will be killed.
-The "Time To Live" property is set at the beginning of the simulation, and does not change during the simulation.
+Each [Player](#player) may have a `Time To Live` property.
+This dictates the maximum number of [turns](#turns) the [Player](#player) will be an interactive movable entity on the ground.
+If the [Player](#player) has not died before this number of [turns](#turns), this [Player](#player) will be [killed](#death).
+
+**The `Time To Live` property is set at the beginning of the simulation, and does not change during the simulation.**
 
 #### Speed
+The number of actions that a [Player](#player) will perform in a given [turn](#turn). E.g. a [Player](#player) with 1 speed will perform 1 action per [turn](#turn), a [Player](#player) with 2 speed will perform 2 actions per [turn](#turn).
+
+An action can be one of the following
+* Move. A [Player](#player) can change it's position on the board.
+* Eat. A [Player](#player) may consume a consumable entity.
+* [Reproduce](#reproduction). A [Player](#player) may reproduce, and add 1 child to the board.
+
 #### Sense
 #### Mutation
-#### Eating
 #### Reproduction
 #### Death
 When a player runs out of Energy, reaches its Time To Live or is eaten by another player.
