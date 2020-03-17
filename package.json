@@ -6,11 +6,12 @@
   "scripts": {
     "build": "babel src --extensions .ts --out-dir build",
     "typecheck": "tsc --noEmit",
-    "start:cli":"npm run build && node build/cli/index.js",
+    "start:cli": "npm run build && node build/cli/index.js",
     "start": "node build/index.js",
     "lint": "eslint ./ --ext .js,.ts",
     "format": "eslint ./ --ext .js,.ts --fix",
-    "test": "jest"
+    "test": "jest",
+    "upgrade-interactive": "npm-check --update"
   },
   "bin": {
     "natural-selection-model": "build/cli/index.js"
