@@ -61,7 +61,7 @@ If the [Player](#player) has not died before this number of [turns](#turns), thi
 **The `Time To Live` property is set at the beginning of the simulation, and does not change during the simulation.**
 
 #### Speed
-The number of actions that a [Player](#player) will perform in a given [turn](#turn). E.g. a [Player](#player) with 1 speed will perform 1 action per [turn](#turn), a [Player](#player) with 2 speed will perform 2 actions per [turn](#turn).
+The number of actions that a [Player](#player) will perform in a given [turn](#turn). E.g. A [Player](#player) with 1 speed will perform 1 action per [turn](#turn), a [Player](#player) with 2 speed will perform 2 actions per [turn](#turn).
 
 An action can be one of the following
 * Move. A [Player](#player) can change it's position on the board.
