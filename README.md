@@ -4,17 +4,8 @@
 
 > :warning: **This package is currently in BETA and not feature complete. This means breaking changes to the api may be made at any time. Be careful when upgrading!! Follow the progress toward feature completion [here](https://github.com/qisaw/natural-selection-model/milestone/1) and keep up to date on work in progress [here](https://github.com/qisaw/natural-selection-model/projects/1).** 
 
-## Introducton
+## Introduction
 `@TODO add introduction`
-
-## Goals
-`@TODO add goals here.`
-
-## Background
-`@TODO add backround`
-
-## Motivation
-`@TODO add motivation`
 
 ## Installation
 `@TODO add installation instructions`
@@ -41,7 +32,9 @@ On any given turn, a Player will may perform one or more of the following action
 The Ground is the plane in which all [Players](#player) and [Food](#food) interact with each other.
 
 #### Food
+
 #### Turn
+
 #### Energy
 Each [Player](#player) will have some amount of Energy when they are created.
 This Energy will then be consumed while the [Player](#player) moves.
