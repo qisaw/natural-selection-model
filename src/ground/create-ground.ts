@@ -1,4 +1,4 @@
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 
 import { Player } from '../player/player';
 import { InvalidDimensionsError } from './errors';

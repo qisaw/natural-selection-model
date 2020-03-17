@@ -1,5 +1,5 @@
 import { Player } from './player';
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 import { Food } from '../food/food';
 import { startingPlayerEnergy, defaultPlayerTimeToLive, defaultSense } from '../settings';
 import { DeepSet } from '../utils/deep-set';

@@ -1,4 +1,4 @@
-import uuid from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 import { PlayerData } from './types';
 import { Position } from '../global/types';
 import { Food } from '../food/food';
