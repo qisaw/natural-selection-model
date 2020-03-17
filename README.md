@@ -20,16 +20,51 @@
 `@TODO add installation instructions`
 
 ## Documentation
-`@TODO add rules and more documentation on how to use.`
 
 ### Vocabulary
-`@TODO terms and definitions`
+
+#### Player
+A player in this simulation represents a single living unit.
+A player has the following properties:
+* [Energy](#energy)
+* [Speed](#speed)
+* [Sense](#sense)
+* [Time To Live](#time-to-live)
+
+On any given turn, a player will may perform one or more of the following actions:
+* Move around the Ground
+* Eat Food or other Players **Player eating not implemented yet see [#22](https://github.com/qisaw/natural-selection-model/issues/22)**
+* Reproduce
+* Die
+
+#### Ground
+The ground is the plane in which all Players and Food interact with each other.
+
+#### Food
 #### Turn
 #### Energy
+Each Player will have some amount of energy when they are created.
+This energy will then be consumed while the player moves.
+Energy consumption of uses the following formula `energy consumption = mass * speed ^2 * sense`.
+If a Player has no energy left, then that Player will be considered "Dead" and removed from the ground.
+
+A player may replenish their available energy by eating one of the following:
+* Moving to a piece of food on the board. The Player will gain the amount of energy defined by the food in the `energyAdditionForFood` property.
+* Moving to a another Player at least 20% smaller than the player. The Player eating will gain the energy the Player being eaten has remaining. **Player eating not implemented yet see [#22](https://github.com/qisaw/natural-selection-model/issues/22)**
+
 #### Time To Live
+Each Player may have a `Time To Live` property.
+This dictates the maximum number of Turns the player will be an interactive movable unit on the ground.
+If the player has not died before this number of turns, this player will be killed.
+The "Time To Live" property is set at the beginning of the simulation, and does not change during the simulation.
+
 #### Speed
 #### Sense
 #### Mutation
+#### Eating
+#### Reproduction
+#### Death
+When a player runs out of Energy, reaches its Time To Live or is eaten by another player.
 
 ### Parameters
 You may use the following parameters to configure different aspects of the simulation. The following options can be varied both in the cli command and programatically via the library.
