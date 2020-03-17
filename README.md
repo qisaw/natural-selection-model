@@ -126,5 +126,4 @@ The following parameters affect food and their properties
 | energyAdditionForFood | The amount of energy a player gains from eating this food.<br>`A player with 1 energy eating food with energyAdditionForFood 10 will end up with 11 energy.` |   false  | number |      1000     | 
 
 ## Contributing
-`@TODO add contribution guidelines`
-Please read our [code of conduct](./CODE_OF_CONDUCT.md) before contributing.
+Please read our [code of conduct](./CODE_OF_CONDUCT.md) and [contributing guidelines](./CONTRIBUTING.md) before contributing.
