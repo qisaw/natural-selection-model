@@ -46,7 +46,7 @@ Understandable commits are really important. It's important that each commit in 
 * Tells a story of how the feature is implemented and should be reviewed.
 * Should have a commit message which explains what the commit is about.
 * Should have an explaining commit comment if the commit message needs more context.
-* Should have an issue number assigned if possible in the format `Issue #{issue}: {message}`
+* Should have an issue number assigned in the commit message if possible in the format `Issue #{issue_number}: {message}`
 
 ## License
 By contributing, you agree that your contributions will be licensed under its MIT License.
