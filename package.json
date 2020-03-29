@@ -3,6 +3,7 @@
   "version": "0.0.7",
   "description": "Modelling Natural Selection For Fun",
   "main": "build/index.js",
+  "files": ["build"],
   "scripts": {
     "build": "babel src --extensions .ts --out-dir build",
     "typecheck": "tsc --noEmit",
