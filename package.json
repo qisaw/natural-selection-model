@@ -1,6 +1,6 @@
 {
   "name": "natural-selection-model",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Modelling Natural Selection For Fun",
   "main": "build/index.js",
   "scripts": {
