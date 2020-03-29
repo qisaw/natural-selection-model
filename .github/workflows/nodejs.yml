@@ -3,14 +3,10 @@ name: Node.js CI
 on: [push]
 
 jobs:
-  install:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [12.x]
-
   build:
+
     runs-on: ubuntu-latest
+
     strategy:
       matrix:
         node-version: [12.x]
