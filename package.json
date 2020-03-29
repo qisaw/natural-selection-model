@@ -1,9 +1,11 @@
 {
   "name": "natural-selection-model",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Modelling Natural Selection For Fun",
   "main": "build/index.js",
-  "files": ["build"],
+  "files": [
+    "build"
+  ],
   "scripts": {
     "build": "babel src --extensions .ts --out-dir build",
     "typecheck": "tsc --noEmit",
